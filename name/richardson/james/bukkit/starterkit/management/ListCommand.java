@@ -26,8 +26,8 @@ import name.richardson.james.bukkit.util.command.PlayerCommand;
 public class ListCommand extends PlayerCommand {
 
   public static final String NAME = "list";
-  public static final String DESCRIPTION = "List items to the starting kit.";
-  public static final String PERMISSION_DESCRIPTION = "Allow users to list items to the starting kit.";
+  public static final String DESCRIPTION = "List items in the starting kit.";
+  public static final String PERMISSION_DESCRIPTION = "Allow users to list items in starting kit.";
   public static final String USAGE = "";
 
   public static final Permission PERMISSION = new Permission("starterkit.list", PERMISSION_DESCRIPTION, PermissionDefault.OP);
