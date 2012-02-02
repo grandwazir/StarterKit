@@ -3,7 +3,7 @@ main: name.richardson.james.bukkit.starterkit.StarterKit
 author: James Richardson (grandwazir)
 description: Give new players starting items.
 website: https://github.com/grandwazir/StarterKit
-version: 1.0.1
+version: 1.0.2
 commands:
   sk:
     description: 'StarterKit root command'
