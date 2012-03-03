@@ -12,9 +12,6 @@
 package name.richardson.james.bukkit.starterkit.management;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -23,53 +20,59 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
 import name.richardson.james.bukkit.starterkit.StarterKit;
-import name.richardson.james.bukkit.util.command.CommandArgumentException;
-import name.richardson.james.bukkit.util.command.CommandUsageException;
-import name.richardson.james.bukkit.util.command.PlayerCommand;
+import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
+import name.richardson.james.bukkit.utilities.command.CommandArgumentException;
+import name.richardson.james.bukkit.utilities.command.CommandPermissionException;
+import name.richardson.james.bukkit.utilities.command.CommandUsageException;
+import name.richardson.james.bukkit.utilities.command.PluginCommand;
 
-public class RemoveCommand extends PlayerCommand {
+public class RemoveCommand extends PluginCommand {
+  
+  /** The item type to remove */
+  private Material material;
 
-  public static final String NAME = "remove";
-  public static final String DESCRIPTION = "Remove items to the starting kit.";
-  public static final String PERMISSION_DESCRIPTION = "Allow users to remove items to the starting kit.";
-  public static final String USAGE = "<item>";
-
-  public static final Permission PERMISSION = new Permission("starterkit.remove", PERMISSION_DESCRIPTION, PermissionDefault.OP);
-
-  private final StarterKit plugin;
+  private final StarterKitConfiguration configuration;
 
   public RemoveCommand(StarterKit plugin) {
-    super(plugin, NAME, DESCRIPTION, USAGE, PERMISSION_DESCRIPTION, PERMISSION);
-    this.plugin = plugin;
+    super(plugin);
+    this.configuration = plugin.getStarterKitConfiguration();
+    this.registerPermissions();
   }
+  
+  private void registerPermissions() {
+    final String prefix = plugin.getDescription().getName().toLowerCase() + ".";
+    // create the base permission
+    Permission base = new Permission(prefix + this.getName(), plugin.getMessage("removecommand-permission-description"), PermissionDefault.OP);
+    base.addParent(plugin.getRootPermission(), true);
+    this.addPermission(base);
+  }
+  
 
-  @Override
-  public void execute(CommandSender sender, Map<String, Object> arguments) throws CommandUsageException {
-    final Material item = (Material) arguments.get("item");
+  
+  public void execute(CommandSender sender) throws CommandArgumentException, CommandPermissionException, name.richardson.james.bukkit.utilities.command.CommandUsageException {
+    
     try {
-      plugin.removeItem(item);
+      configuration.removeItem(this.material);
     } catch (IOException exception) {
-      // assume we are broken at this point and disable ourselves.
-      this.plugin.getPluginLoader().disablePlugin(plugin);
-      throw new CommandUsageException("Unable to reload configuration!");
+      throw new CommandUsageException(this.getMessage("unable-to-read-configuration"));
     }
-    sender.sendMessage(String.format(ChatColor.GREEN + "%s have been removed from the kit.", item.name()));
+    
+    sender.sendMessage(ChatColor.GREEN + this.getSimpleFormattedMessage("item-removed-from-kit", this.material.name()));
+    
   }
 
-  @Override
-  public Map<String, Object> parseArguments(final List<String> arguments) throws CommandArgumentException {
-    HashMap<String, Object> map = new HashMap<String, Object>();
-
-    try {
-      final Material item = Material.valueOf(arguments.remove(0).toUpperCase());
-      map.put("item", item);
-    } catch (IllegalArgumentException exception) {
-      throw new CommandArgumentException("You must specify a valid item type!", "For example WOOD_AXE or TORCH.");
-    } catch (IndexOutOfBoundsException exception) {
-      throw new CommandArgumentException("You must specify a type of item!", "For example WOOD_AXE or TORCH.");
+  public void parseArguments(String[] arguments, CommandSender sender) throws CommandArgumentException {
+    
+    if (arguments.length == 1) {
+      try {
+        this.material = Material.valueOf(arguments[0]);
+      } catch (IllegalArgumentException exception) {
+        throw new CommandArgumentException(this.getMessage("must-specify-valid-material"), this.getMessage("material-type-examples"));
+      }
+    } else {
+      throw new CommandArgumentException(this.getMessage("must-specify-valid-material"), this.getMessage("material-type-examples"));
     }
-
-    return map;
+    
   }
 
 }
