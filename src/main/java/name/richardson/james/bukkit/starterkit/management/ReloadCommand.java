@@ -12,43 +12,51 @@
 package name.richardson.james.bukkit.starterkit.management;
 
 import java.io.IOException;
-import java.util.Map;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
 import name.richardson.james.bukkit.starterkit.StarterKit;
-import name.richardson.james.bukkit.util.command.CommandUsageException;
-import name.richardson.james.bukkit.util.command.PlayerCommand;
+import name.richardson.james.bukkit.utilities.command.CommandArgumentException;
+import name.richardson.james.bukkit.utilities.command.CommandPermissionException;
+import name.richardson.james.bukkit.utilities.command.CommandUsageException;
+import name.richardson.james.bukkit.utilities.command.PluginCommand;
 
-public class ReloadCommand extends PlayerCommand {
-
-  public static final String NAME = "reload";
-  public static final String DESCRIPTION = "Reload configuration from disk.";
-  public static final String PERMISSION_DESCRIPTION = "Allow users to reload the configuration from disk.";
-  public static final String USAGE = "";
-
-  public static final Permission PERMISSION = new Permission("starterkit.reload", PERMISSION_DESCRIPTION, PermissionDefault.OP);
+public class ReloadCommand extends PluginCommand {
 
   private final StarterKit plugin;
 
   public ReloadCommand(StarterKit plugin) {
-    super(plugin, NAME, DESCRIPTION, USAGE, PERMISSION_DESCRIPTION, PERMISSION);
+    super(plugin);
     this.plugin = plugin;
+    this.registerPermissions();
   }
 
-  @Override
-  public void execute(CommandSender sender, Map<String, Object> arguments) throws CommandUsageException {
+
+  public void execute(CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
+    
     try {
-      plugin.reload();
-    } catch (IOException exception) {
-      // assume we are broken at this point and disable ourselves.
-      this.plugin.getPluginLoader().disablePlugin(plugin);
-      throw new CommandUsageException("Unable to reload configuration!");
+      this.plugin.reload();
+    } catch (IOException e) {
+      throw new CommandUsageException(this.getMessage("unable-to-read-configuration"));
     }
-    sender.sendMessage(ChatColor.GREEN + "Messages have been reloaded.");
+    
+    sender.sendMessage(this.getSimpleFormattedMessage("plugin-reloaded", plugin.getDescription().getName()));
+    
+  }
+  
+  private void registerPermissions() {
+    final String prefix = plugin.getDescription().getName().toLowerCase() + ".";
+    // create the base permission
+    Permission base = new Permission(prefix + this.getName(), plugin.getMessage("reloadcommand-permission-description"), PermissionDefault.OP);
+    base.addParent(plugin.getRootPermission(), true);
+    this.addPermission(base);
+  }
+  
+
+  public void parseArguments(String[] arguments, CommandSender sender) throws CommandArgumentException {
+    return;
   }
 
 }
