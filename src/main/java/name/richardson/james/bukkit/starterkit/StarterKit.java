@@ -37,7 +37,7 @@ import name.richardson.james.bukkit.util.command.CommandManager;
 public class StarterKit extends Plugin {
 
   private StarterKitConfiguration configuration;
-  private PlayerListener playerListener;
+  private PlayerJoinListener playerListener;
   private PluginManager pluginManager;
   private CommandManager commandManager;
 
@@ -87,7 +87,7 @@ public class StarterKit extends Plugin {
   }
 
   private void loadListeners() {
-    this.playerListener = new PlayerListener(this);
+    this.playerListener = new PlayerJoinListener(this);
     pluginManager.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Normal, this);
   }
 

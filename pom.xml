@@ -24,10 +24,6 @@
     </license>
   </licenses>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
   <developers>
     <developer>
       <id>grandwazir</id>
@@ -76,11 +72,6 @@
   </repositories>
 
   <dependencies>
-	 <dependency>
-	   <groupId>org.bukkit</groupId>
-	   <artifactId>bukkit</artifactId>
-	   <version>1.1-R3</version>
-     </dependency>
      <dependency>
 	   <groupId>name.richardson.james.bukkit</groupId>
 	   <artifactId>bukkit-utilities</artifactId>
