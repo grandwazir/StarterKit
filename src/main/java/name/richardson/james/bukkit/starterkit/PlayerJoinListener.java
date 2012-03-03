@@ -38,45 +38,47 @@ import name.richardson.james.bukkit.utilities.internals.Logger;
  * component's <code>addPlayerListener<code> method. When
  * the player event occurs, that object's appropriate
  * method is invoked.
- *
+ * 
  * @see PlayerEvent
  */
 public class PlayerJoinListener implements Listener {
 
   /** The logger used for this class. */
   private static final Logger logger = new Logger(PlayerJoinListener.class);
-  
+
   /** The items to be used as a kit. */
   private static Set<ItemStack> items;
 
   /** The player who is logging in. */
   private Player player;
-  
-  public PlayerJoinListener(StarterKit plugin) {
+
+  public PlayerJoinListener(final StarterKit plugin) {
     PlayerJoinListener.items = plugin.getStarterKitConfiguration().getItems();
   }
 
   /**
    * Called when a player joins the server.
-   *
+   * 
    * Checks to see if the player has played here before.
-   *
+   * 
    * @param event PlayerJoinEvent
    */
   @EventHandler(priority = EventPriority.NORMAL)
-  public void onPlayerJoin(PlayerJoinEvent event) {
-    Player player = event.getPlayer();
-    if (!player.hasPlayedBefore()) giveKit();
+  public void onPlayerJoin(final PlayerJoinEvent event) {
+    final Player player = event.getPlayer();
+    if (!player.hasPlayedBefore()) {
+      this.giveKit();
+    }
   }
 
   /**
    * Give a kit to the player who is currently logging in.
    */
   private void giveKit() {
-    logger.debug("Granting kit to " + player.getName());
-    for (ItemStack item : items) {
+    logger.debug("Granting kit to " + this.player.getName());
+    for (final ItemStack item : items) {
       logger.debug(item.toString());
-      player.getInventory().addItem(item);
+      this.player.getInventory().addItem(item);
     }
   }
 

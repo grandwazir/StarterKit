@@ -3,11 +3,17 @@
  * 
  * AddCommand.java is part of StarterKit.
  * 
- * StarterKit is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * StarterKit is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * StarterKit is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ * StarterKit is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License along with StarterKit.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * StarterKit. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package name.richardson.james.bukkit.starterkit.management;
 
@@ -30,70 +36,67 @@ import name.richardson.james.bukkit.utilities.command.PluginCommand;
 public class AddCommand extends PluginCommand {
 
   public static int MAX_ITEM_STACK_SIZE = 64;
-  
+
   private final StarterKitConfiguration configuration;
-  
+
   /** The of material we are adding to the kit */
   private int amount;
-  
+
   /** The material we are adding to the kit */
   private Material material;
 
-  public AddCommand(StarterKit plugin) {
+  public AddCommand(final StarterKit plugin) {
     super(plugin);
     this.configuration = plugin.getStarterKitConfiguration();
     this.registerPermissions();
   }
 
-  
-  private void registerPermissions() {
-    final String prefix = plugin.getDescription().getName().toLowerCase() + ".";
-    // create the base permission
-    Permission base = new Permission(prefix + this.getName(), plugin.getMessage("addcommand-permission-description"), PermissionDefault.OP);
-    base.addParent(plugin.getRootPermission(), true);
-    this.addPermission(base);
-  }
+  public void execute(final CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
 
-
-  public void execute(CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
-
-    if (amount > AddCommand.MAX_ITEM_STACK_SIZE || amount <= 0) {
+    if ((this.amount > AddCommand.MAX_ITEM_STACK_SIZE) || (this.amount <= 0)) {
       throw new CommandArgumentException(this.getMessage("must-specify-valid-amount"), this.getSimpleFormattedMessage("valid-amount-range", String.valueOf(AddCommand.MAX_ITEM_STACK_SIZE)));
     }
-    
-    ItemStack item = new ItemStack(this.material, this.amount);
-    
+
+    final ItemStack item = new ItemStack(this.material, this.amount);
+
     try {
-      configuration.setItem(item);
-    } catch (IOException e) {
+      this.configuration.setItem(item);
+    } catch (final IOException e) {
       throw new CommandUsageException(this.getMessage("unable-to-read-configuration"));
     }
-    
-    Object[] tokens = {this.material.name(), this.amount};
-    sender.sendMessage(ChatColor.GREEN + this.getSimpleFormattedMessage("item-added-to-kit", tokens));
-    
-  }
-  
 
-  public void parseArguments(String[] arguments, CommandSender sender) throws CommandArgumentException {
+    final Object[] tokens = { this.material.name(), this.amount };
+    sender.sendMessage(ChatColor.GREEN + this.getSimpleFormattedMessage("item-added-to-kit", tokens));
+
+  }
+
+  public void parseArguments(final String[] arguments, final CommandSender sender) throws CommandArgumentException {
     this.amount = 1;
-    
+
     if (arguments.length >= 1) {
       try {
         this.material = Material.valueOf(arguments[0]);
-      } catch (IllegalArgumentException exception) {
+      } catch (final IllegalArgumentException exception) {
         throw new CommandArgumentException(this.getMessage("must-specify-valid-material"), this.getMessage("material-type-examples"));
       }
     } else if (arguments.length == 2) {
       try {
         this.amount = Integer.parseInt(arguments[1]);
-      } catch (NumberFormatException exception) {
+      } catch (final NumberFormatException exception) {
         throw new CommandArgumentException(this.getMessage("must-specify-valid-amount"), this.getSimpleFormattedMessage("maximum-stack-size", String.valueOf(AddCommand.MAX_ITEM_STACK_SIZE)));
       }
     } else {
       throw new CommandArgumentException(this.getMessage("must-specify-valid-material"), this.getMessage("material-type-examples"));
     }
-    
+
+  }
+
+  private void registerPermissions() {
+    final String prefix = this.plugin.getDescription().getName().toLowerCase() + ".";
+    // create the base permission
+    final Permission base = new Permission(prefix + this.getName(), this.plugin.getMessage("addcommand-permission-description"), PermissionDefault.OP);
+    base.addParent(this.plugin.getRootPermission(), true);
+    this.addPermission(base);
   }
 
 }

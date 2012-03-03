@@ -35,64 +35,65 @@ public class StarterKitConfiguration extends AbstractConfiguration {
   private final Set<ItemStack> items = new LinkedHashSet<ItemStack>();
   private final SimplePlugin plugin;
 
-  public StarterKitConfiguration(SimplePlugin plugin) throws IOException {
+  public StarterKitConfiguration(final SimplePlugin plugin) throws IOException {
     super(plugin, "config.yml");
     this.plugin = plugin;
     this.setItems();
   }
 
   public boolean getDebugging() {
-    return configuration.getBoolean("debugging");
+    return this.configuration.getBoolean("debugging");
   }
 
   public Set<ItemStack> getItems() {
-    return Collections.unmodifiableSet(items);
+    return Collections.unmodifiableSet(this.items);
   }
 
-  public void removeItem(Material material) throws IOException {
-    final ConfigurationSection section = configuration.getConfigurationSection("kit");
+  public void removeItem(final Material material) throws IOException {
+    final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
     section.set(material.name(), null);
     this.save();
     this.setItems();
   }
 
+  @Override
   public void setDefaults() throws IOException {
-    logger.debug(String.format("Apply default configuration."));
+    this.logger.debug(String.format("Apply default configuration."));
     final org.bukkit.configuration.file.YamlConfiguration defaults = this.getDefaults();
     this.configuration.setDefaults(defaults);
     this.configuration.options().copyDefaults(true);
     // set an example kit if necessary
-    if (!configuration.isConfigurationSection("kit")) {
-      logger.debug("Creating examples.");
-      configuration.createSection("kit");
-      final ConfigurationSection section = configuration.getConfigurationSection("kit");
+    if (!this.configuration.isConfigurationSection("kit")) {
+      this.logger.debug("Creating examples.");
+      this.configuration.createSection("kit");
+      final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
       section.set(Material.WOOD_AXE.name(), 1);
       section.set(Material.APPLE.name(), 4);
     }
     this.save();
   }
 
-  public void setItem(ItemStack stack) throws IOException {
-    final ConfigurationSection section = configuration.getConfigurationSection("kit");
+  public void setItem(final ItemStack stack) throws IOException {
+    final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
     section.set(stack.getType().name(), stack.getAmount());
     this.save();
     this.setItems();
   }
 
   public void setItems() {
-    items.clear();
-    final ConfigurationSection section = configuration.getConfigurationSection("kit");
-    for (String key : section.getKeys(false)) {
+    this.items.clear();
+    final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
+    for (final String key : section.getKeys(false)) {
       try {
         final Material item = Material.valueOf(key);
         final int amount = section.getInt(key);
         final ItemStack stack = new ItemStack(item, amount);
-        items.add(stack);
-        logger.debug(String.format("Adding %d %s to the kit", amount, key));
-      } catch (IllegalArgumentException e) {
-        logger.debug(this.plugin.getSimpleFormattedMessage("not-a-valid-item-material", key));
+        this.items.add(stack);
+        this.logger.debug(String.format("Adding %d %s to the kit", amount, key));
+      } catch (final IllegalArgumentException e) {
+        this.logger.debug(this.plugin.getSimpleFormattedMessage("not-a-valid-item-material", key));
       }
     }
   }
-  
+
 }

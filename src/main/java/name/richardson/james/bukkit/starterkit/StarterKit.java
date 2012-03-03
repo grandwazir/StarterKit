@@ -33,9 +33,13 @@ public class StarterKit extends SimplePlugin {
   private StarterKitConfiguration configuration;
   private PlayerJoinListener playerListener;
 
+  public StarterKitConfiguration getStarterKitConfiguration() {
+    return this.configuration;
+  }
+
   @Override
   public void onEnable() {
-    logger.setPrefix("[StarterKit] ");
+    this.logger.setPrefix("[StarterKit] ");
 
     try {
       this.loadConfiguration();
@@ -43,17 +47,17 @@ public class StarterKit extends SimplePlugin {
       this.setRootPermission();
       this.loadListeners();
       this.registerCommands();
-    } catch (IOException exception) {
-      logger.severe(this.getMessage("unable-to-read-configuration"));
+    } catch (final IOException exception) {
+      this.logger.severe(this.getMessage("unable-to-read-configuration"));
       this.setEnabled(false);
     } finally {
       if (!this.isEnabled()) {
-        logger.severe(this.getMessage("panic"));
+        this.logger.severe(this.getMessage("panic"));
         return;
       }
     }
-    
-    logger.info(this.getSimpleFormattedMessage("plugin-enabled", this.getDescription().getFullName()));
+
+    this.logger.info(this.getSimpleFormattedMessage("plugin-enabled", this.getDescription().getFullName()));
   }
 
   public void reload() throws IOException {
@@ -63,7 +67,9 @@ public class StarterKit extends SimplePlugin {
 
   private void loadConfiguration() throws IOException {
     this.configuration = new StarterKitConfiguration(this);
-    if (this.configuration.getDebugging()) Logger.setDebugging(this, true);
+    if (this.configuration.getDebugging()) {
+      Logger.setDebugging(this, true);
+    }
   }
 
   private void loadListeners() {
@@ -71,12 +77,8 @@ public class StarterKit extends SimplePlugin {
     this.getServer().getPluginManager().registerEvents(this.playerListener, this);
   }
 
-  public StarterKitConfiguration getStarterKitConfiguration() {
-    return this.configuration;
-  }
-  
   private void registerCommands() {
-    CommandManager commandManager = new CommandManager(this);
+    final CommandManager commandManager = new CommandManager(this);
     this.getCommand("sk").setExecutor(commandManager);
     commandManager.addCommand(new AddCommand(this));
     commandManager.addCommand(new ListCommand(this));
