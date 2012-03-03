@@ -1,5 +1,8 @@
 Changelog for StarterKit is plugin for the Minecraft wrapper Bukkit that provides a method for administrators to give items to new players automatically and seemlessly. (v1.0.2-SNAPSHOT)
 
+2012-03-03 13:35:39 +0000    AddCommand now properly honours amounts (James Richardson)
+2012-03-03 13:34:27 +0000    add ChatColor to reply for ReloadCommand (James Richardson)
+2012-03-03 13:32:42 +0000    Allow lower case material types (James Richardson)
 2012-03-03 13:29:27 +0000    Allow console to use all commands (James Richardson)
 2012-03-03 13:27:55 +0000    added kit summary to log when enabling (James Richardson)
 2012-03-03 13:25:20 +0000    fix missing key exception (James Richardson)
