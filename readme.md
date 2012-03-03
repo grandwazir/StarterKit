@@ -13,16 +13,17 @@ StarterKit is plugin for the Minecraft wrapper [Bukkit](http://bukkit.org/) that
 
 ### Ensure you are using the latest recommended build.
 
-Before installing, you need to make sure you are running at least the latest [recommended build](http://ci.bukkit.org/job/dev-CraftBukkit/Recommended/) for Bukkit. Support is only given for problems when using a recommended build. This does not mean that the plugin will not work on other versions of Bukkit, the likelihood is it will, but it is not supported.
+Before installing, you need to make sure you are running at least the latest [recommended build](http://dl.bukkit.org/latest-rb/craftbukkit.jar) for Bukkit. Support is only given for problems when using a recommended build. This does not mean that the plugin will not work on other versions of Bukkit, the likelihood is it will, but it is not supported.
 
-### Getting StarterKit
+### Getting Starterkit
 
-The best way to install StarterKit is to use the [static link](http://downloads.james.richardson.name/public/binaries/starterkit/StarterKit.jar) to the latest version. This link always points to the latest version of StarterKit, so is safe to use in scripts or update plugins.
+The best way to install Starterkit is to use the [symbolic link](http://repository.james.richardson.name/symbolic/StarterKit.jar) to the latest version. This link always points to the latest version of Starterkit, so is safe to use in scripts or update plugins. Additionally you can to use the [RSS feed](http://dev.bukkit.org/server-mods/starterkit/files.rss) provided by BukkitDev as this also includes a version changelog.
     
-Alternatively [older versions](http://downloads.james.richardson.name/public/binaries/starterkit/) are available as well, however they are not supported. If you are forced to use an older version for whatever reason, please let me know why by [opening a issue](https://github.com/grandwazir/StarterKit/issues/new) on GitHub.
+Alternatively [older versions](http://repository.james.richardson.name/releases/name/richardson/james/bukkit/starter-kit/) are available as well, however they are not supported. If you are forced to use an older version for whatever reason, please let me know why by [opening a issue](https://github.com/grandwazir/StarterKit/issues/new) on GitHub.
 
 ## Configuration
 
-1. Configure your settings (config.yml) and [create your kit](https://github.com/grandwazir/StarterKit/wiki/instructions), or alternatively use the in game commands.
-3. [Configure permissions](https://github.com/grandwazir/StarterKit/wiki/permissions) if necessary.
+### Read the documentation
+
+All documentation for Starterkit is available on the [GitHub wiki](https://github.com/grandwazir/StarterKit/wiki), including [example usage](https://github.com/grandwazir/StarterKit/wiki/Instructions) and details on [how to configure](https://github.com/grandwazir/Starterkit/wiki/Permissions) the plugin.
 
