@@ -19,6 +19,7 @@ package name.richardson.james.bukkit.starterkit.management;
 
 import java.io.IOException;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
@@ -49,7 +50,7 @@ public class ReloadCommand extends PluginCommand {
       throw new CommandUsageException(this.getMessage("unable-to-read-configuration"));
     }
 
-    sender.sendMessage(this.getSimpleFormattedMessage("plugin-reloaded", this.plugin.getDescription().getName()));
+    sender.sendMessage(ChatColor.GREEN + this.getSimpleFormattedMessage("plugin-reloaded", this.plugin.getDescription().getName()));
 
   }
 
