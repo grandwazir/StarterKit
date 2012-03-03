@@ -19,12 +19,6 @@
 package name.richardson.james.bukkit.starterkit;
 
 import java.io.IOException;
-import java.util.Set;
-
-import org.bukkit.Material;
-import org.bukkit.event.Event;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.PluginManager;
 
 import name.richardson.james.bukkit.starterkit.management.AddCommand;
 import name.richardson.james.bukkit.starterkit.management.ListCommand;

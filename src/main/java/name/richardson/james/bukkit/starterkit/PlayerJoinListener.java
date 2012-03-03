@@ -18,17 +18,17 @@
 
 package name.richardson.james.bukkit.starterkit;
 
-import java.util.Collections;
 import java.util.Set;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
-import name.richardson.james.bukkit.utilities.internals.Logger;;
+import name.richardson.james.bukkit.utilities.internals.Logger;
 
 /**
  * The listener interface for receiving player events.
