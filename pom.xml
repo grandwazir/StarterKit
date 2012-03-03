@@ -2,8 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>name.richardson.james.bukkit</groupId>
   <artifactId>starter-kit</artifactId>
-  <version>1.0.3-SNAPSHOT</version>
-  <name>StarterKit is plugin for the Minecraft wrapper Bukkit that provides a method for administrators to give items to new players automatically and seemlessly.</name>
+  <version>1.0.2-SNAPSHOT</version>
+  <name>StarterKit</name>
+  <description>Plugin for the Minecraft wrapper Bukkit that provides a method for administrators to give items to new players automatically and seemlessly.</description>
+  <url>http://grandwazir.github.com/${project.name}/</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
