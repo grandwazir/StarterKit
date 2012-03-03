@@ -42,8 +42,8 @@ public class StarterKit extends SimplePlugin {
     this.logger.setPrefix("[StarterKit] ");
 
     try {
-      this.loadConfiguration();
       this.setResourceBundle();
+      this.loadConfiguration();
       this.setRootPermission();
       this.loadListeners();
       this.registerCommands();
