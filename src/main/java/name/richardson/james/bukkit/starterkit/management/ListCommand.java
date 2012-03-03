@@ -11,7 +11,6 @@
  ******************************************************************************/
 package name.richardson.james.bukkit.starterkit.management;
 
-import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -20,35 +19,25 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
 import name.richardson.james.bukkit.starterkit.StarterKit;
-import name.richardson.james.bukkit.util.command.CommandUsageException;
-import name.richardson.james.bukkit.util.command.PlayerCommand;
+import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
+import name.richardson.james.bukkit.utilities.command.CommandArgumentException;
+import name.richardson.james.bukkit.utilities.command.CommandPermissionException;
+import name.richardson.james.bukkit.utilities.command.CommandUsageException;
+import name.richardson.james.bukkit.utilities.command.PluginCommand;
 
-public class ListCommand extends PlayerCommand {
+public class ListCommand extends PluginCommand {
 
-  public static final String NAME = "list";
-  public static final String DESCRIPTION = "List items in the starting kit.";
-  public static final String PERMISSION_DESCRIPTION = "Allow users to list items in starting kit.";
-  public static final String USAGE = "";
-
-  public static final Permission PERMISSION = new Permission("starterkit.list", PERMISSION_DESCRIPTION, PermissionDefault.OP);
-
-  private final StarterKit plugin;
+  private final StarterKitConfiguration configuration;
 
   public ListCommand(StarterKit plugin) {
-    super(plugin, NAME, DESCRIPTION, USAGE, PERMISSION_DESCRIPTION, PERMISSION);
-    this.plugin = plugin;
-  }
-
-  @Override
-  public void execute(CommandSender sender, Map<String, Object> arguments) throws CommandUsageException {
-    String list = buildKitList();
-    sender.sendMessage(ChatColor.YELLOW + list);
+    super(plugin);
+    this.configuration = plugin.getStarterKitConfiguration();
+    this.registerPermissions();
   }
 
   private String buildKitList() {
     StringBuilder message = new StringBuilder();
-    message.append("Currently contains: ");
-    for (ItemStack item : plugin.getKit()) {
+    for (ItemStack item : configuration.getItems()) {
       message.append(item.getAmount());
       message.append(" ");
       message.append(item.getType().name());
@@ -57,6 +46,32 @@ public class ListCommand extends PlayerCommand {
     message.delete(message.length() - 2, message.length());
     message.append(".");
     return message.toString();
+  }
+  
+  private String getFormattedListHeader() {
+    Object[] arguments = {this.configuration.getItems().size()};
+    double[] limits = {0, 1, 2};
+    String[] formats = {this.getMessage("no-entries"), this.getMessage("one-entry"), this.getMessage("many-entries")};
+    return this.getChoiceFormattedMessage("kit-summary", arguments, formats, limits);
+  }
+  
+  private void registerPermissions() {
+    final String prefix = plugin.getDescription().getName().toLowerCase() + ".";
+    // create the base permission
+    Permission base = new Permission(prefix + this.getName(), plugin.getMessage("listcommand-permission-description"), PermissionDefault.OP);
+    base.addParent(plugin.getRootPermission(), true);
+    this.addPermission(base);
+  }
+
+  public void execute(CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
+    
+    sender.sendMessage(ChatColor.LIGHT_PURPLE + getFormattedListHeader());
+    if (configuration.getItems().size() != 0) sender.sendMessage(ChatColor.YELLOW + buildKitList());
+    
+  }
+
+  public void parseArguments(String[] arguments, CommandSender sender) throws CommandArgumentException {
+    return;
   }
 
 }

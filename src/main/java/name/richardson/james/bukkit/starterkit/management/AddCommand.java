@@ -12,9 +12,6 @@
 package name.richardson.james.bukkit.starterkit.management;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -24,63 +21,79 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
 import name.richardson.james.bukkit.starterkit.StarterKit;
-import name.richardson.james.bukkit.util.command.CommandArgumentException;
-import name.richardson.james.bukkit.util.command.CommandUsageException;
-import name.richardson.james.bukkit.util.command.PlayerCommand;
+import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
+import name.richardson.james.bukkit.utilities.command.CommandArgumentException;
+import name.richardson.james.bukkit.utilities.command.CommandPermissionException;
+import name.richardson.james.bukkit.utilities.command.CommandUsageException;
+import name.richardson.james.bukkit.utilities.command.PluginCommand;
 
-public class AddCommand extends PlayerCommand {
+public class AddCommand extends PluginCommand {
 
-  public static final String NAME = "add";
-  public static final String DESCRIPTION = "Add items to the starting kit.";
-  public static final String PERMISSION_DESCRIPTION = "Allow users to add items to the starting kit.";
-  public static final String USAGE = "<item> [amount]";
-
-  public static final Permission PERMISSION = new Permission("starterkit.add", PERMISSION_DESCRIPTION, PermissionDefault.OP);
-
-  private final StarterKit plugin;
+  public static int MAX_ITEM_STACK_SIZE = 64;
+  
+  private final StarterKitConfiguration configuration;
+  
+  /** The of material we are adding to the kit */
+  private int amount;
+  
+  /** The material we are adding to the kit */
+  private Material material;
 
   public AddCommand(StarterKit plugin) {
-    super(plugin, NAME, DESCRIPTION, USAGE, PERMISSION_DESCRIPTION, PERMISSION);
-    this.plugin = plugin;
+    super(plugin);
+    this.configuration = plugin.getStarterKitConfiguration();
+    this.registerPermissions();
   }
 
-  @Override
-  public void execute(CommandSender sender, Map<String, Object> arguments) throws CommandUsageException {
-    final Material item = (Material) arguments.get("item");
-    final int amount = (Integer) arguments.get("amount");
-    final ItemStack stack = new ItemStack(item, amount);
-    try {
-      plugin.addItem(stack);
-    } catch (IOException exception) {
-      // assume we are broken at this point and disable ourselves.
-      this.plugin.getPluginLoader().disablePlugin(plugin);
-      throw new CommandUsageException("Unable to reload configuration!");
-    }
-    sender.sendMessage(String.format(ChatColor.GREEN + "%d %s have been added to the kit.", amount, item.name()));
+  
+  private void registerPermissions() {
+    final String prefix = plugin.getDescription().getName().toLowerCase() + ".";
+    // create the base permission
+    Permission base = new Permission(prefix + this.getName(), plugin.getMessage("addcommand-permission-description"), PermissionDefault.OP);
+    base.addParent(plugin.getRootPermission(), true);
+    this.addPermission(base);
   }
 
-  @Override
-  public Map<String, Object> parseArguments(final List<String> arguments) throws CommandArgumentException {
-    HashMap<String, Object> map = new HashMap<String, Object>();
 
-    try {
-      final Material item = Material.valueOf(arguments.remove(0).toUpperCase());
-      map.put("item", item);
-    } catch (IllegalArgumentException exception) {
-      throw new CommandArgumentException("You must specify a valid item type!", "For example WOOD_AXE or TORCH.");
-    } catch (IndexOutOfBoundsException exception) {
-      throw new CommandArgumentException("You must specify a type of item!", "For example WOOD_AXE or TORCH.");
-    }
+  public void execute(CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
 
-    try {
-      final int amount = Integer.parseInt(arguments.remove(0));
-      map.put("amount", amount);
-    } catch (NumberFormatException exception) {
-      throw new CommandArgumentException("You must specify a valid amount!", "For example 47.");
-    } catch (IndexOutOfBoundsException exception) {
-      map.put("amount", 1);
+    if (amount > AddCommand.MAX_ITEM_STACK_SIZE || amount <= 0) {
+      throw new CommandArgumentException(this.getMessage("must-specify-valid-amount"), this.getSimpleFormattedMessage("valid-amount-range", String.valueOf(AddCommand.MAX_ITEM_STACK_SIZE)));
     }
-    return map;
+    
+    ItemStack item = new ItemStack(this.material, this.amount);
+    
+    try {
+      configuration.setItem(item);
+    } catch (IOException e) {
+      throw new CommandUsageException(this.getMessage("unable-to-read-configuration"));
+    }
+    
+    Object[] tokens = {this.material.name(), this.amount};
+    sender.sendMessage(ChatColor.GREEN + this.getSimpleFormattedMessage("item-added-to-kit", tokens));
+    
+  }
+  
+
+  public void parseArguments(String[] arguments, CommandSender sender) throws CommandArgumentException {
+    this.amount = 1;
+    
+    if (arguments.length >= 1) {
+      try {
+        this.material = Material.valueOf(arguments[0]);
+      } catch (IllegalArgumentException exception) {
+        throw new CommandArgumentException(this.getMessage("must-specify-valid-material"), this.getMessage("material-type-examples"));
+      }
+    } else if (arguments.length == 2) {
+      try {
+        this.amount = Integer.parseInt(arguments[1]);
+      } catch (NumberFormatException exception) {
+        throw new CommandArgumentException(this.getMessage("must-specify-valid-amount"), this.getSimpleFormattedMessage("maximum-stack-size", String.valueOf(AddCommand.MAX_ITEM_STACK_SIZE)));
+      }
+    } else {
+      throw new CommandArgumentException(this.getMessage("must-specify-valid-material"), this.getMessage("material-type-examples"));
+    }
+    
   }
 
 }
