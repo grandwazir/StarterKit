@@ -81,15 +81,17 @@ public class AddCommand extends PluginCommand {
       } catch (final IllegalArgumentException exception) {
         throw new CommandArgumentException(this.getMessage("must-specify-valid-material"), this.getMessage("material-type-examples"));
       }
-    } else if (arguments.length == 2) {
+    } else {
+      throw new CommandArgumentException(this.getMessage("must-specify-valid-material"), this.getMessage("material-type-examples"));
+    }
+    
+    if (arguments.length == 2) {
       try {
         this.amount = Integer.parseInt(arguments[1]);
       } catch (final NumberFormatException exception) {
         throw new CommandArgumentException(this.getMessage("must-specify-valid-amount"), this.getSimpleFormattedMessage("maximum-stack-size", String.valueOf(AddCommand.MAX_ITEM_STACK_SIZE)));
       }
-    } else {
-      throw new CommandArgumentException(this.getMessage("must-specify-valid-material"), this.getMessage("material-type-examples"));
-    }
+    } 
 
   }
 
