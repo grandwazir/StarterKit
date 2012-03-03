@@ -1,0 +1,20 @@
+Changelog for StarterKit is plugin for the Minecraft wrapper Bukkit that provides a method for administrators to give items to new players automatically and seemlessly. (v1.0.2-SNAPSHOT)
+
+2012-03-03 13:17:41 +0000    code cleanup (James Richardson)
+2012-03-03 13:16:45 +0000    remove unused imports (James Richardson)
+2012-03-03 13:16:04 +0000    updated RemoveCommand (James Richardson)
+2012-03-03 13:08:25 +0000    updated ReloadCommand (James Richardson)
+2012-03-03 13:02:48 +0000    Updated AddCommand and ListCommand (James Richardson)
+2012-03-03 12:25:06 +0000    added localisaton, updated main plugin class (James Richardson)
+2012-03-03 12:08:34 +0000    Updated to new Listening API (James Richardson)
+2012-03-03 11:40:19 +0000    updated POM (James Richardson)
+
+v1.0.1
+2012-02-02 06:12:02 +0000    built against new version of bukkit-utilities (James Richardson)
+2012-02-02 05:55:00 +0000    bumped version number (James Richardson)
+2012-02-02 05:54:21 +0000    converted to use maven (James Richardson)
+2011-12-24 04:03:28 +0000    typo (James Richardson)
+2011-12-24 03:54:12 +0000    add licence file (James Richardson)
+2011-12-24 03:53:55 +0000    copyright notices (James Richardson)
+2011-12-24 03:52:53 +0000    added readme (James Richardson)
+2011-12-24 03:45:19 +0000    first commit (James Richardson)
