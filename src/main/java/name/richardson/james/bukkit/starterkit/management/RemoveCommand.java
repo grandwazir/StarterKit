@@ -63,7 +63,7 @@ public class RemoveCommand extends PluginCommand {
 
     if (arguments.length == 1) {
       try {
-        this.material = Material.valueOf(arguments[0]);
+        this.material = Material.valueOf(arguments[0].toUpperCase());
       } catch (final IllegalArgumentException exception) {
         throw new CommandArgumentException(this.getMessage("must-specify-valid-material"), this.getMessage("material-type-examples"));
       }
