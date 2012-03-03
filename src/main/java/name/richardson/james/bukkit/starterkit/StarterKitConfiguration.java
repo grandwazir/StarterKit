@@ -27,15 +27,17 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
-import name.richardson.james.bukkit.util.Plugin;
-import name.richardson.james.bukkit.util.configuration.AbstractConfiguration;
+import name.richardson.james.bukkit.utilities.configuration.AbstractConfiguration;
+import name.richardson.james.bukkit.utilities.plugin.SimplePlugin;
 
 public class StarterKitConfiguration extends AbstractConfiguration {
 
   private final Set<ItemStack> items = new LinkedHashSet<ItemStack>();
+  private final SimplePlugin plugin;
 
-  public StarterKitConfiguration(Plugin plugin) throws IOException {
+  public StarterKitConfiguration(SimplePlugin plugin) throws IOException {
     super(plugin, "config.yml");
+    this.plugin = plugin;
     this.setItems();
   }
 
@@ -88,9 +90,9 @@ public class StarterKitConfiguration extends AbstractConfiguration {
         items.add(stack);
         logger.debug(String.format("Adding %d %s to the kit", amount, key));
       } catch (IllegalArgumentException e) {
-        logger.warning(String.format("%s is not a valid item type.", key));
+        logger.debug(this.plugin.getSimpleFormattedMessage("not-a-valid-item-material", key));
       }
     }
   }
-
+  
 }

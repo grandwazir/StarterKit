@@ -30,46 +30,36 @@ import name.richardson.james.bukkit.starterkit.management.AddCommand;
 import name.richardson.james.bukkit.starterkit.management.ListCommand;
 import name.richardson.james.bukkit.starterkit.management.ReloadCommand;
 import name.richardson.james.bukkit.starterkit.management.RemoveCommand;
-import name.richardson.james.bukkit.util.Logger;
-import name.richardson.james.bukkit.util.Plugin;
-import name.richardson.james.bukkit.util.command.CommandManager;
+import name.richardson.james.bukkit.utilities.command.CommandManager;
+import name.richardson.james.bukkit.utilities.internals.Logger;
+import name.richardson.james.bukkit.utilities.plugin.SimplePlugin;
 
-public class StarterKit extends Plugin {
+public class StarterKit extends SimplePlugin {
 
   private StarterKitConfiguration configuration;
   private PlayerJoinListener playerListener;
-  private PluginManager pluginManager;
-  private CommandManager commandManager;
-
-  public void addItem(ItemStack item) throws IOException {
-    configuration.setItem(item);
-  }
-
-  public Set<ItemStack> getKit() {
-    return configuration.getItems();
-  }
-
-  @Override
-  public void onDisable() {
-    logger.info(String.format("%s is disabled.", this.getDescription().getName()));
-  }
 
   @Override
   public void onEnable() {
     logger.setPrefix("[StarterKit] ");
-    this.pluginManager = this.getServer().getPluginManager();
 
     try {
       this.loadConfiguration();
+      this.setResourceBundle();
+      this.setRootPermission();
       this.loadListeners();
-      this.setPermission();
       this.registerCommands();
-      // this.registerCommands();
     } catch (IOException exception) {
-      logger.severe("Unable to load configuration!");
+      logger.severe(this.getMessage("unable-to-read-configuration"));
+      this.setEnabled(false);
+    } finally {
+      if (!this.isEnabled()) {
+        logger.severe(this.getMessage("panic"));
+        return;
+      }
     }
-
-    logger.info(String.format("%s is enabled.", this.getDescription().getFullName()));
+    
+    logger.info(this.getSimpleFormattedMessage("plugin-enabled", this.getDescription().getFullName()));
   }
 
   public void reload() throws IOException {
@@ -77,27 +67,27 @@ public class StarterKit extends Plugin {
     this.loadListeners();
   }
 
-  public void removeItem(Material material) throws IOException {
-    configuration.removeItem(material);
-  }
-
   private void loadConfiguration() throws IOException {
     this.configuration = new StarterKitConfiguration(this);
-    if (this.configuration.getDebugging()) Logger.enableDebugging("starterkit");
+    if (this.configuration.getDebugging()) Logger.setDebugging(this, true);
   }
 
   private void loadListeners() {
     this.playerListener = new PlayerJoinListener(this);
-    pluginManager.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Normal, this);
+    this.getServer().getPluginManager().registerEvents(this.playerListener, this);
   }
 
+  public StarterKitConfiguration getStarterKitConfiguration() {
+    return this.configuration;
+  }
+  
   private void registerCommands() {
-    this.commandManager = new CommandManager(this.getDescription());
+    CommandManager commandManager = new CommandManager(this);
     this.getCommand("sk").setExecutor(commandManager);
-    commandManager.registerCommand("add", new AddCommand(this));
-    commandManager.registerCommand("list", new ListCommand(this));
-    commandManager.registerCommand("reload", new ReloadCommand(this));
-    commandManager.registerCommand("remove", new RemoveCommand(this));
+    commandManager.addCommand(new AddCommand(this));
+    commandManager.addCommand(new ListCommand(this));
+    commandManager.addCommand(new ReloadCommand(this));
+    commandManager.addCommand(new RemoveCommand(this));
   }
 
 }

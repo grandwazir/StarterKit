@@ -53,7 +53,7 @@ public class PlayerJoinListener implements Listener {
   private Player player;
   
   public PlayerJoinListener(StarterKit plugin) {
-    PlayerJoinListener.items = Collections.unmodifiableSet(plugin.getKit());
+    PlayerJoinListener.items = plugin.getStarterKitConfiguration().getItems();
   }
 
   /**
