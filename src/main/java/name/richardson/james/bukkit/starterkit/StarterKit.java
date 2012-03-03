@@ -70,6 +70,7 @@ public class StarterKit extends SimplePlugin {
     if (this.configuration.getDebugging()) {
       Logger.setDebugging(this, true);
     }
+    this.logger.info(getFormattedKitCount());
   }
 
   private void loadListeners() {
@@ -84,6 +85,13 @@ public class StarterKit extends SimplePlugin {
     commandManager.addCommand(new ListCommand(this));
     commandManager.addCommand(new ReloadCommand(this));
     commandManager.addCommand(new RemoveCommand(this));
+  }
+  
+  public String getFormattedKitCount() {
+    final Object[] arguments = { this.configuration.getItems().size() };
+    final double[] limits = { 0, 1, 2 };
+    final String[] formats = { this.getMessage("no-entries"), this.getMessage("one-entry"), this.getMessage("many-entries") };
+    return this.getChoiceFormattedMessage("kit-summary", arguments, formats, limits);
   }
 
 }
