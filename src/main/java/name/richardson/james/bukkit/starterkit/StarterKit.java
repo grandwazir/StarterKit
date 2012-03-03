@@ -57,7 +57,7 @@ public class StarterKit extends SimplePlugin {
       }
     }
 
-    this.logger.info(this.getSimpleFormattedMessage("plugin-enabled", this.getDescription().getFullName()));
+    this.logger.info(this.getSimpleFormattedMessage("plugin-enabled", this.getDescription().getName()));
   }
 
   public void reload() throws IOException {
