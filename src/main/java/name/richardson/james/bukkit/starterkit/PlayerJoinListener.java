@@ -65,7 +65,7 @@ public class PlayerJoinListener implements Listener {
    */
   @EventHandler(priority = EventPriority.NORMAL)
   public void onPlayerJoin(final PlayerJoinEvent event) {
-    final Player player = event.getPlayer();
+    player = event.getPlayer();
     if (!player.hasPlayedBefore()) {
       this.giveKit();
     }
