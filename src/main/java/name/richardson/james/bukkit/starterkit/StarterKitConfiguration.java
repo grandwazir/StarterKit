@@ -26,6 +26,7 @@ import java.util.Set;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import name.richardson.james.bukkit.utilities.configuration.AbstractConfiguration;
 import name.richardson.james.bukkit.utilities.plugin.SimplePlugin;
@@ -94,6 +95,17 @@ public class StarterKitConfiguration extends AbstractConfiguration {
         this.logger.debug(this.plugin.getSimpleFormattedMessage("not-a-valid-item-material", key));
       }
     }
+  }
+  
+
+  public void setInventory(PlayerInventory inventory) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  public PlayerInventory getInventory() {
+    // TODO Auto-generated method stub
+    return null;
   }
 
 }
