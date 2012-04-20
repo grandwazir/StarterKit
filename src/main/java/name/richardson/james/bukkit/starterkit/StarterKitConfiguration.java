@@ -33,28 +33,20 @@ import name.richardson.james.bukkit.utilities.plugin.SimplePlugin;
 
 public class StarterKitConfiguration extends AbstractConfiguration {
 
-  private final Set<ItemStack> items = new LinkedHashSet<ItemStack>();
   private final SimplePlugin plugin;
+  private InventoryKit inventory;
+  private ArmourKit armour;
 
   public StarterKitConfiguration(final SimplePlugin plugin) throws IOException {
     super(plugin, "config.yml");
     this.plugin = plugin;
-    this.setItems();
+    final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
+    this.armour = (ArmourKit) section.get("armour");
+    this.inventory = (InventoryKit) section.get("inventory");
   }
 
   public boolean getDebugging() {
     return this.configuration.getBoolean("debugging");
-  }
-
-  public Set<ItemStack> getItems() {
-    return Collections.unmodifiableSet(this.items);
-  }
-
-  public void removeItem(final Material material) throws IOException {
-    final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
-    section.set(material.name(), null);
-    this.save();
-    this.setItems();
   }
 
   @Override
@@ -73,39 +65,22 @@ public class StarterKitConfiguration extends AbstractConfiguration {
     }
     this.save();
   }
-
-  public void setItem(final ItemStack stack) throws IOException {
-    final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
-    section.set(stack.getType().name(), stack.getAmount());
-    this.save();
-    this.setItems();
-  }
-
-  public void setItems() {
-    this.items.clear();
-    final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
-    for (final String key : section.getKeys(false)) {
-      try {
-        final Material item = Material.valueOf(key);
-        final int amount = section.getInt(key);
-        final ItemStack stack = new ItemStack(item, amount);
-        this.items.add(stack);
-        this.logger.debug(String.format("Adding %d %s to the kit", amount, key));
-      } catch (final IllegalArgumentException e) {
-        this.logger.debug(this.plugin.getSimpleFormattedMessage("not-a-valid-item-material", key));
-      }
-    }
-  }
   
 
-  public void setInventory(PlayerInventory inventory) {
-    // TODO Auto-generated method stub
-    
+  public void setInventory(PlayerInventory inventory) throws IOException {
+    final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
+    this.inventory = new InventoryKit(inventory);
+    section.set("inventory", inventory);
+    this.armour =  new ArmourKit(inventory);
+    section.set("armour", armour);
   }
 
-  public PlayerInventory getInventory() {
-    // TODO Auto-generated method stub
-    return null;
+  public ArmourKit getArmourKit() {
+    return this.armour;
+  }
+  
+  public InventoryKit getInventoryKit() {
+    return this.inventory;
   }
 
 }
