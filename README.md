@@ -5,7 +5,9 @@ StarterKit is plugin for the Minecraft wrapper [Bukkit](http://bukkit.org/) that
 
 ## Features
 
-- Simple and easy to configure.
+- Simple and easy to configure - create your ideal inventory then save it.
+- Assign items by slot, including armour.
+- Supports complex items such as maps. 
 - Can use [any item that Bukkit supports](http://jd.bukkit.org/apidocs/org/bukkit/Material.html) in your kit.
 - Ensures that only new players will receive the kit.
 
