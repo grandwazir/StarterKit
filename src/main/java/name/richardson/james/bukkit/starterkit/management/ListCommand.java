@@ -34,8 +34,6 @@ import name.richardson.james.bukkit.utilities.internals.Logger;
 
 @ConsoleCommand
 public class ListCommand extends PluginCommand {
-  
-  private final static Logger logger = new Logger(ListCommand.class);
 
   private final StarterKitConfiguration configuration;
 
@@ -49,10 +47,10 @@ public class ListCommand extends PluginCommand {
 
     sender.sendMessage(ChatColor.LIGHT_PURPLE + this.getFormattedListHeader());
     if (this.configuration.getArmourKit().getContents().length != 0) {
-      sender.sendMessage(ChatColor.YELLOW + plugin.getSimpleFormattedMessage("armour-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
+      sender.sendMessage(plugin.getSimpleFormattedMessage("armour-list", this.buildKitList(this.configuration.getArmourKit().getContents())));
     }
     if (this.configuration.getInventoryKit().getItemCount() != 0) {
-      sender.sendMessage(ChatColor.YELLOW + plugin.getSimpleFormattedMessage("backpack-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
+      sender.sendMessage(plugin.getSimpleFormattedMessage("backpack-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
     }
   }
 
@@ -64,7 +62,11 @@ public class ListCommand extends PluginCommand {
     final StringBuilder message = new StringBuilder();
     for (final ItemStack item : items) {
       if (item == null) continue;
-      message.append(item.getAmount());
+      if (item.getAmount() == 0 ) {
+        message.append(1);
+      } else {
+        message.append(item.getAmount());
+      }
       message.append(" ");
       message.append(item.getType().name());
       message.append(", ");

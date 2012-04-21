@@ -16,12 +16,11 @@ public class ArmourKit implements ConfigurationSerializable {
 
   private ItemStack[] items;
   
-  @SuppressWarnings("unchecked")
   public static ArmourKit deserialize(Map<String, Object> map) {
-    List<ItemStack> items = new ArrayList<ItemStack>(4);
+    List<ItemStack> items = new ArrayList<ItemStack>();
     for (String key :  map.keySet()) {
       if (key.startsWith("==")) continue;
-      items.add(Integer.parseInt(key), ItemStack.deserialize((Map<String, Object>) map.get(key)));
+      items.add(Integer.parseInt(key), (ItemStack) map.get(key));
     }
     return new ArmourKit(items);
   }

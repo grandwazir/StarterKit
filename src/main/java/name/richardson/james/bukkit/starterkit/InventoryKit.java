@@ -20,9 +20,9 @@ public class InventoryKit implements ConfigurationSerializable {
   private ItemStack[] items;
   
   public static InventoryKit deserialize(Map<String, Object> map) {
-    List<ItemStack> items = new ArrayList<ItemStack>(44);
+    List<ItemStack> items = new ArrayList<ItemStack>(36);
     // Ensure we have capacity in the list
-    for (int i = 44; --i >= 0;) items.add(null);
+    for (int i = 36; --i >= 0;) items.add(null);
     for (String key :  map.keySet()) {
       try {
       // to get around the fact that the class description appears first in the map.
