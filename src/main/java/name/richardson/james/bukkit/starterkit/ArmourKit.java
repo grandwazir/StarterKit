@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.inventory.ItemStack;
@@ -18,6 +19,7 @@ public class ArmourKit implements ConfigurationSerializable {
   public static ArmourKit deserialize(Map<String, Object> map) {
     List<ItemStack> items = new ArrayList<ItemStack>(4);
     for (String key :  map.keySet()) {
+      if (key.equalsIgnoreCase("===ArmourKit")) continue;
       items.add(Integer.parseInt(key), (ItemStack) map.get(key));
     }
     return new ArmourKit(items);
@@ -44,7 +46,7 @@ public class ArmourKit implements ConfigurationSerializable {
     int slot = -1;
     for (ItemStack item : items) {
       slot++;
-      if(item == null) continue;
+      if(item == null || item.getType() == Material.AIR) continue;
       map.put(Integer.toString(slot), item);
     }
     return map;

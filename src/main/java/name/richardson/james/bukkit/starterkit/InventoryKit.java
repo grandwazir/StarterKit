@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
@@ -17,7 +18,10 @@ public class InventoryKit implements ConfigurationSerializable {
   
   public static InventoryKit deserialize(Map<String, Object> map) {
     List<ItemStack> items = new ArrayList<ItemStack>(4);
+    Logger.getLogger("Minecraft").info(map.toString());
     for (String key :  map.keySet()) {
+      // to get around the fact that the class description appears first in the map.
+      if (key.equalsIgnoreCase("===InventoryKit")) continue;
       items.add(Integer.parseInt(key), (ItemStack) map.get(key));
     }
     return new InventoryKit(items);
