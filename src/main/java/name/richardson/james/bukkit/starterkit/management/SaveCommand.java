@@ -18,7 +18,8 @@ import name.richardson.james.bukkit.utilities.command.PluginCommand;
 
 public class SaveCommand extends PluginCommand {
 
-  private Player player;
+  /** The inventory of the player we are using as a template */
+  private PlayerInventory inventory;
   
   private final StarterKitConfiguration configuration;
 
@@ -37,7 +38,6 @@ public class SaveCommand extends PluginCommand {
   }
 
   public void execute(CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
-    final PlayerInventory inventory = player.getInventory();
     try {
       configuration.setInventory(inventory);
     } catch (IOException e) {
@@ -47,7 +47,8 @@ public class SaveCommand extends PluginCommand {
   }
 
   public void parseArguments(String[] arguments, CommandSender sender) throws CommandArgumentException {
-    return;
+    Player player = (Player) sender;
+    this.inventory = player.getInventory();
   }
   
 }
