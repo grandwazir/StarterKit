@@ -1,5 +1,20 @@
-Changelog for StarterKit is plugin for the Minecraft wrapper Bukkit that provides a method for administrators to give items to new players automatically and seemlessly. (v1.0.2-SNAPSHOT)
+Changelog for StarterKit (v1.0.4-SNAPSHOT)
 
+2012-04-21 01:08:18 +0100    implements new inventory template feature (James Richardson)
+2012-04-21 00:47:39 +0100    split kit into two for serialization (James Richardson)
+2012-04-21 00:07:05 +0100    created new save and load commands (James Richardson)
+2012-04-21 00:00:14 +0100    delete old commands (James Richardson)
+
+v1.0.3
+2012-03-25 00:07:19 +0000    Build aganist the latest version of BukkitUtilities to fix a possible MethodNotFound exception (James Richardson)
+2012-03-03 14:23:07 +0000    renamed readme (James Richardson)
+2012-03-03 14:22:46 +0000    updated to new style README (James Richardson)
+2012-03-03 14:10:13 +0000    added custom site (James Richardson)
+
+v1.0.2
+2012-03-03 14:05:04 +0000    odd description in POM, re-releasing (James Richardson)
+2012-03-03 13:59:07 +0000    forgot to update description (James Richardson)
+2012-03-03 13:57:18 +0000    Preparing to release (James Richardson)
 2012-03-03 13:41:56 +0000    fix NPE in PlayerJoinListener (James Richardson)
 2012-03-03 13:37:30 +0000    minor grammer fix (James Richardson)
 2012-03-03 13:35:39 +0000    AddCommand now properly honours amounts (James Richardson)

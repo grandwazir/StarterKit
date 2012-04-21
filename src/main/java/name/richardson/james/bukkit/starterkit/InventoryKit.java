@@ -23,6 +23,10 @@ public class InventoryKit implements ConfigurationSerializable {
     return new InventoryKit(items);
   }
   
+  public InventoryKit() {
+    this.items = new ItemStack[0];
+  }
+  
   public InventoryKit(PlayerInventory inventory) {
     this.items = inventory.getContents();
   }

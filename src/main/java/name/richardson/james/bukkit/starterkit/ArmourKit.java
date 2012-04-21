@@ -23,6 +23,10 @@ public class ArmourKit implements ConfigurationSerializable {
     return new ArmourKit(items);
   }
   
+  public ArmourKit() {
+    this.items = new ItemStack[0];
+  }
+  
   public ArmourKit(PlayerInventory inventory) {
     this.items = inventory.getArmorContents();
   }

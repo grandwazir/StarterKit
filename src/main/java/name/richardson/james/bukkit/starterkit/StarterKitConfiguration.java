@@ -58,8 +58,8 @@ public class StarterKitConfiguration extends AbstractConfiguration {
     // set an example kit if necessary
     if (!this.configuration.isConfigurationSection("kit")) {
       final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
-      section.set("inventory", null);
-      section.set("armour", null);
+      section.set("inventory", new InventoryKit());
+      section.set("armour", new ArmourKit());
     }
     this.save();
   }
