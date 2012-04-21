@@ -1,5 +1,6 @@
 Changelog for StarterKit (v1.0.4-SNAPSHOT)
 
+2012-04-21 01:11:26 +0100    fixed issue when generating defaults (James Richardson)
 2012-04-21 01:08:18 +0100    implements new inventory template feature (James Richardson)
 2012-04-21 00:47:39 +0100    split kit into two for serialization (James Richardson)
 2012-04-21 00:07:05 +0100    created new save and load commands (James Richardson)
