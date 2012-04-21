@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2011 James Richardson.
+ * Copyright (c) 2012 James Richardson.
  * 
- * PlayerListener.java is part of StarterKit.
+ * PlayerJoinListener.java is part of StarterKit.
  * 
  * StarterKit is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,10 +15,7 @@
  * You should have received a copy of the GNU General Public License along with
  * StarterKit. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-
 package name.richardson.james.bukkit.starterkit;
-
-import java.util.Set;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,7 +23,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import name.richardson.james.bukkit.utilities.internals.Logger;
@@ -49,7 +45,7 @@ public class PlayerJoinListener implements Listener {
 
   /** The inventory to grant new players. */
   private final InventoryKit inventory;
-  
+
   /** The armour to grant new players. */
   private final ArmourKit armour;
 
@@ -70,8 +66,8 @@ public class PlayerJoinListener implements Listener {
    */
   @EventHandler(priority = EventPriority.NORMAL)
   public void onPlayerJoin(final PlayerJoinEvent event) {
-    player = event.getPlayer();
-    if (!player.hasPlayedBefore()) {
+    this.player = event.getPlayer();
+    if (!this.player.hasPlayedBefore()) {
       this.giveKit();
     }
   }
@@ -81,7 +77,7 @@ public class PlayerJoinListener implements Listener {
    */
   private void giveKit() {
     logger.debug("Granting kit to " + this.player.getName());
-    final PlayerInventory inventory = player.getInventory();
+    final PlayerInventory inventory = this.player.getInventory();
     inventory.clear();
     inventory.setArmorContents(this.armour.getContents());
     inventory.setContents(this.inventory.getContents());

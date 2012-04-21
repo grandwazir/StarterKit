@@ -1,3 +1,20 @@
+/*******************************************************************************
+ * Copyright (c) 2012 James Richardson.
+ * 
+ * SaveCommand.java is part of StarterKit.
+ * 
+ * StarterKit is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * StarterKit is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * StarterKit. If not, see <http://www.gnu.org/licenses/>.
+ ******************************************************************************/
 package name.richardson.james.bukkit.starterkit.management;
 
 import java.io.IOException;
@@ -20,13 +37,27 @@ public class SaveCommand extends PluginCommand {
 
   /** The inventory of the player we are using as a template */
   private PlayerInventory inventory;
-  
+
   private final StarterKitConfiguration configuration;
 
   public SaveCommand(final StarterKit plugin) {
     super(plugin);
     this.configuration = plugin.getStarterKitConfiguration();
     this.registerPermissions();
+  }
+
+  public void execute(final CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
+    try {
+      this.configuration.setInventory(this.inventory);
+    } catch (final IOException e) {
+      throw new CommandUsageException(this.getMessage("unable-to-read-configuration"));
+    }
+    sender.sendMessage(ChatColor.GREEN + this.getMessage("inventory-saved"));
+  }
+
+  public void parseArguments(final String[] arguments, final CommandSender sender) throws CommandArgumentException {
+    final Player player = (Player) sender;
+    this.inventory = player.getInventory();
   }
 
   private void registerPermissions() {
@@ -37,18 +68,4 @@ public class SaveCommand extends PluginCommand {
     this.addPermission(base);
   }
 
-  public void execute(CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
-    try {
-      configuration.setInventory(inventory);
-    } catch (IOException e) {
-      throw new CommandUsageException(this.getMessage("unable-to-read-configuration"));
-    }
-    sender.sendMessage(ChatColor.GREEN + this.getMessage("inventory-saved"));
-  }
-
-  public void parseArguments(String[] arguments, CommandSender sender) throws CommandArgumentException {
-    Player player = (Player) sender;
-    this.inventory = player.getInventory();
-  }
-  
 }

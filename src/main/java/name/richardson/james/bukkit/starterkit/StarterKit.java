@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 James Richardson.
+ * Copyright (c) 2012 James Richardson.
  * 
  * StarterKit.java is part of StarterKit.
  * 
@@ -15,7 +15,6 @@
  * You should have received a copy of the GNU General Public License along with
  * StarterKit. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-
 package name.richardson.james.bukkit.starterkit;
 
 import java.io.IOException;
@@ -34,13 +33,20 @@ public class StarterKit extends SimplePlugin {
   private StarterKitConfiguration configuration;
   private PlayerJoinListener playerListener;
 
-  public StarterKitConfiguration getStarterKitConfiguration() {
-    return this.configuration;
-  }
-  
   public StarterKit() {
     ConfigurationSerialization.registerClass(ArmourKit.class);
     ConfigurationSerialization.registerClass(InventoryKit.class);
+  }
+
+  public String getFormattedKitCount() {
+    final Object[] arguments = { this.configuration.getItemCount() };
+    final double[] limits = { 0, 1, 2 };
+    final String[] formats = { this.getMessage("no-entries"), this.getMessage("one-entry"), this.getMessage("many-entries") };
+    return this.getChoiceFormattedMessage("kit-summary", arguments, formats, limits);
+  }
+
+  public StarterKitConfiguration getStarterKitConfiguration() {
+    return this.configuration;
   }
 
   @Override
@@ -76,7 +82,7 @@ public class StarterKit extends SimplePlugin {
     if (this.configuration.getDebugging()) {
       Logger.setDebugging(this, true);
     }
-    this.logger.info(getFormattedKitCount());
+    this.logger.info(this.getFormattedKitCount());
   }
 
   private void loadListeners() {
@@ -90,13 +96,6 @@ public class StarterKit extends SimplePlugin {
     commandManager.addCommand(new ListCommand(this));
     commandManager.addCommand(new LoadCommand(this));
     commandManager.addCommand(new SaveCommand(this));
-  }
-  
-  public String getFormattedKitCount() {
-    final Object[] arguments = { this.configuration.getItemCount() };
-    final double[] limits = { 0, 1, 2 };
-    final String[] formats = { this.getMessage("no-entries"), this.getMessage("one-entry"), this.getMessage("many-entries") };
-    return this.getChoiceFormattedMessage("kit-summary", arguments, formats, limits);
   }
 
 }

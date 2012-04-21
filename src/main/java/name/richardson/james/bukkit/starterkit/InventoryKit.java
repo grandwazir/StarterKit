@@ -1,3 +1,20 @@
+/*******************************************************************************
+ * Copyright (c) 2012 James Richardson.
+ * 
+ * InventoryKit.java is part of StarterKit.
+ * 
+ * StarterKit is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * StarterKit is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * StarterKit. If not, see <http://www.gnu.org/licenses/>.
+ ******************************************************************************/
 package name.richardson.james.bukkit.starterkit;
 
 import java.util.ArrayList;
@@ -16,60 +33,69 @@ import name.richardson.james.bukkit.utilities.internals.Logger;
 public class InventoryKit implements ConfigurationSerializable {
 
   private static final Logger logger = new Logger(InventoryKit.class);
-  
-  private ItemStack[] items;
-  
-  public static InventoryKit deserialize(Map<String, Object> map) {
-    List<ItemStack> items = new ArrayList<ItemStack>(36);
+
+  public static InventoryKit deserialize(final Map<String, Object> map) {
+    final List<ItemStack> items = new ArrayList<ItemStack>(36);
     // Ensure we have capacity in the list
-    for (int i = 36; --i >= 0;) items.add(null);
-    for (String key :  map.keySet()) {
+    for (int i = 36; --i >= 0;) {
+      items.add(null);
+    }
+    for (final String key : map.keySet()) {
       try {
-      // to get around the fact that the class description appears first in the map.
-      if (key.startsWith("==")) continue;
+        // to get around the fact that the class description appears first in
+        // the map.
+        if (key.startsWith("==")) {
+          continue;
+        }
         items.set(Integer.parseInt(key), (ItemStack) map.get(key));
-      } catch (ClassCastException e) {
+      } catch (final ClassCastException e) {
         logger.warning("Unable to deserialize object in slot " + key);
       }
     }
     return new InventoryKit(items);
   }
-  
-  public int getItemCount() {
-    int n = 0;
-    for (int i = 0; i < this.items.length; i++) {
-      if (this.items[i] == null) continue;
-      n++;
-    }
-    return n;
-  }
-  
+
+  private final ItemStack[] items;
+
   public InventoryKit() {
     this.items = new ItemStack[0];
   }
-  
-  public InventoryKit(PlayerInventory inventory) {
-    this.items = inventory.getContents();
-  }
-  
-  public InventoryKit(List<ItemStack> items) {
+
+  public InventoryKit(final List<ItemStack> items) {
     this.items = items.toArray(new ItemStack[items.size()]);
+  }
+
+  public InventoryKit(final PlayerInventory inventory) {
+    this.items = inventory.getContents();
   }
 
   public ItemStack[] getContents() {
     logger.debug(this.items.toString());
-    return items;
+    return this.items;
   }
-  
+
+  public int getItemCount() {
+    int n = 0;
+    for (final ItemStack item : this.items) {
+      if (item == null) {
+        continue;
+      }
+      n++;
+    }
+    return n;
+  }
+
   public Map<String, Object> serialize() {
-    Map<String, Object> map = new HashMap<String, Object>();
+    final Map<String, Object> map = new HashMap<String, Object>();
     int slot = -1;
-    for (ItemStack item : items) {
+    for (final ItemStack item : this.items) {
       slot++;
-      if(item == null) continue;
+      if (item == null) {
+        continue;
+      }
       map.put(Integer.toString(slot), item);
     }
     return map;
-  }  
-  
+  }
+
 }

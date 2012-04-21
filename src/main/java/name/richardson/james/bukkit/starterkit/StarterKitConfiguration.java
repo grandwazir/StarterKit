@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 James Richardson.
+ * Copyright (c) 2012 James Richardson.
  * 
  * StarterKitConfiguration.java is part of StarterKit.
  * 
@@ -15,17 +15,11 @@
  * You should have received a copy of the GNU General Public License along with
  * StarterKit. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-
 package name.richardson.james.bukkit.starterkit;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import name.richardson.james.bukkit.utilities.configuration.AbstractConfiguration;
@@ -33,20 +27,30 @@ import name.richardson.james.bukkit.utilities.plugin.SimplePlugin;
 
 public class StarterKitConfiguration extends AbstractConfiguration {
 
-  private final SimplePlugin plugin;
   private InventoryKit inventory;
   private ArmourKit armour;
 
   public StarterKitConfiguration(final SimplePlugin plugin) throws IOException {
     super(plugin, "config.yml");
-    this.plugin = plugin;
     final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
     this.armour = (ArmourKit) section.get("armour");
     this.inventory = (InventoryKit) section.get("backpack");
   }
 
+  public ArmourKit getArmourKit() {
+    return this.armour;
+  }
+
   public boolean getDebugging() {
     return this.configuration.getBoolean("debugging");
+  }
+
+  public InventoryKit getInventoryKit() {
+    return this.inventory;
+  }
+
+  public int getItemCount() {
+    return this.armour.getContents().length + this.inventory.getItemCount();
   }
 
   @Override
@@ -63,27 +67,14 @@ public class StarterKitConfiguration extends AbstractConfiguration {
     }
     this.save();
   }
-  
 
-  public void setInventory(PlayerInventory inventory) throws IOException {
+  public void setInventory(final PlayerInventory inventory) throws IOException {
     final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
     this.inventory = new InventoryKit(inventory);
     section.set("backpack", this.inventory);
-    this.armour =  new ArmourKit(inventory);
-    section.set("armour", armour);
+    this.armour = new ArmourKit(inventory);
+    section.set("armour", this.armour);
     this.save();
-  }
-  
-  public int getItemCount() {
-    return armour.getContents().length + inventory.getItemCount();
-  }
-  
-  public ArmourKit getArmourKit() {
-    return this.armour;
-  }
-  
-  public InventoryKit getInventoryKit() {
-    return this.inventory;
   }
 
 }

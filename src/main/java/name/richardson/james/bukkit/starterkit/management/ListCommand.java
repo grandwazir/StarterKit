@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 James Richardson.
+ * Copyright (c) 2012 James Richardson.
  * 
  * ListCommand.java is part of StarterKit.
  * 
@@ -30,7 +30,6 @@ import name.richardson.james.bukkit.utilities.command.CommandPermissionException
 import name.richardson.james.bukkit.utilities.command.CommandUsageException;
 import name.richardson.james.bukkit.utilities.command.ConsoleCommand;
 import name.richardson.james.bukkit.utilities.command.PluginCommand;
-import name.richardson.james.bukkit.utilities.internals.Logger;
 
 @ConsoleCommand
 public class ListCommand extends PluginCommand {
@@ -47,10 +46,10 @@ public class ListCommand extends PluginCommand {
 
     sender.sendMessage(ChatColor.LIGHT_PURPLE + this.getFormattedListHeader());
     if (this.configuration.getArmourKit().getContents().length != 0) {
-      sender.sendMessage(plugin.getSimpleFormattedMessage("armour-list", this.buildKitList(this.configuration.getArmourKit().getContents())));
+      sender.sendMessage(this.plugin.getSimpleFormattedMessage("armour-list", this.buildKitList(this.configuration.getArmourKit().getContents())));
     }
     if (this.configuration.getInventoryKit().getItemCount() != 0) {
-      sender.sendMessage(plugin.getSimpleFormattedMessage("backpack-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
+      sender.sendMessage(this.plugin.getSimpleFormattedMessage("backpack-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
     }
   }
 
@@ -58,11 +57,13 @@ public class ListCommand extends PluginCommand {
     return;
   }
 
-  private String buildKitList(ItemStack[] items) {
+  private String buildKitList(final ItemStack[] items) {
     final StringBuilder message = new StringBuilder();
     for (final ItemStack item : items) {
-      if (item == null) continue;
-      if (item.getAmount() == 0 ) {
+      if (item == null) {
+        continue;
+      }
+      if (item.getAmount() == 0) {
         message.append(1);
       } else {
         message.append(item.getAmount());
