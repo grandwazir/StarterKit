@@ -75,9 +75,9 @@ public class StarterKitConfiguration extends AbstractConfiguration {
   }
   
   public int getItemCount() {
-    return armour.getContents().length + inventory.getContents().length;
+    return armour.getContents().length + inventory.getItemCount();
   }
-
+  
   public ArmourKit getArmourKit() {
     return this.armour;
   }

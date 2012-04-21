@@ -1,5 +1,8 @@
 Changelog for StarterKit (v1.0.4-SNAPSHOT)
 
+2012-04-21 02:19:10 +0100    updated ListCommand (James Richardson)
+2012-04-21 02:13:14 +0100    Removed ReloadCommand, configuration file is not intended to be edited manually (James Richardson)
+2012-04-21 02:11:45 +0100    Allow users to assign any item to any item slot. Fixes #2 (James Richardson)
 2012-04-21 01:58:32 +0100    fixed a bug in serializing the wrong object (James Richardson)
 2012-04-21 01:35:57 +0100    Fixed bug in SaveCommand (James Richardson)
 2012-04-21 01:25:06 +0100    fixed issue when setting defaults (James Richardson)

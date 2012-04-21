@@ -14,13 +14,14 @@ import org.bukkit.inventory.PlayerInventory;
 @SerializableAs("ArmourKit")
 public class ArmourKit implements ConfigurationSerializable {
 
-  private final ItemStack[] items;
+  private ItemStack[] items;
   
+  @SuppressWarnings("unchecked")
   public static ArmourKit deserialize(Map<String, Object> map) {
     List<ItemStack> items = new ArrayList<ItemStack>(4);
     for (String key :  map.keySet()) {
-      if (key.equalsIgnoreCase("===ArmourKit")) continue;
-      items.add(Integer.parseInt(key), (ItemStack) map.get(key));
+      if (key.startsWith("==")) continue;
+      items.add(Integer.parseInt(key), ItemStack.deserialize((Map<String, Object>) map.get(key)));
     }
     return new ArmourKit(items);
   }
@@ -34,7 +35,7 @@ public class ArmourKit implements ConfigurationSerializable {
   }
   
   public ArmourKit(List<ItemStack> items) {
-    this.items = (ItemStack[]) items.toArray();
+    this.items = items.toArray(new ItemStack[items.size()]);
   }
 
   public ItemStack[] getContents() {

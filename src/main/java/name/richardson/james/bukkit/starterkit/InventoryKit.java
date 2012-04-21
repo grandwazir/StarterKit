@@ -4,27 +4,44 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import name.richardson.james.bukkit.utilities.internals.Logger;
+
 @SerializableAs("InventoryKit")
 public class InventoryKit implements ConfigurationSerializable {
 
-  private final ItemStack[] items;
+  private static final Logger logger = new Logger(InventoryKit.class);
+  
+  private ItemStack[] items;
   
   public static InventoryKit deserialize(Map<String, Object> map) {
-    List<ItemStack> items = new ArrayList<ItemStack>(4);
-    Logger.getLogger("Minecraft").info(map.toString());
+    List<ItemStack> items = new ArrayList<ItemStack>(44);
+    // Ensure we have capacity in the list
+    for (int i = 44; --i >= 0;) items.add(null);
     for (String key :  map.keySet()) {
+      try {
       // to get around the fact that the class description appears first in the map.
-      if (key.equalsIgnoreCase("===InventoryKit")) continue;
-      items.add(Integer.parseInt(key), (ItemStack) map.get(key));
+      if (key.startsWith("==")) continue;
+        items.set(Integer.parseInt(key), (ItemStack) map.get(key));
+      } catch (ClassCastException e) {
+        logger.warning("Unable to deserialize object in slot " + key);
+      }
     }
     return new InventoryKit(items);
+  }
+  
+  public int getItemCount() {
+    int n = 0;
+    for (int i = 0; i < this.items.length; i++) {
+      if (this.items[i] == null) continue;
+      n++;
+    }
+    return n;
   }
   
   public InventoryKit() {
@@ -36,10 +53,11 @@ public class InventoryKit implements ConfigurationSerializable {
   }
   
   public InventoryKit(List<ItemStack> items) {
-    this.items = (ItemStack[]) items.toArray();
+    this.items = items.toArray(new ItemStack[items.size()]);
   }
 
   public ItemStack[] getContents() {
+    logger.debug(this.items.toString());
     return items;
   }
   
