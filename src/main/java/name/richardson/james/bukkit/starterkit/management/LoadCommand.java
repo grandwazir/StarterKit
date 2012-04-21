@@ -7,6 +7,8 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
+import name.richardson.james.bukkit.starterkit.ArmourKit;
+import name.richardson.james.bukkit.starterkit.InventoryKit;
 import name.richardson.james.bukkit.starterkit.StarterKit;
 import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
 import name.richardson.james.bukkit.utilities.command.CommandArgumentException;
@@ -15,10 +17,10 @@ import name.richardson.james.bukkit.utilities.command.CommandUsageException;
 import name.richardson.james.bukkit.utilities.command.PluginCommand;
 
 public class LoadCommand extends PluginCommand {
-
-  private Player player;
   
   private final StarterKitConfiguration configuration;
+
+  private PlayerInventory inventory;
 
   public LoadCommand(final StarterKit plugin) {
     super(plugin);
@@ -35,14 +37,16 @@ public class LoadCommand extends PluginCommand {
   }
 
   public void execute(CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
-    final PlayerInventory inventory = player.getInventory();
-    final PlayerInventory kit = configuration.getInventory();
-    inventory.setContents(kit.getContents());
+    final InventoryKit inventoryKit = configuration.getInventoryKit();
+    final ArmourKit armourKit = configuration.getArmourKit();
+    inventory.setContents(inventoryKit.getContents());
+    inventory.setArmorContents(armourKit.getContents());
     sender.sendMessage(ChatColor.GREEN + this.getMessage("inventory-loaded"));
   }
 
   public void parseArguments(String[] arguments, CommandSender sender) throws CommandArgumentException {
-    return;
+    Player player = (Player) sender;
+    this.inventory = player.getInventory();
   }
   
 }

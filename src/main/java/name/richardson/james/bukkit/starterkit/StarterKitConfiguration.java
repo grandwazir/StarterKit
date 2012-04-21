@@ -42,7 +42,7 @@ public class StarterKitConfiguration extends AbstractConfiguration {
     this.plugin = plugin;
     final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
     this.armour = (ArmourKit) section.get("armour");
-    this.inventory = (InventoryKit) section.get("inventory");
+    this.inventory = (InventoryKit) section.get("backpack");
   }
 
   public boolean getDebugging() {
@@ -58,7 +58,7 @@ public class StarterKitConfiguration extends AbstractConfiguration {
     // set an example kit if necessary
     if (!this.configuration.isConfigurationSection("kit")) {
       final ConfigurationSection section = this.configuration.createSection("kit");
-      section.set("inventory", new InventoryKit());
+      section.set("backpack", new InventoryKit());
       section.set("armour", new ArmourKit());
     }
     this.save();
@@ -68,14 +68,14 @@ public class StarterKitConfiguration extends AbstractConfiguration {
   public void setInventory(PlayerInventory inventory) throws IOException {
     final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
     this.inventory = new InventoryKit(inventory);
-    section.set("inventory", inventory);
+    section.set("backpack", this.inventory);
     this.armour =  new ArmourKit(inventory);
     section.set("armour", armour);
+    this.save();
   }
   
   public int getItemCount() {
-    return 0;
-    //return armour.getContents().length + inventory.getContents().length;
+    return armour.getContents().length + inventory.getContents().length;
   }
 
   public ArmourKit getArmourKit() {
