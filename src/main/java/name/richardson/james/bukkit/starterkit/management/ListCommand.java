@@ -45,19 +45,21 @@ public class ListCommand extends PluginCommand {
   public void execute(final CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
 
     sender.sendMessage(ChatColor.LIGHT_PURPLE + this.getFormattedListHeader());
-    if (this.configuration.getItems().size() != 0) {
-      sender.sendMessage(ChatColor.YELLOW + this.buildKitList());
+    if (this.configuration.getArmourKit().getContents().length != 0) {
+      sender.sendMessage(ChatColor.YELLOW + plugin.getSimpleFormattedMessage("armour-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
     }
-
+    if (this.configuration.getInventoryKit().getContents().length != 0) {
+      sender.sendMessage(ChatColor.YELLOW + plugin.getSimpleFormattedMessage("backpack-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
+    }
   }
 
   public void parseArguments(final String[] arguments, final CommandSender sender) throws CommandArgumentException {
     return;
   }
 
-  private String buildKitList() {
+  private String buildKitList(ItemStack[] items) {
     final StringBuilder message = new StringBuilder();
-    for (final ItemStack item : this.configuration.getItems()) {
+    for (final ItemStack item : items) {
       message.append(item.getAmount());
       message.append(" ");
       message.append(item.getType().name());
@@ -69,7 +71,7 @@ public class ListCommand extends PluginCommand {
   }
 
   private String getFormattedListHeader() {
-    final Object[] arguments = { this.configuration.getItems().size() };
+    final Object[] arguments = { this.configuration.getItemCount() };
     final double[] limits = { 0, 1, 2 };
     final String[] formats = { this.getMessage("no-entries"), this.getMessage("one-entry"), this.getMessage("many-entries") };
     return this.getChoiceFormattedMessage("kit-summary", arguments, formats, limits);

@@ -24,7 +24,6 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 import name.richardson.james.bukkit.starterkit.management.ListCommand;
 import name.richardson.james.bukkit.starterkit.management.LoadCommand;
-import name.richardson.james.bukkit.starterkit.management.ReloadCommand;
 import name.richardson.james.bukkit.starterkit.management.SaveCommand;
 import name.richardson.james.bukkit.utilities.command.CommandManager;
 import name.richardson.james.bukkit.utilities.internals.Logger;
@@ -90,7 +89,6 @@ public class StarterKit extends SimplePlugin {
     this.getCommand("sk").setExecutor(commandManager);
     commandManager.addCommand(new ListCommand(this));
     commandManager.addCommand(new LoadCommand(this));
-    commandManager.addCommand(new ReloadCommand(this));
     commandManager.addCommand(new SaveCommand(this));
   }
   
