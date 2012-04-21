@@ -57,11 +57,9 @@ public class StarterKitConfiguration extends AbstractConfiguration {
     this.configuration.options().copyDefaults(true);
     // set an example kit if necessary
     if (!this.configuration.isConfigurationSection("kit")) {
-      this.logger.debug("Creating examples.");
-      this.configuration.createSection("kit");
       final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
-      section.set(Material.WOOD_AXE.name(), 1);
-      section.set(Material.APPLE.name(), 4);
+      section.set("inventory", null);
+      section.set("armour", null);
     }
     this.save();
   }
@@ -73,6 +71,10 @@ public class StarterKitConfiguration extends AbstractConfiguration {
     section.set("inventory", inventory);
     this.armour =  new ArmourKit(inventory);
     section.set("armour", armour);
+  }
+  
+  public int getItemCount() {
+    return armour.getContents().length + inventory.getContents().length;
   }
 
   public ArmourKit getArmourKit() {

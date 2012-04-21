@@ -20,10 +20,12 @@ package name.richardson.james.bukkit.starterkit;
 
 import java.io.IOException;
 
-import name.richardson.james.bukkit.starterkit.management.AddCommand;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
+
 import name.richardson.james.bukkit.starterkit.management.ListCommand;
+import name.richardson.james.bukkit.starterkit.management.LoadCommand;
 import name.richardson.james.bukkit.starterkit.management.ReloadCommand;
-import name.richardson.james.bukkit.starterkit.management.RemoveCommand;
+import name.richardson.james.bukkit.starterkit.management.SaveCommand;
 import name.richardson.james.bukkit.utilities.command.CommandManager;
 import name.richardson.james.bukkit.utilities.internals.Logger;
 import name.richardson.james.bukkit.utilities.plugin.SimplePlugin;
@@ -35,6 +37,11 @@ public class StarterKit extends SimplePlugin {
 
   public StarterKitConfiguration getStarterKitConfiguration() {
     return this.configuration;
+  }
+  
+  public StarterKit() {
+    ConfigurationSerialization.registerClass(ArmourKit.class);
+    ConfigurationSerialization.registerClass(InventoryKit.class);
   }
 
   @Override
@@ -81,14 +88,14 @@ public class StarterKit extends SimplePlugin {
   private void registerCommands() {
     final CommandManager commandManager = new CommandManager(this);
     this.getCommand("sk").setExecutor(commandManager);
-    commandManager.addCommand(new AddCommand(this));
     commandManager.addCommand(new ListCommand(this));
+    commandManager.addCommand(new LoadCommand(this));
     commandManager.addCommand(new ReloadCommand(this));
-    commandManager.addCommand(new RemoveCommand(this));
+    commandManager.addCommand(new SaveCommand(this));
   }
   
   public String getFormattedKitCount() {
-    final Object[] arguments = { this.configuration.getItems().size() };
+    final Object[] arguments = { this.configuration.getItemCount() };
     final double[] limits = { 0, 1, 2 };
     final String[] formats = { this.getMessage("no-entries"), this.getMessage("one-entry"), this.getMessage("many-entries") };
     return this.getChoiceFormattedMessage("kit-summary", arguments, formats, limits);

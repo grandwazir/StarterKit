@@ -27,6 +27,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import name.richardson.james.bukkit.utilities.internals.Logger;
 
@@ -46,14 +47,18 @@ public class PlayerJoinListener implements Listener {
   /** The logger used for this class. */
   private static final Logger logger = new Logger(PlayerJoinListener.class);
 
-  /** The items to be used as a kit. */
-  private static Set<ItemStack> items;
+  /** The inventory to grant new players. */
+  private final InventoryKit inventory;
+  
+  /** The armour to grant new players. */
+  private final ArmourKit armour;
 
   /** The player who is logging in. */
   private Player player;
 
   public PlayerJoinListener(final StarterKit plugin) {
-    PlayerJoinListener.items = plugin.getStarterKitConfiguration().getItems();
+    this.inventory = plugin.getStarterKitConfiguration().getInventoryKit();
+    this.armour = plugin.getStarterKitConfiguration().getArmourKit();
   }
 
   /**
@@ -76,10 +81,10 @@ public class PlayerJoinListener implements Listener {
    */
   private void giveKit() {
     logger.debug("Granting kit to " + this.player.getName());
-    for (final ItemStack item : items) {
-      logger.debug(item.toString());
-      this.player.getInventory().addItem(item);
-    }
+    final PlayerInventory inventory = player.getInventory();
+    inventory.clear();
+    inventory.setArmorContents(this.armour.getContents());
+    inventory.setContents(this.inventory.getContents());
   }
 
 }
