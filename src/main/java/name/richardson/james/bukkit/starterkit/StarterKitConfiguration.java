@@ -50,7 +50,7 @@ public class StarterKitConfiguration extends AbstractConfiguration {
   }
 
   public int getItemCount() {
-    return this.armour.getContents().length + this.inventory.getItemCount();
+    return this.armour.getItemCount() + this.inventory.getItemCount();
   }
 
   @Override

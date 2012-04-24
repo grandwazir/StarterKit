@@ -30,7 +30,7 @@ import org.bukkit.inventory.PlayerInventory;
 import name.richardson.james.bukkit.utilities.internals.Logger;
 
 @SerializableAs("InventoryKit")
-public class InventoryKit implements ConfigurationSerializable {
+public class InventoryKit implements ConfigurationSerializable, Kit {
 
   private static final Logger logger = new Logger(InventoryKit.class);
 
@@ -70,8 +70,7 @@ public class InventoryKit implements ConfigurationSerializable {
   }
 
   public ItemStack[] getContents() {
-    logger.debug(this.items.toString());
-    return this.items;
+    return this.items.clone();
   }
 
   public int getItemCount() {

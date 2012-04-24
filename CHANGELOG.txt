@@ -1,5 +1,12 @@
-Changelog for StarterKit (v1.0.4-SNAPSHOT)
+Changelog for StarterKit (v1.1.1-SNAPSHOT)
 
+2012-04-21 03:50:50 +0100    code clean up (James Richardson)
+2012-04-21 03:46:57 +0100    merged READMES (James Richardson)
+
+v1.1.0
+2012-04-21 03:31:18 +0100    updated README (James Richardson)
+2012-04-21 03:29:33 +0100    added automated version bumping (James Richardson)
+2012-04-21 03:28:32 +0100    Preparing for release (James Richardson)
 2012-04-21 03:12:14 +0100    fixed several bugs (James Richardson)
 2012-04-21 02:19:10 +0100    updated ListCommand (James Richardson)
 2012-04-21 02:13:14 +0100    Removed ReloadCommand, configuration file is not intended to be edited manually (James Richardson)

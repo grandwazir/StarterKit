@@ -29,7 +29,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 @SerializableAs("ArmourKit")
-public class ArmourKit implements ConfigurationSerializable {
+public class ArmourKit implements ConfigurationSerializable, Kit {
 
   public static ArmourKit deserialize(final Map<String, Object> map) {
     final List<ItemStack> items = new ArrayList<ItemStack>();
@@ -57,9 +57,20 @@ public class ArmourKit implements ConfigurationSerializable {
   }
 
   public ItemStack[] getContents() {
-    return this.items;
+    return this.items.clone();
   }
 
+  public int getItemCount() {
+    int n = 0;
+    for (final ItemStack item : this.items) {
+      if (item == null) {
+        continue;
+      }
+      n++;
+    }
+    return n;
+  }
+  
   public Map<String, Object> serialize() {
     final Map<String, Object> map = new HashMap<String, Object>();
     int slot = -1;
@@ -72,5 +83,6 @@ public class ArmourKit implements ConfigurationSerializable {
     }
     return map;
   }
+
 
 }
