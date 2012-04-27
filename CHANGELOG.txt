@@ -1,5 +1,9 @@
-Changelog for StarterKit (v1.1.1-SNAPSHOT)
+Changelog for StarterKit (v1.1.2-SNAPSHOT)
 
+2012-04-27 23:04:05 +0100    Ensure capacity in list, fixes #6 (James Richardson)
+
+v1.1.1
+2012-04-24 19:47:02 +0100    preparing to release (James Richardson)
 2012-04-24 19:39:08 +0100    Fix for occasional NPE when loading StarterKit (James Richardson)
 2012-04-21 03:50:50 +0100    code clean up (James Richardson)
 2012-04-21 03:46:57 +0100    merged READMES (James Richardson)
