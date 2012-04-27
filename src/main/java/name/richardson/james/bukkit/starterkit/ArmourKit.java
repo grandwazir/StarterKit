@@ -33,6 +33,10 @@ public class ArmourKit implements ConfigurationSerializable, Kit {
 
   public static ArmourKit deserialize(final Map<String, Object> map) {
     final List<ItemStack> items = new ArrayList<ItemStack>();
+    // Ensure we have capacity in the list
+    for (int i = 4; --i >= 0;) {
+      items.add(null);
+    }
     for (final String key : map.keySet()) {
       if (key.startsWith("==")) {
         continue;
