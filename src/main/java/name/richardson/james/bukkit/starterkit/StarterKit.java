@@ -25,10 +25,9 @@ import name.richardson.james.bukkit.starterkit.management.ListCommand;
 import name.richardson.james.bukkit.starterkit.management.LoadCommand;
 import name.richardson.james.bukkit.starterkit.management.SaveCommand;
 import name.richardson.james.bukkit.utilities.command.CommandManager;
-import name.richardson.james.bukkit.utilities.internals.Logger;
-import name.richardson.james.bukkit.utilities.plugin.SimplePlugin;
+import name.richardson.james.bukkit.utilities.plugin.SkeletonPlugin;
 
-public class StarterKit extends SimplePlugin {
+public class StarterKit extends SkeletonPlugin {
 
   private StarterKitConfiguration configuration;
   private PlayerJoinListener playerListener;
@@ -49,53 +48,36 @@ public class StarterKit extends SimplePlugin {
     return this.configuration;
   }
 
-  @Override
-  public void onEnable() {
-    this.logger.setPrefix("[StarterKit] ");
-
-    try {
-      this.setResourceBundle();
-      this.loadConfiguration();
-      this.setRootPermission();
-      this.loadListeners();
-      this.registerCommands();
-    } catch (final IOException exception) {
-      this.logger.severe(this.getMessage("unable-to-read-configuration"));
-      this.setEnabled(false);
-    } finally {
-      if (!this.isEnabled()) {
-        this.logger.severe(this.getMessage("panic"));
-        return;
-      }
-    }
-
-    this.logger.info(this.getSimpleFormattedMessage("plugin-enabled", this.getDescription().getName()));
-  }
-
   public void reload() throws IOException {
     this.loadConfiguration();
     this.loadListeners();
   }
 
-  private void loadConfiguration() throws IOException {
+  protected void loadConfiguration() throws IOException {
     this.configuration = new StarterKitConfiguration(this);
-    if (this.configuration.getDebugging()) {
-      Logger.setDebugging(this, true);
-    }
     this.logger.info(this.getFormattedKitCount());
   }
 
-  private void loadListeners() {
+  protected void loadListeners() {
     this.playerListener = new PlayerJoinListener(this);
     this.getServer().getPluginManager().registerEvents(this.playerListener, this);
   }
 
-  private void registerCommands() {
+  protected void registerCommands() {
     final CommandManager commandManager = new CommandManager(this);
     this.getCommand("sk").setExecutor(commandManager);
     commandManager.addCommand(new ListCommand(this));
     commandManager.addCommand(new LoadCommand(this));
     commandManager.addCommand(new SaveCommand(this));
+  }
+
+  
+  public String getGroupID() {
+    return "name.richardson.james.bukkit";
+  }
+
+  public String getArtifactID() {
+    return "starter-kit";
   }
 
 }

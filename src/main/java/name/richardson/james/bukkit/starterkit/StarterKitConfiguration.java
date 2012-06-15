@@ -22,16 +22,16 @@ import java.io.IOException;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.PlayerInventory;
 
-import name.richardson.james.bukkit.utilities.configuration.AbstractConfiguration;
-import name.richardson.james.bukkit.utilities.plugin.SimplePlugin;
+import name.richardson.james.bukkit.utilities.configuration.PluginConfiguration;
+import name.richardson.james.bukkit.utilities.plugin.SkeletonPlugin;
 
-public class StarterKitConfiguration extends AbstractConfiguration {
+public class StarterKitConfiguration extends PluginConfiguration {
 
   private InventoryKit inventory;
   private ArmourKit armour;
 
-  public StarterKitConfiguration(final SimplePlugin plugin) throws IOException {
-    super(plugin, "config.yml");
+  public StarterKitConfiguration(final SkeletonPlugin plugin) throws IOException {
+    super(plugin);
     final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
     this.armour = (ArmourKit) section.get("armour");
     this.inventory = (InventoryKit) section.get("backpack");
@@ -39,10 +39,6 @@ public class StarterKitConfiguration extends AbstractConfiguration {
 
   public ArmourKit getArmourKit() {
     return this.armour;
-  }
-
-  public boolean getDebugging() {
-    return this.configuration.getBoolean("debugging");
   }
 
   public InventoryKit getInventoryKit() {
