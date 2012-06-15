@@ -1,4 +1,4 @@
-debugging: true
+debugging: false
 automatic-updates:
   enabled: true
   method: automatic
