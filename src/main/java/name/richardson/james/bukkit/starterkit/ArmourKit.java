@@ -28,6 +28,8 @@ import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import name.richardson.james.bukkit.utilities.internals.Logger;
+
 @SerializableAs("ArmourKit")
 public class ArmourKit implements ConfigurationSerializable, Kit {
 
@@ -41,7 +43,7 @@ public class ArmourKit implements ConfigurationSerializable, Kit {
       if (key.startsWith("==")) {
         continue;
       }
-      items.add(Integer.parseInt(key), (ItemStack) map.get(key));
+      items.set(Integer.parseInt(key), (ItemStack) map.get(key));
     }
     return new ArmourKit(items);
   }
