@@ -50,7 +50,7 @@ public class StarterKit extends SkeletonPlugin {
 
   public void reload() throws IOException {
     this.loadConfiguration();
-    this.loadListeners();
+    this.registerEvents();
   }
 
   protected void loadConfiguration() throws IOException {
