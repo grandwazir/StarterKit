@@ -58,7 +58,7 @@ public class StarterKit extends SkeletonPlugin {
     this.logger.info(this.getFormattedKitCount());
   }
 
-  protected void loadListeners() {
+  protected void registerEvents() {
     this.playerListener = new PlayerJoinListener(this);
     this.getServer().getPluginManager().registerEvents(this.playerListener, this);
   }
