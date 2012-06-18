@@ -1,5 +1,6 @@
 Changelog for StarterKit (v1.2.2-SNAPSHOT)
 
+2012-06-18 21:35:39 +0100    Fix not all references matching the new name (James Richardson)
 2012-06-18 21:27:58 +0100    fix #15: rename the method loadListeners() -> to registerEvents() (James Richardson)
 
 v1.2.1
