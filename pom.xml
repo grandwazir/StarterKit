@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>name.richardson.james.bukkit</groupId>
   <artifactId>starter-kit</artifactId>
-  <version>1.2.2-SNAPSHOT</version>
+  <version>1.2.2</version>
   <name>StarterKit</name>
   <description>Plugin for the Minecraft wrapper Bukkit that provides a method for administrators to give items to new players automatically and seemlessly.</description>
   <url>http://grandwazir.github.com/${project.name}/</url>
