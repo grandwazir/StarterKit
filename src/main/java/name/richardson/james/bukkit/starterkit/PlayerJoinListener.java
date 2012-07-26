@@ -28,6 +28,7 @@ import org.bukkit.inventory.PlayerInventory;
 
 import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
 import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
+import name.richardson.james.bukkit.starterkit.kit.StarterKitGrantedEvent;
 import name.richardson.james.bukkit.utilities.internals.Logger;
 
 /**

@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import name.richardson.james.bukkit.starterkit.kit.StarterKitGrantedEvent;
 import name.richardson.james.bukkit.utilities.metrics.AbstractMetricsListener;
 import name.richardson.james.bukkit.utilities.metrics.Metrics;
 import name.richardson.james.bukkit.utilities.metrics.Metrics.Graph;

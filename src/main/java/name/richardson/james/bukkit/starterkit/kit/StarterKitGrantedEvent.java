@@ -1,4 +1,4 @@
-package name.richardson.james.bukkit.starterkit;
+package name.richardson.james.bukkit.starterkit.kit;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
