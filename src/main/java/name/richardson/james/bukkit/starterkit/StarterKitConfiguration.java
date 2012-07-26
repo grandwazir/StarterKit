@@ -22,6 +22,8 @@ import java.io.IOException;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.PlayerInventory;
 
+import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
+import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
 import name.richardson.james.bukkit.utilities.configuration.PluginConfiguration;
 import name.richardson.james.bukkit.utilities.plugin.SkeletonPlugin;
 

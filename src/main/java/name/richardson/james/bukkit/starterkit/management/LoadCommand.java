@@ -24,10 +24,10 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import name.richardson.james.bukkit.starterkit.ArmourKit;
-import name.richardson.james.bukkit.starterkit.InventoryKit;
 import name.richardson.james.bukkit.starterkit.StarterKit;
 import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
+import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
+import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
 import name.richardson.james.bukkit.utilities.command.CommandArgumentException;
 import name.richardson.james.bukkit.utilities.command.CommandPermissionException;
 import name.richardson.james.bukkit.utilities.command.CommandUsageException;

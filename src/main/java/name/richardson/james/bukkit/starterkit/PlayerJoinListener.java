@@ -25,6 +25,8 @@ import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.PlayerInventory;
 
+import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
+import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
 import name.richardson.james.bukkit.utilities.internals.Logger;
 
 /**
@@ -49,9 +51,6 @@ public class PlayerJoinListener implements Listener {
   /** The armour to grant new players. */
   private final ArmourKit armour;
 
-  /** The player who is logging in. */
-  private Player player;
-
   public PlayerJoinListener(final StarterKit plugin) {
     this.inventory = plugin.getStarterKitConfiguration().getInventoryKit();
     this.armour = plugin.getStarterKitConfiguration().getArmourKit();
@@ -66,21 +65,22 @@ public class PlayerJoinListener implements Listener {
    */
   @EventHandler(priority = EventPriority.NORMAL)
   public void onPlayerJoin(final PlayerJoinEvent event) {
-    this.player = event.getPlayer();
-    if (!this.player.hasPlayedBefore()) {
-      this.giveKit();
+    Player player = event.getPlayer();
+    if (!player.hasPlayedBefore()) {
+      this.giveKit(player);
     }
   }
 
   /**
    * Give a kit to the player who is currently logging in.
    */
-  private void giveKit() {
-    logger.debug("Granting kit to " + this.player.getName());
-    final PlayerInventory inventory = this.player.getInventory();
+  private void giveKit(Player player) {
+    logger.debug("Granting kit to " + player.getName());
+    final PlayerInventory inventory = player.getInventory();
     inventory.clear();
     inventory.setArmorContents(this.armour.getContents());
     inventory.setContents(this.inventory.getContents());
+    new StarterKitGrantedEvent(player.getName(), inventory);
   }
 
 }

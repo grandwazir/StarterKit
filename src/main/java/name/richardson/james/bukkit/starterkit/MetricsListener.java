@@ -19,6 +19,8 @@ public class MetricsListener extends AbstractMetricsListener {
     super(plugin);
   }
   
+  
+  
   protected void setupCustomMetrics() {
     // Create a graph to show the total amount of kits issued.
     Graph graph = this.metrics.createGraph("Usage Statistics");

@@ -21,6 +21,8 @@ import java.io.IOException;
 
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
+import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
+import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
 import name.richardson.james.bukkit.starterkit.management.ListCommand;
 import name.richardson.james.bukkit.starterkit.management.LoadCommand;
 import name.richardson.james.bukkit.starterkit.management.SaveCommand;
