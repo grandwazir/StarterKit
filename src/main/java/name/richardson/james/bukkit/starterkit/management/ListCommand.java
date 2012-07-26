@@ -44,7 +44,7 @@ public class ListCommand extends PluginCommand {
   public void execute(final CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
 
     sender.sendMessage(this.getFormattedListHeader());
-    if (this.configuration.getArmourKit().getContents().length != 0) {
+    if (this.configuration.getArmourKit().getItemCount() != 0) {
       sender.sendMessage(this.plugin.getSimpleFormattedMessage("armour-list", this.buildKitList(this.configuration.getArmourKit().getContents())));
     }
     if (this.configuration.getInventoryKit().getItemCount() != 0) {

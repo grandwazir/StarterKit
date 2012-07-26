@@ -1,7 +1,7 @@
 name: ${project.name}
 main: name.richardson.james.bukkit.starterkit.StarterKit
 author: grandwazir
-description: ${project.description}
+description: Give items to new players.
 website: https://grandwazir.github.com/StarterKit
 version: ${project.version}
 commands:
