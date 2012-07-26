@@ -25,6 +25,8 @@ import name.richardson.james.bukkit.starterkit.management.ListCommand;
 import name.richardson.james.bukkit.starterkit.management.LoadCommand;
 import name.richardson.james.bukkit.starterkit.management.SaveCommand;
 import name.richardson.james.bukkit.utilities.command.CommandManager;
+import name.richardson.james.bukkit.utilities.metrics.Metrics.Graph;
+import name.richardson.james.bukkit.utilities.metrics.Metrics.Plotter;
 import name.richardson.james.bukkit.utilities.plugin.SkeletonPlugin;
 
 public class StarterKit extends SkeletonPlugin {
@@ -32,6 +34,8 @@ public class StarterKit extends SkeletonPlugin {
   private StarterKitConfiguration configuration;
   private PlayerJoinListener playerListener;
 
+  private int metricKitsAwarded = 0;
+  
   public StarterKit() {
     ConfigurationSerialization.registerClass(ArmourKit.class);
     ConfigurationSerialization.registerClass(InventoryKit.class);
@@ -71,6 +75,21 @@ public class StarterKit extends SkeletonPlugin {
     commandManager.addCommand(new SaveCommand(this));
   }
 
+  protected void setupCustomMetrics() {
+    // Create a graph to show the total amount of kits issued.
+    Graph graph = this.metrics.createGraph("Usage Statistics");
+    graph.addPlotter(new Plotter("Total kits issued") {
+      @Override
+      public int getValue() {
+        int i = metricKitsAwarded;
+        return i;
+      }
+    });
+  }
+  
+  protected void incrementKitsAwarded() {
+    this.metricKitsAwarded++;
+  }
   
   public String getGroupID() {
     return "name.richardson.james.bukkit";
