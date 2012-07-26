@@ -44,7 +44,7 @@ public class ListCommand extends PluginCommand {
 
   public void execute(final CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
 
-    sender.sendMessage(ChatColor.LIGHT_PURPLE + this.getFormattedListHeader());
+    sender.sendMessage(this.getFormattedListHeader());
     if (this.configuration.getArmourKit().getContents().length != 0) {
       sender.sendMessage(this.plugin.getSimpleFormattedMessage("armour-list", this.buildKitList(this.configuration.getArmourKit().getContents())));
     }
@@ -87,7 +87,7 @@ public class ListCommand extends PluginCommand {
   private void registerPermissions() {
     final String prefix = this.plugin.getDescription().getName().toLowerCase() + ".";
     // create the base permission
-    final Permission base = new Permission(prefix + this.getName(), this.plugin.getMessage("listcommand-permission-description"), PermissionDefault.OP);
+    final Permission base = new Permission(prefix + this.getName(), this.getMessage("permission-description"), PermissionDefault.OP);
     base.addParent(this.plugin.getRootPermission(), true);
     this.addPermission(base);
   }
