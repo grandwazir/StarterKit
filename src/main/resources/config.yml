@@ -4,4 +4,3 @@ automatic-updates:
   enabled: true
   method: automatic
   branch: stable
-
