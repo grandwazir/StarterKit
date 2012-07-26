@@ -82,7 +82,8 @@ public class PlayerJoinListener implements Listener {
     inventory.clear();
     inventory.setArmorContents(this.armour.getContents());
     inventory.setContents(this.inventory.getContents());
-    new StarterKitGrantedEvent(player.getName(), inventory);
+    StarterKitGrantedEvent event = new StarterKitGrantedEvent(player.getName(), inventory);
+    Bukkit.getServer().getPluginManager().callEvent(event);
   }
 
 }
