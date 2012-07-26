@@ -1,5 +1,7 @@
 debugging: false
+send-anonymous-statistics: true
 automatic-updates:
   enabled: true
   method: automatic
   branch: stable
+
