@@ -17,6 +17,7 @@
  ******************************************************************************/
 package name.richardson.james.bukkit.starterkit;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -54,6 +55,7 @@ public class PlayerJoinListener implements Listener {
   public PlayerJoinListener(final StarterKit plugin) {
     this.inventory = plugin.getStarterKitConfiguration().getInventoryKit();
     this.armour = plugin.getStarterKitConfiguration().getArmourKit();
+    Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
   /**
