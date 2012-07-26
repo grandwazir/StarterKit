@@ -2,6 +2,8 @@ package name.richardson.james.bukkit.starterkit;
 
 import java.io.IOException;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import name.richardson.james.bukkit.utilities.metrics.AbstractMetricsListener;
@@ -21,6 +23,7 @@ public class MetricsListener extends AbstractMetricsListener {
     super(plugin);
   }
   
+  @EventHandler(priority = EventPriority.MONITOR)
   public void onKitAwarded(StarterKitGrantedEvent event) {
     kitsAwarded++;
     itemsAwarded+= event.getInventoryItemCount();
