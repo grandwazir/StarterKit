@@ -1,5 +1,6 @@
 Changelog for StarterKit (v1.2.3-SNAPSHOT)
 
+2012-07-26 20:45:27 +0100    update description fix bug OutOfBounds exception (James Richardson)
 2012-07-26 20:30:39 +0100    NPE starting metrics (James Richardson)
 2012-07-26 20:16:10 +0100    more replacement tokens (James Richardson)
 2012-07-26 20:12:26 +0100    updating localisation (James Richardson)

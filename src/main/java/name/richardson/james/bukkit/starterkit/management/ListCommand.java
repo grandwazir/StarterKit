@@ -45,10 +45,10 @@ public class ListCommand extends PluginCommand {
 
     sender.sendMessage(this.getFormattedListHeader());
     if (this.configuration.getArmourKit().getItemCount() != 0) {
-      sender.sendMessage(this.plugin.getSimpleFormattedMessage("armour-list", this.buildKitList(this.configuration.getArmourKit().getContents())));
+      sender.sendMessage(this.getSimpleFormattedMessage("armour-list", this.buildKitList(this.configuration.getArmourKit().getContents())));
     }
     if (this.configuration.getInventoryKit().getItemCount() != 0) {
-      sender.sendMessage(this.plugin.getSimpleFormattedMessage("backpack-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
+      sender.sendMessage(this.getSimpleFormattedMessage("backpack-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
     }
   }
 
