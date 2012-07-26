@@ -1,8 +1,8 @@
 name: StarterKit
 main: name.richardson.james.bukkit.starterkit.StarterKit
-author: James Richardson (grandwazir)
+author: grandwazir
 description: Give new players starting items.
-website: https://github.com/grandwazir/StarterKit
+website: https://grandwazir.github.com/StarterKit
 version: ${project.version}
 commands:
   sk:
