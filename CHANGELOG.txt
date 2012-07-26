@@ -1,5 +1,20 @@
-Changelog for StarterKit (v1.2.2-SNAPSHOT)
+Changelog for StarterKit (v1.2.3-SNAPSHOT)
 
+2012-07-26 20:16:10 +0100    more replacement tokens (James Richardson)
+2012-07-26 20:12:26 +0100    updating localisation (James Richardson)
+2012-07-26 20:07:50 +0100    actually changed my mind (James Richardson)
+2012-07-26 20:07:21 +0100    move event to kit subpackage (James Richardson)
+2012-07-26 20:06:43 +0100    remove trailing line (James Richardson)
+2012-07-26 20:06:28 +0100    add option to opt out of stats collection (James Richardson)
+2012-07-26 20:05:27 +0100    change author and website (James Richardson)
+2012-07-26 20:04:01 +0100    add event handler (James Richardson)
+2012-07-26 20:03:08 +0100    listener now registers itself (James Richardson)
+2012-07-26 20:02:30 +0100    establish metrics (James Richardson)
+2012-07-26 19:51:33 +0100    move Kit related functions into seperate package - add and fire StarterKitGrantedEvent (James Richardson)
+2012-07-26 19:44:47 +0100    added metrics listener (James Richardson)
+
+v1.2.2
+2012-06-18 21:39:33 +0100    updating changelog (James Richardson)
 2012-06-18 21:35:39 +0100    Fix not all references matching the new name (James Richardson)
 2012-06-18 21:27:58 +0100    fix #15: rename the method loadListeners() -> to registerEvents() (James Richardson)
 

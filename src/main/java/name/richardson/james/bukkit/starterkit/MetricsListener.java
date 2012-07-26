@@ -7,16 +7,15 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import name.richardson.james.bukkit.utilities.metrics.AbstractMetricsListener;
-import name.richardson.james.bukkit.utilities.metrics.Metrics;
 import name.richardson.james.bukkit.utilities.metrics.Metrics.Graph;
 import name.richardson.james.bukkit.utilities.metrics.Metrics.Plotter;
 
 public class MetricsListener extends AbstractMetricsListener {
-  
-  private Metrics metrics;
 
+  /* Number of kits awarded since the server started */
   private int kitsAwarded = 0;
   
+  /* Number of items awarded since the server started */
   private int itemsAwarded = 0;
   
   public MetricsListener(JavaPlugin plugin) throws IOException {

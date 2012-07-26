@@ -28,8 +28,6 @@ import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import name.richardson.james.bukkit.utilities.internals.Logger;
-
 @SerializableAs("ArmourKit")
 public class ArmourKit implements ConfigurationSerializable, Kit {
 

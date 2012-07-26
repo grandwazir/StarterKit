@@ -27,8 +27,6 @@ import name.richardson.james.bukkit.starterkit.management.ListCommand;
 import name.richardson.james.bukkit.starterkit.management.LoadCommand;
 import name.richardson.james.bukkit.starterkit.management.SaveCommand;
 import name.richardson.james.bukkit.utilities.command.CommandManager;
-import name.richardson.james.bukkit.utilities.metrics.Metrics.Graph;
-import name.richardson.james.bukkit.utilities.metrics.Metrics.Plotter;
 import name.richardson.james.bukkit.utilities.plugin.SkeletonPlugin;
 
 public class StarterKit extends SkeletonPlugin {
@@ -78,6 +76,7 @@ public class StarterKit extends SkeletonPlugin {
   protected void setupMetrics() throws IOException {
     if (configuration.isCollectingStats()) new MetricsListener(this);
   }
+  
   
   public String getGroupID() {
     return "name.richardson.james.bukkit";

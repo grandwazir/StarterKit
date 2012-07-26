@@ -17,7 +17,6 @@
  ******************************************************************************/
 package name.richardson.james.bukkit.starterkit.management;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
