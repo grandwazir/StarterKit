@@ -35,8 +35,6 @@ public class StarterKit extends SkeletonPlugin {
 
   private StarterKitConfiguration configuration;
   private PlayerJoinListener playerListener;
-
-  private int metricKitsAwarded = 0;
   
   public StarterKit() {
     ConfigurationSerialization.registerClass(ArmourKit.class);
@@ -76,21 +74,9 @@ public class StarterKit extends SkeletonPlugin {
     commandManager.addCommand(new LoadCommand(this));
     commandManager.addCommand(new SaveCommand(this));
   }
-
-  protected void setupCustomMetrics() {
-    // Create a graph to show the total amount of kits issued.
-    Graph graph = this.metrics.createGraph("Usage Statistics");
-    graph.addPlotter(new Plotter("Total kits issued") {
-      @Override
-      public int getValue() {
-        int i = metricKitsAwarded;
-        return i;
-      }
-    });
-  }
   
-  protected void incrementKitsAwarded() {
-    this.metricKitsAwarded++;
+  protected void setupMetrics() throws IOException {
+    if (configuration.isCollectingStats()) new MetricsListener(this);
   }
   
   public String getGroupID() {

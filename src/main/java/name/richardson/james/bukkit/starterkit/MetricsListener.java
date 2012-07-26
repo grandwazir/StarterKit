@@ -15,11 +15,16 @@ public class MetricsListener extends AbstractMetricsListener {
 
   private int kitsAwarded = 0;
   
+  private int itemsAwarded = 0;
+  
   public MetricsListener(JavaPlugin plugin) throws IOException {
     super(plugin);
   }
   
-  
+  public void onKitAwarded(StarterKitGrantedEvent event) {
+    kitsAwarded++;
+    itemsAwarded+= event.getInventoryItemCount();
+  }
   
   protected void setupCustomMetrics() {
     // Create a graph to show the total amount of kits issued.
@@ -31,8 +36,13 @@ public class MetricsListener extends AbstractMetricsListener {
         return i;
       }
     });
+    graph.addPlotter(new Plotter("Total items issued") {
+      @Override
+      public int getValue() {
+        int i = itemsAwarded;
+        return i;
+      }
+    });
   }
-  
-  
   
 }
