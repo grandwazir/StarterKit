@@ -30,7 +30,7 @@ public class MetricsListener extends AbstractMetricsListener {
     itemsAwarded+= event.getInventoryItemCount();
   }
   
-  protected void setupUsageStatistics() {
+  private void setupUsageStatistics() {
     // Create a graph to show the total amount of kits issued.
     Graph graph = this.metrics.createGraph("Usage Statistics");
     graph.addPlotter(new Plotter("Total kits issued") {
