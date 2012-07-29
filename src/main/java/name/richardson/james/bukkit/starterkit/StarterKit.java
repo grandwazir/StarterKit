@@ -77,11 +77,6 @@ public class StarterKit extends SkeletonPlugin {
     if (configuration.isCollectingStats()) new MetricsListener(this);
   }
   
-  
-  public String getGroupID() {
-    return "name.richardson.james.bukkit";
-  }
-
   public String getArtifactID() {
     return "starter-kit";
   }

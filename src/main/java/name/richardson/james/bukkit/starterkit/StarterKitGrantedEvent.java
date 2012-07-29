@@ -2,6 +2,7 @@ package name.richardson.james.bukkit.starterkit;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 public final class StarterKitGrantedEvent extends Event {
@@ -34,7 +35,11 @@ public final class StarterKitGrantedEvent extends Event {
   }
   
   public int getInventoryItemCount() {
-    return inventory.getContents().length;
+    int i = 0;
+    for (ItemStack stack : inventory.getContents()) {
+      i=+ stack.getAmount();
+    }
+    return i;
   }
   
 }

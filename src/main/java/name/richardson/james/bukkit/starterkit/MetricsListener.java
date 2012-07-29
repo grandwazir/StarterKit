@@ -20,6 +20,8 @@ public class MetricsListener extends AbstractMetricsListener {
   
   public MetricsListener(JavaPlugin plugin) throws IOException {
     super(plugin);
+    this.setupUsageStatistics();
+    this.metrics.start();
   }
   
   @EventHandler(priority = EventPriority.MONITOR)
@@ -28,7 +30,7 @@ public class MetricsListener extends AbstractMetricsListener {
     itemsAwarded+= event.getInventoryItemCount();
   }
   
-  protected void setupCustomMetrics() {
+  protected void setupUsageStatistics() {
     // Create a graph to show the total amount of kits issued.
     Graph graph = this.metrics.createGraph("Usage Statistics");
     graph.addPlotter(new Plotter("Total kits issued") {
