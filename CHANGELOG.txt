@@ -1,5 +1,11 @@
-Changelog for StarterKit (v1.2.3-SNAPSHOT)
+Changelog for StarterKit (v1.2.5-SNAPSHOT)
 
+
+v1.2.4
+2012-08-02 11:01:53 +0100    update to parent pom (James Richardson)
+
+v1.2.3
+2012-07-29 18:59:49 +0100    updated changelog (James Richardson)
 2012-07-29 18:18:48 +0100    preparing for snapshot testing (James Richardson)
 2012-07-29 17:24:16 +0100    allow disabing stats collection (James Richardson)
 2012-07-26 23:10:59 +0100    fix never calling the event for metrics (James Richardson)
