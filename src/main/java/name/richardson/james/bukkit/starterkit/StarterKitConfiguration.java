@@ -25,18 +25,27 @@ import org.bukkit.inventory.PlayerInventory;
 import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
 import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
 import name.richardson.james.bukkit.utilities.configuration.PluginConfiguration;
-import name.richardson.james.bukkit.utilities.plugin.SkeletonPlugin;
 
 public class StarterKitConfiguration extends PluginConfiguration {
 
   private InventoryKit inventory;
   private ArmourKit armour;
 
-  public StarterKitConfiguration(final SkeletonPlugin plugin) throws IOException {
+  public StarterKitConfiguration(final StarterKit plugin) throws IOException {
     super(plugin);
-    final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
+    this.setDefaultKit();
+    final ConfigurationSection section = this.getConfiguration().getConfigurationSection("kit");
     this.armour = (ArmourKit) section.get("armour");
     this.inventory = (InventoryKit) section.get("backpack");
+  }
+
+  private void setDefaultKit() {
+    if (!this.getConfiguration().isConfigurationSection("kit")) {
+      final ConfigurationSection section = this.getConfiguration().createSection("kit");
+      section.set("backpack", new InventoryKit());
+      section.set("armour", new ArmourKit());
+    }
+    this.save();
   }
 
   public ArmourKit getArmourKit() {
@@ -51,23 +60,8 @@ public class StarterKitConfiguration extends PluginConfiguration {
     return this.armour.getItemCount() + this.inventory.getItemCount();
   }
 
-  @Override
-  public void setDefaults() throws IOException {
-    this.logger.debug(String.format("Apply default configuration."));
-    final org.bukkit.configuration.file.YamlConfiguration defaults = this.getDefaults();
-    this.configuration.setDefaults(defaults);
-    this.configuration.options().copyDefaults(true);
-    // set an example kit if necessary
-    if (!this.configuration.isConfigurationSection("kit")) {
-      final ConfigurationSection section = this.configuration.createSection("kit");
-      section.set("backpack", new InventoryKit());
-      section.set("armour", new ArmourKit());
-    }
-    this.save();
-  }
-
   public void setInventory(final PlayerInventory inventory) throws IOException {
-    final ConfigurationSection section = this.configuration.getConfigurationSection("kit");
+    final ConfigurationSection section = this.getConfiguration().getConfigurationSection("kit");
     this.inventory = new InventoryKit(inventory);
     section.set("backpack", this.inventory);
     this.armour = new ArmourKit(inventory);

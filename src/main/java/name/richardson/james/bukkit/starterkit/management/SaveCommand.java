@@ -19,21 +19,18 @@ package name.richardson.james.bukkit.starterkit.management;
 
 import java.io.IOException;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionDefault;
 
 import name.richardson.james.bukkit.starterkit.StarterKit;
 import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
+import name.richardson.james.bukkit.utilities.command.AbstractCommand;
 import name.richardson.james.bukkit.utilities.command.CommandArgumentException;
 import name.richardson.james.bukkit.utilities.command.CommandPermissionException;
 import name.richardson.james.bukkit.utilities.command.CommandUsageException;
-import name.richardson.james.bukkit.utilities.command.PluginCommand;
 
-public class SaveCommand extends PluginCommand {
+public class SaveCommand extends AbstractCommand {
 
   /** The inventory of the player we are using as a template */
   private PlayerInventory inventory;
@@ -41,31 +38,22 @@ public class SaveCommand extends PluginCommand {
   private final StarterKitConfiguration configuration;
 
   public SaveCommand(final StarterKit plugin) {
-    super(plugin);
+    super(plugin, false);
     this.configuration = plugin.getStarterKitConfiguration();
-    this.registerPermissions();
   }
 
   public void execute(final CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
     try {
       this.configuration.setInventory(this.inventory);
     } catch (final IOException e) {
-      throw new CommandUsageException(this.getMessage("unable-to-read-configuration"));
+      throw new CommandUsageException(this.getLocalisation().getMessage(this, "unable-to-read-configuration"));
     }
-    sender.sendMessage(ChatColor.GREEN + this.getMessage("inventory-saved"));
+    sender.sendMessage(this.getLocalisation().getMessage(this, "saved"));
   }
 
   public void parseArguments(final String[] arguments, final CommandSender sender) throws CommandArgumentException {
     final Player player = (Player) sender;
     this.inventory = player.getInventory();
-  }
-
-  private void registerPermissions() {
-    final String prefix = this.plugin.getDescription().getName().toLowerCase() + ".";
-    // create the base permission
-    final Permission base = new Permission(prefix + this.getName(), this.getMessage("permission-description"), PermissionDefault.OP);
-    base.addParent(this.plugin.getRootPermission(), true);
-    this.addPermission(base);
   }
 
 }

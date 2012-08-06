@@ -21,30 +21,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.PlayerInventory;
 
 import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
 import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
-import name.richardson.james.bukkit.utilities.internals.Logger;
+import name.richardson.james.bukkit.utilities.listener.LoggableListener;
 
-/**
- * The listener interface for receiving player events.
- * The class that is interested in processing a player
- * event implements this interface, and the object created
- * with that class is registered with a component using the
- * component's <code>addPlayerListener<code> method. When
- * the player event occurs, that object's appropriate
- * method is invoked.
- * 
- * @see PlayerEvent
- */
-public class PlayerJoinListener implements Listener {
-
-  /** The logger used for this class. */
-  private static final Logger logger = new Logger(PlayerJoinListener.class);
+public class PlayerJoinListener extends LoggableListener {
 
   /** The inventory to grant new players. */
   private final InventoryKit inventory;
@@ -53,9 +37,9 @@ public class PlayerJoinListener implements Listener {
   private final ArmourKit armour;
 
   public PlayerJoinListener(final StarterKit plugin) {
+    super(plugin);
     this.inventory = plugin.getStarterKitConfiguration().getInventoryKit();
     this.armour = plugin.getStarterKitConfiguration().getArmourKit();
-    Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
   /**
@@ -65,7 +49,7 @@ public class PlayerJoinListener implements Listener {
    * 
    * @param event PlayerJoinEvent
    */
-  @EventHandler(priority = EventPriority.NORMAL)
+  @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled=true)
   public void onPlayerJoin(final PlayerJoinEvent event) {
     Player player = event.getPlayer();
     if (!player.hasPlayedBefore()) {
@@ -77,7 +61,7 @@ public class PlayerJoinListener implements Listener {
    * Give a kit to the player who is currently logging in.
    */
   private void giveKit(Player player) {
-    logger.debug("Granting kit to " + player.getName());
+    this.getLogger().debug(this, "grant-kit" + player.getName());
     final PlayerInventory inventory = player.getInventory();
     inventory.clear();
     inventory.setArmorContents(this.armour.getContents());

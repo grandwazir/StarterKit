@@ -19,36 +19,44 @@ package name.richardson.james.bukkit.starterkit.management;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionDefault;
 
 import name.richardson.james.bukkit.starterkit.StarterKit;
 import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
+import name.richardson.james.bukkit.utilities.command.AbstractCommand;
 import name.richardson.james.bukkit.utilities.command.CommandArgumentException;
 import name.richardson.james.bukkit.utilities.command.CommandPermissionException;
 import name.richardson.james.bukkit.utilities.command.CommandUsageException;
 import name.richardson.james.bukkit.utilities.command.ConsoleCommand;
-import name.richardson.james.bukkit.utilities.command.PluginCommand;
+import name.richardson.james.bukkit.utilities.formatters.ChoiceFormatter;
 
 @ConsoleCommand
-public class ListCommand extends PluginCommand {
+public class ListCommand extends AbstractCommand {
 
   private final StarterKitConfiguration configuration;
+  
+  private final ChoiceFormatter formatter;
 
   public ListCommand(final StarterKit plugin) {
-    super(plugin);
+    super(plugin, false);
     this.configuration = plugin.getStarterKitConfiguration();
-    this.registerPermissions();
+    this.formatter = new ChoiceFormatter(this.getLocalisation());
+    this.formatter.setLimits(0, 1, 2);
+    this.formatter.setMessage(this, "header");
+    this.formatter.setArguments(this.configuration.getItemCount());
+    this.formatter.setFormats(
+        this.getLocalisation().getMessage(this, "no-entries"), 
+        this.getLocalisation().getMessage(this, "one-entry"), 
+        this.getLocalisation().getMessage(this, "many-entries")
+    );
   }
 
   public void execute(final CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
-
-    sender.sendMessage(this.getFormattedListHeader());
+    sender.sendMessage(this.formatter.getMessage());
     if (this.configuration.getArmourKit().getItemCount() != 0) {
-      sender.sendMessage(this.getSimpleFormattedMessage("armour-list", this.buildKitList(this.configuration.getArmourKit().getContents())));
+      sender.sendMessage(this.getLocalisation().getMessage(this, "armour-list", this.buildKitList(this.configuration.getArmourKit().getContents())));
     }
     if (this.configuration.getInventoryKit().getItemCount() != 0) {
-      sender.sendMessage(this.getSimpleFormattedMessage("backpack-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
+      sender.sendMessage(this.getLocalisation().getMessage(this, "backpack-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
     }
   }
 
@@ -74,21 +82,6 @@ public class ListCommand extends PluginCommand {
     message.delete(message.length() - 2, message.length());
     message.append(".");
     return message.toString();
-  }
-
-  private String getFormattedListHeader() {
-    final Object[] arguments = { this.configuration.getItemCount() };
-    final double[] limits = { 0, 1, 2 };
-    final String[] formats = { this.getMessage("no-entries"), this.getMessage("one-entry"), this.getMessage("many-entries") };
-    return this.getChoiceFormattedMessage("kit-summary", arguments, formats, limits);
-  }
-
-  private void registerPermissions() {
-    final String prefix = this.plugin.getDescription().getName().toLowerCase() + ".";
-    // create the base permission
-    final Permission base = new Permission(prefix + this.getName(), this.getMessage("permission-description"), PermissionDefault.OP);
-    base.addParent(this.plugin.getRootPermission(), true);
-    this.addPermission(base);
   }
 
 }

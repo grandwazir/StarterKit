@@ -17,32 +17,28 @@
  ******************************************************************************/
 package name.richardson.james.bukkit.starterkit.management;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionDefault;
 
 import name.richardson.james.bukkit.starterkit.StarterKit;
 import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
 import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
 import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
+import name.richardson.james.bukkit.utilities.command.AbstractCommand;
 import name.richardson.james.bukkit.utilities.command.CommandArgumentException;
 import name.richardson.james.bukkit.utilities.command.CommandPermissionException;
 import name.richardson.james.bukkit.utilities.command.CommandUsageException;
-import name.richardson.james.bukkit.utilities.command.PluginCommand;
 
-public class LoadCommand extends PluginCommand {
+public class LoadCommand extends AbstractCommand {
 
   private final StarterKitConfiguration configuration;
 
   private PlayerInventory inventory;
 
   public LoadCommand(final StarterKit plugin) {
-    super(plugin);
+    super(plugin, false);
     this.configuration = plugin.getStarterKitConfiguration();
-    this.registerPermissions();
   }
 
   public void execute(final CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
@@ -50,7 +46,7 @@ public class LoadCommand extends PluginCommand {
     final ArmourKit armourKit = this.configuration.getArmourKit();
     this.inventory.setContents(inventoryKit.getContents());
     this.inventory.setArmorContents(armourKit.getContents());
-    sender.sendMessage(ChatColor.GREEN + this.getMessage("inventory-loaded"));
+    sender.sendMessage(this.getLocalisation().getMessage(this, "loaded"));
   }
 
   public void parseArguments(final String[] arguments, final CommandSender sender) throws CommandArgumentException {
@@ -58,12 +54,5 @@ public class LoadCommand extends PluginCommand {
     this.inventory = player.getInventory();
   }
 
-  private void registerPermissions() {
-    final String prefix = this.plugin.getDescription().getName().toLowerCase() + ".";
-    // create the base permission
-    final Permission base = new Permission(prefix + this.getName(), this.getMessage("permission-description"), PermissionDefault.OP);
-    base.addParent(this.plugin.getRootPermission(), true);
-    this.addPermission(base);
-  }
 
 }

@@ -27,12 +27,8 @@ import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import name.richardson.james.bukkit.utilities.internals.Logger;
-
 @SerializableAs("InventoryKit")
 public class InventoryKit implements ConfigurationSerializable, Kit {
-
-  private static final Logger logger = new Logger(InventoryKit.class);
 
   public static InventoryKit deserialize(final Map<String, Object> map) {
     final List<ItemStack> items = new ArrayList<ItemStack>(36);
@@ -49,7 +45,7 @@ public class InventoryKit implements ConfigurationSerializable, Kit {
         }
         items.set(Integer.parseInt(key), (ItemStack) map.get(key));
       } catch (final ClassCastException e) {
-        logger.warning("Unable to deserialize object in slot " + key);
+        e.printStackTrace();
       }
     }
     return new InventoryKit(items);

@@ -27,9 +27,9 @@ import name.richardson.james.bukkit.starterkit.management.ListCommand;
 import name.richardson.james.bukkit.starterkit.management.LoadCommand;
 import name.richardson.james.bukkit.starterkit.management.SaveCommand;
 import name.richardson.james.bukkit.utilities.command.CommandManager;
-import name.richardson.james.bukkit.utilities.plugin.SkeletonPlugin;
+import name.richardson.james.bukkit.utilities.plugin.AbstractPlugin;
 
-public class StarterKit extends SkeletonPlugin {
+public class StarterKit extends AbstractPlugin {
 
   private StarterKitConfiguration configuration;
   private PlayerJoinListener playerListener;
@@ -37,13 +37,6 @@ public class StarterKit extends SkeletonPlugin {
   public StarterKit() {
     ConfigurationSerialization.registerClass(ArmourKit.class);
     ConfigurationSerialization.registerClass(InventoryKit.class);
-  }
-
-  public String getFormattedKitCount() {
-    final Object[] arguments = { this.configuration.getItemCount() };
-    final double[] limits = { 0, 1, 2 };
-    final String[] formats = { this.getMessage("no-entries"), this.getMessage("one-entry"), this.getMessage("many-entries") };
-    return this.getChoiceFormattedMessage("kit-summary", arguments, formats, limits);
   }
 
   public StarterKitConfiguration getStarterKitConfiguration() {
@@ -57,7 +50,7 @@ public class StarterKit extends SkeletonPlugin {
 
   protected void loadConfiguration() throws IOException {
     this.configuration = new StarterKitConfiguration(this);
-    this.logger.info(this.getFormattedKitCount());
+    this.getCustomLogger().info(this, "kit-summary", this.configuration.getItemCount());
   }
 
   protected void registerEvents() {
