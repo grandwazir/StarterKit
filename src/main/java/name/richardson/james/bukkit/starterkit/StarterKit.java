@@ -43,14 +43,9 @@ public class StarterKit extends AbstractPlugin {
     return this.configuration;
   }
 
-  public void reload() throws IOException {
-    this.loadConfiguration();
-    this.registerEvents();
-  }
-
   protected void loadConfiguration() throws IOException {
+    super.loadConfiguration();
     this.configuration = new StarterKitConfiguration(this);
-    this.getCustomLogger().info(this, "kit-summary", this.configuration.getItemCount());
   }
 
   protected void registerEvents() {
