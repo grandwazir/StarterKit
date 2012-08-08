@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>starter-kit</artifactId>
-  <version>1.2.5-SNAPSHOT</version>
+  <version>1.2.5</version>
   <name>StarterKit</name>
   <description>Plugin for the Minecraft wrapper Bukkit that provides a method for administrators to give items to new players automatically.</description>
   <url>http://grandwazir.github.com/${project.name}/</url>
@@ -16,7 +16,7 @@
      <dependency>
            <groupId>name.richardson.james.bukkit</groupId>
            <artifactId>bukkit-utilities</artifactId>
-           <version>4.1.0-SNAPSHOT</version>
+           <version>4.1.0</version>
      </dependency>
   </dependencies>
 
