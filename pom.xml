@@ -8,9 +8,16 @@
 
   <parent>
      <groupId>name.richardson.james.bukkit</groupId>
-     <artifactId>parent-pom</artifactId>
-     <version>3</version>
+     <artifactId>default-pom</artifactId>
+     <version>2</version>
   </parent>
+
+  <repositories>
+      <repository>
+      <id>my-repo</id>
+      <url>http://repository.james.richardson.name/releases</url>
+    </repository>
+  </repositories>
 
   <dependencies>
      <dependency>
