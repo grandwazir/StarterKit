@@ -32,7 +32,6 @@ import name.richardson.james.bukkit.utilities.plugin.AbstractPlugin;
 public class StarterKit extends AbstractPlugin {
 
   private StarterKitConfiguration configuration;
-  private PlayerListener playerListener;
   
   public StarterKit() {
     ConfigurationSerialization.registerClass(ArmourKit.class);
