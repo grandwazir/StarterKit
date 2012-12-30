@@ -48,9 +48,10 @@ public class PlayerListener extends LoggableListener {
   }
   
   /**
-   * Called when a player joins the server.
+   * Called when a player respawns in the world.
    * 
-   * Checks to see if the player has played here before.
+   * Checks to see if we are giving kits on death and if 
+   * we are provides a kit.
    * 
    * @param event PlayerRespawnEvent
    */
