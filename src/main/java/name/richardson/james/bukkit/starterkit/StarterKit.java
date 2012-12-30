@@ -48,7 +48,7 @@ public class StarterKit extends AbstractPlugin {
   }
 
   protected void registerListeners() {
-    this.playerListener = new PlayerListener(this);
+    new PlayerListener(this);
   }
 
   protected void registerCommands() {
