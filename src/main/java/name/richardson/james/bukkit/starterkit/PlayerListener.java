@@ -22,6 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.PlayerInventory;
 
 import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
@@ -36,10 +37,26 @@ public class PlayerListener extends LoggableListener {
   /** The armour to grant new players. */
   private final ArmourKit armour;
 
+  /** Setting to decide if we are granting starter kits on death */
+	private final boolean kitOnDeath;
+
   public PlayerListener(final StarterKit plugin) {
     super(plugin);
     this.inventory = plugin.getStarterKitConfiguration().getInventoryKit();
     this.armour = plugin.getStarterKitConfiguration().getArmourKit();
+    this.kitOnDeath = plugin.getStarterKitConfiguration().isProvidingKitOnDeath();
+  }
+  
+  /**
+   * Called when a player joins the server.
+   * 
+   * Checks to see if the player has played here before.
+   * 
+   * @param event PlayerRespawnEvent
+   */
+  @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled=true)
+  public void onPlayerRespawn(final PlayerRespawnEvent event) {
+  	if (kitOnDeath) this.giveKit(event.getPlayer());
   }
 
   /**
