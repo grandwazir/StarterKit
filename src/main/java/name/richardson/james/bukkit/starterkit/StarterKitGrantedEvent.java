@@ -37,6 +37,7 @@ public final class StarterKitGrantedEvent extends Event {
   public int getInventoryItemCount() {
     int i = 0;
     for (ItemStack stack : inventory.getContents()) {
+    	if (stack == null) continue;
       i=+ stack.getAmount();
     }
     return i;

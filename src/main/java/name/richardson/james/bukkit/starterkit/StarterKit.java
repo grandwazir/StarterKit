@@ -50,7 +50,6 @@ public class StarterKit extends AbstractPlugin {
 
   protected void registerListeners() {
     this.playerListener = new PlayerListener(this);
-    this.getServer().getPluginManager().registerEvents(this.playerListener, this);
   }
 
   protected void registerCommands() {
