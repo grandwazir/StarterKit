@@ -1,5 +1,7 @@
 Changelog for StarterKit (v1.2.6-SNAPSHOT)
 
+2012-12-30 03:46:23 +0000    forgot to change this (James Richardson)
+2012-12-30 03:46:03 +0000    clean up (James Richardson)
 2012-12-30 03:43:17 +0000    missing localisation message (James Richardson)
 2012-12-30 03:40:52 +0000    fix bug with listener not registering correctly (James Richardson)
 2012-12-30 03:28:03 +0000    fix bug registering listeners (James Richardson)
