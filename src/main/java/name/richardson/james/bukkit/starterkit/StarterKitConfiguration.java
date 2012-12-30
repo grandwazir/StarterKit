@@ -68,5 +68,9 @@ public class StarterKitConfiguration extends PluginConfiguration {
     section.set("armour", this.armour);
     this.save();
   }
+  
+  public boolean isProvidingKitOnDeath() {
+  	return this.getConfiguration().getBoolean("provide-kit-on-death");
+  }
 
 }

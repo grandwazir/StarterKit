@@ -1,5 +1,6 @@
 debugging: false
 send-anonymous-statistics: true
+provide-kit-on-death: false
 automatic-updates:
   enabled: true
   method: notify
