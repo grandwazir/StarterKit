@@ -32,7 +32,7 @@ import name.richardson.james.bukkit.utilities.plugin.AbstractPlugin;
 public class StarterKit extends AbstractPlugin {
 
   private StarterKitConfiguration configuration;
-  private PlayerJoinListener playerListener;
+  private PlayerListener playerListener;
   
   public StarterKit() {
     ConfigurationSerialization.registerClass(ArmourKit.class);
@@ -49,7 +49,7 @@ public class StarterKit extends AbstractPlugin {
   }
 
   protected void registerEvents() {
-    this.playerListener = new PlayerJoinListener(this);
+    this.playerListener = new PlayerListener(this);
     this.getServer().getPluginManager().registerEvents(this.playerListener, this);
   }
 

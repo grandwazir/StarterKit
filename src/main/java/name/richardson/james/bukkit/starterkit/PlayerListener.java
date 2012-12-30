@@ -28,7 +28,7 @@ import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
 import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
 import name.richardson.james.bukkit.utilities.listener.LoggableListener;
 
-public class PlayerJoinListener extends LoggableListener {
+public class PlayerListener extends LoggableListener {
 
   /** The inventory to grant new players. */
   private final InventoryKit inventory;
@@ -36,7 +36,7 @@ public class PlayerJoinListener extends LoggableListener {
   /** The armour to grant new players. */
   private final ArmourKit armour;
 
-  public PlayerJoinListener(final StarterKit plugin) {
+  public PlayerListener(final StarterKit plugin) {
     super(plugin);
     this.inventory = plugin.getStarterKitConfiguration().getInventoryKit();
     this.armour = plugin.getStarterKitConfiguration().getArmourKit();
