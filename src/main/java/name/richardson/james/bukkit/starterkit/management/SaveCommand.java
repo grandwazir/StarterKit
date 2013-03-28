@@ -18,7 +18,10 @@
 package name.richardson.james.bukkit.starterkit.management;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
@@ -38,7 +41,7 @@ public class SaveCommand extends AbstractCommand {
   private final StarterKitConfiguration configuration;
 
   public SaveCommand(final StarterKit plugin) {
-    super(plugin, false);
+    super(plugin);
     this.configuration = plugin.getStarterKitConfiguration();
   }
 
@@ -54,6 +57,10 @@ public class SaveCommand extends AbstractCommand {
   public void parseArguments(final String[] arguments, final CommandSender sender) throws CommandArgumentException {
     final Player player = (Player) sender;
     this.inventory = player.getInventory();
+  }
+  
+  public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] arguments) {
+    return new ArrayList<String>();
   }
 
 }

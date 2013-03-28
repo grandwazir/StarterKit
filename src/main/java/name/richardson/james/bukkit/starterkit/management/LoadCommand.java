@@ -17,6 +17,10 @@
  ******************************************************************************/
 package name.richardson.james.bukkit.starterkit.management;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
@@ -37,7 +41,7 @@ public class LoadCommand extends AbstractCommand {
   private PlayerInventory inventory;
 
   public LoadCommand(final StarterKit plugin) {
-    super(plugin, false);
+    super(plugin);
     this.configuration = plugin.getStarterKitConfiguration();
   }
 
@@ -53,6 +57,9 @@ public class LoadCommand extends AbstractCommand {
     final Player player = (Player) sender;
     this.inventory = player.getInventory();
   }
-
+  
+  public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] arguments) {
+    return new ArrayList<String>();
+  }
 
 }

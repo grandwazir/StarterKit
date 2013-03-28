@@ -17,6 +17,10 @@
  ******************************************************************************/
 package name.richardson.james.bukkit.starterkit.management;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 
@@ -37,7 +41,7 @@ public class ListCommand extends AbstractCommand {
   private final ChoiceFormatter formatter;
 
   public ListCommand(final StarterKit plugin) {
-    super(plugin, false);
+    super(plugin);
     this.configuration = plugin.getStarterKitConfiguration();
     this.formatter = new ChoiceFormatter(this.getLocalisation());
     this.formatter.setLimits(0, 1, 2);
@@ -82,6 +86,10 @@ public class ListCommand extends AbstractCommand {
     message.delete(message.length() - 2, message.length());
     message.append(".");
     return message.toString();
+  }
+  
+  public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] arguments) {
+    return new ArrayList<String>();
   }
 
 }

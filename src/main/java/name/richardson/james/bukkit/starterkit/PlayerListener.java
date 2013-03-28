@@ -79,7 +79,7 @@ public class PlayerListener extends LoggableListener {
    * Give a kit to the player who is currently logging in.
    */
   private void giveKit(Player player) {
-    this.getLogger().debug(this, "grant-kit", player.getName());
+    this.getLogger().debug(this, String.format("Graning kit to %s", player.getName()));
     final PlayerInventory inventory = player.getInventory();
     inventory.clear();
     inventory.setArmorContents(this.armour.getContents());
