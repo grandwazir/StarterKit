@@ -30,7 +30,9 @@ import name.richardson.james.bukkit.starterkit.management.LoadCommand;
 import name.richardson.james.bukkit.starterkit.management.SaveCommand;
 import name.richardson.james.bukkit.utilities.command.CommandManager;
 import name.richardson.james.bukkit.utilities.plugin.AbstractPlugin;
+import name.richardson.james.bukkit.utilities.plugin.PluginPermissions;
 
+@PluginPermissions(permissions = { "starterkit" })
 public class StarterKit extends AbstractPlugin {
 
 	private StarterKitConfiguration configuration;

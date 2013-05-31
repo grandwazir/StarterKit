@@ -17,12 +17,9 @@
  ******************************************************************************/
 package name.richardson.james.bukkit.starterkit.management;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
 
 import name.richardson.james.bukkit.starterkit.StarterKit;
@@ -30,36 +27,26 @@ import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
 import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
 import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
-import name.richardson.james.bukkit.utilities.command.CommandArgumentException;
-import name.richardson.james.bukkit.utilities.command.CommandPermissionException;
-import name.richardson.james.bukkit.utilities.command.CommandUsageException;
+import name.richardson.james.bukkit.utilities.command.CommandPermissions;
 
+@CommandPermissions(permissions = { "starterkit.load" })
 public class LoadCommand extends AbstractCommand {
 
-  private final StarterKitConfiguration configuration;
+	private final StarterKitConfiguration configuration;
 
-  private PlayerInventory inventory;
+	private PlayerInventory inventory;
 
-  public LoadCommand(final StarterKit plugin) {
-    super(plugin);
-    this.configuration = plugin.getStarterKitConfiguration();
-  }
+	public LoadCommand(final StarterKit plugin) {
+		super();
+		this.configuration = plugin.getStarterKitConfiguration();
+	}
 
-  public void execute(final CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
-    final InventoryKit inventoryKit = this.configuration.getInventoryKit();
-    final ArmourKit armourKit = this.configuration.getArmourKit();
-    this.inventory.setContents(inventoryKit.getContents());
-    this.inventory.setArmorContents(armourKit.getContents());
-    sender.sendMessage(this.getLocalisation().getMessage(this, "loaded"));
-  }
-
-  public void parseArguments(final String[] arguments, final CommandSender sender) throws CommandArgumentException {
-    final Player player = (Player) sender;
-    this.inventory = player.getInventory();
-  }
-  
-  public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] arguments) {
-    return new ArrayList<String>();
-  }
+	public void execute(final List<String> arguments, final CommandSender sender) {
+		final InventoryKit inventoryKit = this.configuration.getInventoryKit();
+		final ArmourKit armourKit = this.configuration.getArmourKit();
+		this.inventory.setContents(inventoryKit.getContents());
+		this.inventory.setArmorContents(armourKit.getContents());
+		sender.sendMessage(this.getMessage("notice.kit-loaded"));
+	}
 
 }

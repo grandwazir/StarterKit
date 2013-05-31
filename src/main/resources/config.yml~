@@ -1,6 +1,7 @@
-logging: INFO
+debugging: false
 send-anonymous-statistics: true
 provide-kit-on-death: false
 automatic-updates:
-  method: NOTIFY
-  branch: STABLE
+  enabled: true
+  method: notify
+  branch: stable

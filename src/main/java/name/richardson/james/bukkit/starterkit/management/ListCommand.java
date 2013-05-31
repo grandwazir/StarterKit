@@ -17,79 +17,63 @@
  ******************************************************************************/
 package name.richardson.james.bukkit.starterkit.management;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 
 import name.richardson.james.bukkit.starterkit.StarterKit;
 import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
-import name.richardson.james.bukkit.utilities.command.CommandArgumentException;
-import name.richardson.james.bukkit.utilities.command.CommandPermissionException;
-import name.richardson.james.bukkit.utilities.command.CommandUsageException;
-import name.richardson.james.bukkit.utilities.command.ConsoleCommand;
+import name.richardson.james.bukkit.utilities.command.CommandPermissions;
 import name.richardson.james.bukkit.utilities.formatters.ChoiceFormatter;
 
-@ConsoleCommand
+@CommandPermissions(permissions = { "starterkit.list" })
 public class ListCommand extends AbstractCommand {
 
-  private final StarterKitConfiguration configuration;
-  
-  private final ChoiceFormatter formatter;
+	private final StarterKitConfiguration configuration;
 
-  public ListCommand(final StarterKit plugin) {
-    super(plugin);
-    this.configuration = plugin.getStarterKitConfiguration();
-    this.formatter = new ChoiceFormatter(this.getLocalisation());
-    this.formatter.setLimits(0, 1, 2);
-    this.formatter.setMessage(this, "header");
-    this.formatter.setArguments(this.configuration.getItemCount());
-    this.formatter.setFormats(
-        this.getLocalisation().getMessage(this, "no-entries"), 
-        this.getLocalisation().getMessage(this, "one-entry"), 
-        this.getLocalisation().getMessage(this, "many-entries")
-    );
-  }
+	private final ChoiceFormatter formatter;
 
-  public void execute(final CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
-    sender.sendMessage(this.formatter.getMessage());
-    if (this.configuration.getArmourKit().getItemCount() != 0) {
-      sender.sendMessage(this.getLocalisation().getMessage(this, "armour-list", this.buildKitList(this.configuration.getArmourKit().getContents())));
-    }
-    if (this.configuration.getInventoryKit().getItemCount() != 0) {
-      sender.sendMessage(this.getLocalisation().getMessage(this, "backpack-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
-    }
-  }
+	public ListCommand(final StarterKit plugin) {
+		super();
+		this.configuration = plugin.getStarterKitConfiguration();
+		this.formatter = new ChoiceFormatter();
+		this.formatter.setLimits(0, 1, 2);
+		this.formatter.setMessage("notice.list-header");
+		this.formatter.setArguments(this.configuration.getItemCount());
+		this.formatter.setFormats(this.getMessage("shared.choice.no-entries"), this.getMessage("shared.choice.one-entry"),
+			this.getMessage("shared.choice.many-entries"));
+	}
 
-  public void parseArguments(final String[] arguments, final CommandSender sender) throws CommandArgumentException {
-    return;
-  }
+	public void execute(final List<String> arguments, final CommandSender sender) {
+		sender.sendMessage(this.formatter.getMessage());
+		if (this.configuration.getArmourKit().getItemCount() != 0) {
+			sender.sendMessage(this.getMessage("notice.armour-list", this.buildKitList(this.configuration.getArmourKit().getContents())));
+		}
+		if (this.configuration.getInventoryKit().getItemCount() != 0) {
+			sender.sendMessage(this.getMessage("notice.backpack-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
+		}
+	}
 
-  private String buildKitList(final ItemStack[] items) {
-    final StringBuilder message = new StringBuilder();
-    for (final ItemStack item : items) {
-      if (item == null) {
-        continue;
-      }
-      if (item.getAmount() == 0) {
-        message.append(1);
-      } else {
-        message.append(item.getAmount());
-      }
-      message.append(" ");
-      message.append(item.getType().name());
-      message.append(", ");
-    }
-    message.delete(message.length() - 2, message.length());
-    message.append(".");
-    return message.toString();
-  }
-  
-  public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] arguments) {
-    return new ArrayList<String>();
-  }
+	private String buildKitList(final ItemStack[] items) {
+		final StringBuilder message = new StringBuilder();
+		for (final ItemStack item : items) {
+			if (item == null) {
+				continue;
+			}
+			if (item.getAmount() == 0) {
+				message.append(1);
+			} else {
+				message.append(item.getAmount());
+			}
+			message.append(" ");
+			message.append(item.getType().name());
+			message.append(", ");
+		}
+		message.delete(message.length() - 2, message.length());
+		message.append(".");
+		return message.toString();
+	}
 
 }

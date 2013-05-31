@@ -18,10 +18,8 @@
 package name.richardson.james.bukkit.starterkit.management;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
@@ -29,38 +27,33 @@ import org.bukkit.inventory.PlayerInventory;
 import name.richardson.james.bukkit.starterkit.StarterKit;
 import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
-import name.richardson.james.bukkit.utilities.command.CommandArgumentException;
-import name.richardson.james.bukkit.utilities.command.CommandPermissionException;
-import name.richardson.james.bukkit.utilities.command.CommandUsageException;
+import name.richardson.james.bukkit.utilities.command.CommandPermissions;
 
+@CommandPermissions(permissions = { "starterkit.save" })
 public class SaveCommand extends AbstractCommand {
 
-  /** The inventory of the player we are using as a template */
-  private PlayerInventory inventory;
+	/** The inventory of the player we are using as a template */
+	private PlayerInventory inventory;
 
-  private final StarterKitConfiguration configuration;
+	private final StarterKitConfiguration configuration;
 
-  public SaveCommand(final StarterKit plugin) {
-    super(plugin);
-    this.configuration = plugin.getStarterKitConfiguration();
-  }
+	public SaveCommand(final StarterKit plugin) {
+		super();
+		this.configuration = plugin.getStarterKitConfiguration();
+	}
 
-  public void execute(final CommandSender sender) throws CommandArgumentException, CommandPermissionException, CommandUsageException {
-    try {
-      this.configuration.setInventory(this.inventory);
-    } catch (final IOException e) {
-      throw new CommandUsageException(this.getLocalisation().getMessage(this, "unable-to-read-configuration"));
-    }
-    sender.sendMessage(this.getLocalisation().getMessage(this, "saved"));
-  }
-
-  public void parseArguments(final String[] arguments, final CommandSender sender) throws CommandArgumentException {
-    final Player player = (Player) sender;
-    this.inventory = player.getInventory();
-  }
-  
-  public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] arguments) {
-    return new ArrayList<String>();
-  }
-
+	public void execute(final List<String> arguments, final CommandSender sender) {
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(this.getMessage("error.player-command-sender-required"));
+		} else {
+			try {
+				final Player player = (Player) sender;
+				this.inventory = player.getInventory();
+				this.configuration.setInventory(this.inventory);
+				sender.sendMessage(this.getMessage("notice.kit-saved"));
+			} catch (final IOException e) {
+				sender.sendMessage(this.getMessage("error.unable-to-save-kit"));
+			}
+		}
+	}
 }
