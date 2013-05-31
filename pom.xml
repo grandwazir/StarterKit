@@ -9,7 +9,7 @@
   <parent>
      <groupId>name.richardson.james.bukkit</groupId>
      <artifactId>default-pom</artifactId>
-     <version>3</version>
+     <version>5</version>
   </parent>
 
   <repositories>
@@ -23,7 +23,7 @@
      <dependency>
            <groupId>name.richardson.james.bukkit</groupId>
            <artifactId>bukkit-utilities</artifactId>
-           <version>4.2.2</version>
+           <version>5.0.2</version>
      </dependency>
   </dependencies>
 
@@ -46,6 +46,13 @@
                       <include>name.richardson.james.bukkit:bukkit-utilities</include>
                     </includes>
                   </artifactSet>
+                  <relocations>
+                    <relocation>
+                      <pattern>name.richardson.james.bukkit.utilities</pattern>
+                      <shadedPattern>name.richardson.james.bukkit.starterkit.utilities</shadedPattern>
+                    </relocation>
+                  </relocations>
+                  <minimizeJar>true</minimizeJar>
                 </configuration>
               </execution>
             </executions>
