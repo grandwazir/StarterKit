@@ -17,60 +17,62 @@
  ******************************************************************************/
 package name.richardson.james.bukkit.starterkit;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.PlayerInventory;
 
 import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
 import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
-import name.richardson.james.bukkit.utilities.configuration.PluginConfiguration;
+import name.richardson.james.bukkit.utilities.configuration.SimplePluginConfiguration;
 
-public class StarterKitConfiguration extends PluginConfiguration {
+public class StarterKitConfiguration extends SimplePluginConfiguration {
 
-  private InventoryKit inventory;
-  private ArmourKit armour;
+	private InventoryKit inventory;
+	private ArmourKit armour;
 
-  public StarterKitConfiguration(final StarterKit plugin) throws IOException {
-    super(plugin);
-    this.setDefaultKit();
-    final ConfigurationSection section = this.getConfiguration().getConfigurationSection("kit");
-    this.armour = (ArmourKit) section.get("armour");
-    this.inventory = (InventoryKit) section.get("backpack");
-  }
+	public StarterKitConfiguration(final File file, final InputStream defaults) throws IOException {
+		super(file, defaults);
+		this.setDefaultKit();
+		final ConfigurationSection section = this.getConfiguration().getConfigurationSection("kit");
+		this.armour = (ArmourKit) section.get("armour");
+		this.inventory = (InventoryKit) section.get("backpack");
+	}
 
-  private void setDefaultKit() {
-    if (!this.getConfiguration().isConfigurationSection("kit")) {
-      final ConfigurationSection section = this.getConfiguration().createSection("kit");
-      section.set("backpack", new InventoryKit());
-      section.set("armour", new ArmourKit());
-    }
-    this.save();
-  }
+	public ArmourKit getArmourKit() {
+		return this.armour;
+	}
 
-  public ArmourKit getArmourKit() {
-    return this.armour;
-  }
+	public InventoryKit getInventoryKit() {
+		return this.inventory;
+	}
 
-  public InventoryKit getInventoryKit() {
-    return this.inventory;
-  }
+	public int getItemCount() {
+		return this.armour.getItemCount() + this.inventory.getItemCount();
+	}
 
-  public int getItemCount() {
-    return this.armour.getItemCount() + this.inventory.getItemCount();
-  }
+	public boolean isProvidingKitOnDeath() {
+		return this.getConfiguration().getBoolean("provide-kit-on-death");
+	}
 
-  public void setInventory(final PlayerInventory inventory) throws IOException {
-    final ConfigurationSection section = this.getConfiguration().getConfigurationSection("kit");
-    this.inventory = new InventoryKit(inventory);
-    section.set("backpack", this.inventory);
-    this.armour = new ArmourKit(inventory);
-    section.set("armour", this.armour);
-    this.save();
-  }
-  
-  public boolean isProvidingKitOnDeath() {
-  	return this.getConfiguration().getBoolean("provide-kit-on-death");
-  }
+	public void setInventory(final PlayerInventory inventory) throws IOException {
+		final ConfigurationSection section = this.getConfiguration().getConfigurationSection("kit");
+		this.inventory = new InventoryKit(inventory);
+		section.set("backpack", this.inventory);
+		this.armour = new ArmourKit(inventory);
+		section.set("armour", this.armour);
+		this.save();
+	}
+
+	private void setDefaultKit() {
+		if (!this.getConfiguration().isConfigurationSection("kit")) {
+			final ConfigurationSection section = this.getConfiguration().createSection("kit");
+			section.set("backpack", new InventoryKit());
+			section.set("armour", new ArmourKit());
+		}
+		this.save();
+	}
 
 }
