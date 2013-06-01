@@ -1,5 +1,6 @@
 Changelog for StarterKit (v1.3.2-SNAPSHOT)
 
+2013-05-31 21:14:23 +0100    finish updating (James Richardson)
 2013-05-31 20:41:37 +0100    1st stage of the update process (James Richardson)
 2013-05-31 20:34:00 +0100    update pom to shade utilities correctly (James Richardson)
 2013-05-19 17:44:33 +0100    update changelog (James Richardson)

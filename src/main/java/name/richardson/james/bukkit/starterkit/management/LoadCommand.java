@@ -20,12 +20,11 @@ package name.richardson.james.bukkit.starterkit.management;
 import java.util.List;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import name.richardson.james.bukkit.starterkit.StarterKit;
 import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
-import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
-import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
 import name.richardson.james.bukkit.utilities.command.CommandPermissions;
 
@@ -34,19 +33,22 @@ public class LoadCommand extends AbstractCommand {
 
 	private final StarterKitConfiguration configuration;
 
-	private PlayerInventory inventory;
-
 	public LoadCommand(final StarterKit plugin) {
 		super();
 		this.configuration = plugin.getStarterKitConfiguration();
 	}
 
 	public void execute(final List<String> arguments, final CommandSender sender) {
-		final InventoryKit inventoryKit = this.configuration.getInventoryKit();
-		final ArmourKit armourKit = this.configuration.getArmourKit();
-		this.inventory.setContents(inventoryKit.getContents());
-		this.inventory.setArmorContents(armourKit.getContents());
-		sender.sendMessage(this.getMessage("notice.kit-loaded"));
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(this.getMessage("error.player-command-sender-required"));
+		} else {
+			final Player player = (Player) sender;
+			final ItemStack[] inventory = this.configuration.getInventoryKit().getContents();
+			final ItemStack[] armour = this.configuration.getArmourKit().getContents();
+			player.getInventory().setContents(inventory);
+			player.getInventory().setArmorContents(armour);
+			sender.sendMessage(this.getMessage("notice.kit-loaded"));
+		}
 	}
 
 }
