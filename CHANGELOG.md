@@ -1,5 +1,7 @@
 # Changelog for StarterKit (v1.3.4-SNAPSHOT)
 
+2013-10-04 18:36:59 +0100    add documentation to config.yml (James Richardson)  
+2013-10-04 18:34:36 +0100    update to use latest utilities (James Richardson)  
 
 **v1.3.3**  
 2013-06-01 02:26:50 +0100    prepare for release (James Richardson)  
