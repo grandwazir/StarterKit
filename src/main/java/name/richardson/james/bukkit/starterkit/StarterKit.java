@@ -30,6 +30,8 @@ import name.richardson.james.bukkit.utilities.command.Command;
 import name.richardson.james.bukkit.utilities.command.HelpCommand;
 import name.richardson.james.bukkit.utilities.command.invoker.CommandInvoker;
 import name.richardson.james.bukkit.utilities.command.invoker.FallthroughCommandInvoker;
+import name.richardson.james.bukkit.utilities.updater.MavenPluginUpdater;
+import name.richardson.james.bukkit.utilities.updater.PluginUpdater;
 
 import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
 import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
@@ -61,9 +63,17 @@ public class StarterKit extends JavaPlugin {
 			this.registerCommands();
 			this.registerListeners();
 			this.setupMetrics();
-			//TODO implement updater -> this.updatePlugin();
+			this.updatePlugin();
 		} catch (final IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void updatePlugin() {
+		if (!configuration.getAutomaticUpdaterState().equals(PluginUpdater.State.OFF)) {
+			PluginUpdater updater = new MavenPluginUpdater("starter-kit", "name.richardson.james.bukkit", getDescription(), configuration.getAutomaticUpdaterBranch(), configuration.getAutomaticUpdaterState());
+			this.getServer().getScheduler().runTaskAsynchronously(this, updater);
+			new name.richardson.james.bukkit.utilities.updater.PlayerNotifier(this, this.getServer().getPluginManager(), updater);
 		}
 	}
 
