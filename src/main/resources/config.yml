@@ -1,3 +1,29 @@
+# config.yml
+# - This configuration file is responsible for configuring the plugin.
+# - Any values _not set_ in this file will be set to the configuration default.
+# - Any _invalid_ values will be reset to the configuration default.
+# - To rebuild this file stop your server, delete it and then restart.
+# values:
+# - logging:
+# -- This value specifies the LOG_LEVEL that the plugin should operate in. A value of ALL will also log SQL transactions made by the plugin.
+# -- Valid values: OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST, ALL.
+# -- Default: INFO
+# - automatic-updates.branch:
+# -- This value specifies which branch to check when checking for updates.
+# -- Valid values: STABLE (latest release), DEVELOPMENT (latest snapshot release).
+# -- Default: STABLE
+# - automatic-updates.method:
+# -- This value specifies the operating method of the automatic updater. Not all updaters support all values but they all support OFF.
+# -- Valid values: UPDATE (update automatically), NOTIFY (notify adminstrators that an update is available), OFF (disable update checking).
+# -- Default: NOTIFY
+# - send-anonymous-statistics:
+# -- This value specifies if the plugin will send anonynomous staticial information to mcstats.org.
+# -- Valid values: true or false
+# -- Default: true
+# - provide-lit-on-death:
+# -- This value specifies if we should give a kit to someone every time they respawn
+# -- Valid values: true or false
+# -- Default: true
 logging: INFO
 send-anonymous-statistics: true
 provide-kit-on-death: false
