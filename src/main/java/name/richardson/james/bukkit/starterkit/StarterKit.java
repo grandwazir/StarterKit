@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,6 +31,7 @@ import name.richardson.james.bukkit.utilities.command.Command;
 import name.richardson.james.bukkit.utilities.command.HelpCommand;
 import name.richardson.james.bukkit.utilities.command.invoker.CommandInvoker;
 import name.richardson.james.bukkit.utilities.command.invoker.FallthroughCommandInvoker;
+import name.richardson.james.bukkit.utilities.logging.PluginLoggerFactory;
 import name.richardson.james.bukkit.utilities.updater.MavenPluginUpdater;
 import name.richardson.james.bukkit.utilities.updater.PluginUpdater;
 
@@ -42,6 +44,7 @@ import name.richardson.james.bukkit.starterkit.management.SaveCommand;
 public class StarterKit extends JavaPlugin {
 
 	private StarterKitConfiguration configuration;
+	private final Logger logger = PluginLoggerFactory.getLogger(StarterKit.class);
 
 	public StarterKit() {
 		ConfigurationSerialization.registerClass(ArmourKit.class);
@@ -81,6 +84,7 @@ public class StarterKit extends JavaPlugin {
 		final File file = new File(this.getDataFolder().getAbsolutePath() + File.separatorChar + "config.yml");
 		final InputStream defaults = this.getResource("config.yml");
 		this.configuration = new StarterKitConfiguration(file, defaults);
+		this.logger.setLevel(configuration.getLogLevel());
 	}
 
 	protected void registerCommands() {
