@@ -17,43 +17,75 @@
  ******************************************************************************/
 package name.richardson.james.bukkit.starterkit.management;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
+import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.permissions.Permissible;
 
-import name.richardson.james.bukkit.starterkit.StarterKit;
-import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
-import name.richardson.james.bukkit.utilities.command.CommandPermissions;
+import name.richardson.james.bukkit.utilities.command.context.CommandContext;
 import name.richardson.james.bukkit.utilities.formatters.ChoiceFormatter;
+import name.richardson.james.bukkit.utilities.formatters.ColourFormatter;
+import name.richardson.james.bukkit.utilities.formatters.DefaultColourFormatter;
+import name.richardson.james.bukkit.utilities.localisation.Localisation;
+import name.richardson.james.bukkit.utilities.localisation.ResourceBundleByClassLocalisation;
 
-@CommandPermissions(permissions = { "starterkit.list" })
+import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
+import name.richardson.james.bukkit.starterkit.utilities.formatters.ItemCountChoiceFormatter;
+
 public class ListCommand extends AbstractCommand {
 
+	public static final String PERMISSION_ALL = "starterkit.list";
+
+	private static final String ARMOUR_LIST_KEY = "armour-list";
+	private static final String BACKPACK_LIST_KEY = "backpack-list";
+	private static final String HEADER_KEY = "header";
+	private static final String NO_PERMISSION_KEY = "no-permission";
+
 	private final StarterKitConfiguration configuration;
+	private final ChoiceFormatter choiceFormatter = new ItemCountChoiceFormatter();
+	private final Localisation localisation = new ResourceBundleByClassLocalisation(ListCommand.class);
+	private final ColourFormatter colourFormatter = new DefaultColourFormatter();
 
-	private final ChoiceFormatter formatter;
-
-	public ListCommand(final StarterKit plugin) {
-		super();
-		this.configuration = plugin.getStarterKitConfiguration();
-		this.formatter = new ChoiceFormatter();
-		this.formatter.setLimits(0, 1, 2);
-		this.formatter.setMessage("notice.list-header");
-		this.formatter.setArguments(this.configuration.getItemCount());
-		this.formatter.setFormats(this.getMessage("shared.choice.no-entries"), this.getMessage("shared.choice.one-entry"),
-			this.getMessage("shared.choice.many-entries"));
+	public ListCommand(final StarterKitConfiguration configuration) {
+		this.configuration = configuration;
+		this.choiceFormatter.setMessage(colourFormatter.format(localisation.getMessage(HEADER_KEY), ColourFormatter.FormatStyle.HEADER));
 	}
 
-	public void execute(final List<String> arguments, final CommandSender sender) {
-		sender.sendMessage(this.formatter.getMessage());
-		if (this.configuration.getArmourKit().getItemCount() != 0) {
-			sender.sendMessage(this.getMessage("notice.armour-list", this.buildKitList(this.configuration.getArmourKit().getContents())));
+	/**
+	 * Execute a command using the provided {@link name.richardson.james.bukkit.utilities.command.context.CommandContext}.
+	 *
+	 * @param commandContext the command context to execute this command within.
+	 * @since 6.0.0
+	 */
+	@Override
+	public void execute(CommandContext commandContext) {
+		if (isAuthorised(commandContext.getCommandSender())) {
+			this.choiceFormatter.setArguments(configuration.getItemCount());
+			commandContext.getCommandSender().sendMessage(this.choiceFormatter.getMessage());
+			if (this.configuration.getArmourKit().getItemCount() != 0) {
+				commandContext.getCommandSender().sendMessage(ChatColor.YELLOW + localisation.getMessage(ARMOUR_LIST_KEY, this.buildKitList(this.configuration.getArmourKit().getContents())));
+			}
+			if (this.configuration.getInventoryKit().getItemCount() != 0) {
+				commandContext.getCommandSender().sendMessage(ChatColor.YELLOW + localisation.getMessage(BACKPACK_LIST_KEY, this.buildKitList(this.configuration.getInventoryKit().getContents())));
+			}
+		} else {
+			commandContext.getCommandSender().sendMessage(colourFormatter.format(localisation.getMessage(NO_PERMISSION_KEY), ColourFormatter.FormatStyle.ERROR));
 		}
-		if (this.configuration.getInventoryKit().getItemCount() != 0) {
-			sender.sendMessage(this.getMessage("notice.backpack-list", this.buildKitList(this.configuration.getInventoryKit().getContents())));
-		}
+	}
+
+	/**
+	 * Returns {@code true} if the user is authorised to use this command.
+	 * <p/>
+	 * Authorisation does not guarantee that the user may use all the features associated with a command.
+	 *
+	 * @param permissible the permissible requesting authorisation
+	 * @return {@code true} if the user is authorised; {@code false} otherwise
+	 * @since 6.0.0
+	 */
+	@Override
+	public boolean isAuthorised(Permissible permissible) {
+		if (permissible.hasPermission(PERMISSION_ALL)) return true;
+		return false;
 	}
 
 	private String buildKitList(final ItemStack[] items) {

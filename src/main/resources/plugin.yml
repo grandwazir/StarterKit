@@ -9,3 +9,16 @@ commands:
     description: 'StarterKit root command'
     alias: [starterkit]
     usage: '/sk'
+permissions:
+  starterkit:
+    description: Allow players to use all the features of StarterKit.
+    children:
+      starterkit.list: true
+      starterkit.load: true
+      starterkit.save: true
+  starterkit.list:
+    description: Allow players to list what is in the StarterKit
+  starterkit.load:
+    description: Allow players to get a copy of the kit.
+  starterkit.save:
+    description: Allow players to save a new kit.

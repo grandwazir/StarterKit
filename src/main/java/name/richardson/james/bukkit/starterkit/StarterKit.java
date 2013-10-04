@@ -20,30 +20,30 @@ package name.richardson.james.bukkit.starterkit;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import name.richardson.james.bukkit.utilities.command.Command;
+import name.richardson.james.bukkit.utilities.command.HelpCommand;
+import name.richardson.james.bukkit.utilities.command.invoker.CommandInvoker;
+import name.richardson.james.bukkit.utilities.command.invoker.FallthroughCommandInvoker;
 
 import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
 import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
 import name.richardson.james.bukkit.starterkit.management.ListCommand;
 import name.richardson.james.bukkit.starterkit.management.LoadCommand;
 import name.richardson.james.bukkit.starterkit.management.SaveCommand;
-import name.richardson.james.bukkit.utilities.command.CommandManager;
-import name.richardson.james.bukkit.utilities.plugin.AbstractPlugin;
-import name.richardson.james.bukkit.utilities.plugin.PluginPermissions;
 
-@PluginPermissions(permissions = { "starterkit" })
-public class StarterKit extends AbstractPlugin {
+public class StarterKit extends JavaPlugin {
 
 	private StarterKitConfiguration configuration;
 
 	public StarterKit() {
 		ConfigurationSerialization.registerClass(ArmourKit.class);
 		ConfigurationSerialization.registerClass(InventoryKit.class);
-	}
-
-	public String getArtifactID() {
-		return "starter-kit";
 	}
 
 	public StarterKitConfiguration getStarterKitConfiguration() {
@@ -58,39 +58,41 @@ public class StarterKit extends AbstractPlugin {
 	public void onEnable() {
 		try {
 			this.loadConfiguration();
-			this.setPermissions();
 			this.registerCommands();
 			this.registerListeners();
 			this.setupMetrics();
-			this.updatePlugin();
+			//TODO implement updater -> this.updatePlugin();
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	@Override
-	protected void loadConfiguration() throws IOException {
-		super.loadConfiguration();
+	private void loadConfiguration() throws IOException {
 		final File file = new File(this.getDataFolder().getAbsolutePath() + File.separatorChar + "config.yml");
 		final InputStream defaults = this.getResource("config.yml");
 		this.configuration = new StarterKitConfiguration(file, defaults);
 	}
 
 	protected void registerCommands() {
-		final CommandManager commandManager = new CommandManager("sk");
-		commandManager.addCommand(new ListCommand(this));
-		commandManager.addCommand(new LoadCommand(this));
-		commandManager.addCommand(new SaveCommand(this));
+		// create the commands
+		Set<Command> commands = new HashSet<Command>();
+		commands.add(new ListCommand(this.configuration));
+		commands.add(new LoadCommand(this.configuration));
+		commands.add(new SaveCommand(this.configuration));
+		// create the invoker
+		HelpCommand command = new HelpCommand("sk", commands);
+		CommandInvoker invoker = new FallthroughCommandInvoker(command);
+		invoker.addCommands(commands);
+		getCommand("sk").setExecutor(invoker);
 	}
 
 	protected void registerListeners() {
-		new PlayerListener(this);
+		new PlayerListener(this, this.getServer().getPluginManager(), this.configuration);
 	}
 
-	@Override
 	protected void setupMetrics() throws IOException {
 		if (this.configuration.isCollectingStats()) {
-			new MetricsListener(this);
+			new MetricsListener(this, this.getServer().getPluginManager());
 		}
 	}
 

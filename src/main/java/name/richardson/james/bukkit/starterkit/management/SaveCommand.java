@@ -23,37 +23,74 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.permissions.Permissible;
 
-import name.richardson.james.bukkit.starterkit.StarterKit;
-import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
-import name.richardson.james.bukkit.utilities.command.CommandPermissions;
+import name.richardson.james.bukkit.utilities.command.context.CommandContext;
+import name.richardson.james.bukkit.utilities.formatters.ColourFormatter;
+import name.richardson.james.bukkit.utilities.formatters.DefaultColourFormatter;
+import name.richardson.james.bukkit.utilities.localisation.Localisation;
+import name.richardson.james.bukkit.utilities.localisation.ResourceBundleByClassLocalisation;
 
-@CommandPermissions(permissions = { "starterkit.save" })
+import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
+
 public class SaveCommand extends AbstractCommand {
+
+	public static final String PERMISSION_ALL = "starterkit.save";
+
+	private static final String PLAYER_REQUIRED_KEY = "player-command-sender-required";
+	private static final String KIT_SAVED_KEY = "kit-saved";
+	private static final String UNABLE_TO_SAVE_KEY = "unable-to-save-kit";
+	private static final String NO_PERMISSION_KEY = "no-permission";
+
+	private final ColourFormatter colourFormatter = new DefaultColourFormatter();
+	private final StarterKitConfiguration configuration;
+	private final Localisation localisation = new ResourceBundleByClassLocalisation(SaveCommand.class);
 
 	/** The inventory of the player we are using as a template */
 	private PlayerInventory inventory;
 
-	private final StarterKitConfiguration configuration;
-
-	public SaveCommand(final StarterKit plugin) {
-		super();
-		this.configuration = plugin.getStarterKitConfiguration();
+	public SaveCommand(final StarterKitConfiguration configuration) {
+		this.configuration = configuration;
 	}
 
-	public void execute(final List<String> arguments, final CommandSender sender) {
-		if (!(sender instanceof Player)) {
-			sender.sendMessage(this.getMessage("error.player-command-sender-required"));
-		} else {
-			try {
-				final Player player = (Player) sender;
-				this.inventory = player.getInventory();
-				this.configuration.setInventory(this.inventory);
-				sender.sendMessage(this.getMessage("notice.kit-saved"));
-			} catch (final IOException e) {
-				sender.sendMessage(this.getMessage("error.unable-to-save-kit"));
+	/**
+	 * Execute a command using the provided {@link name.richardson.james.bukkit.utilities.command.context.CommandContext}.
+	 *
+	 * @param commandContext the command context to execute this command within.
+	 * @since 6.0.0
+	 */
+	@Override
+	public void execute(CommandContext commandContext) {
+		if (isAuthorised(commandContext.getCommandSender())) {
+			if (!(commandContext.getCommandSender() instanceof Player)) {
+				commandContext.getCommandSender().sendMessage(colourFormatter.format(localisation.getMessage(PLAYER_REQUIRED_KEY), ColourFormatter.FormatStyle.ERROR));
+			} else {
+				try {
+					final Player player = (Player) commandContext.getCommandSender();
+					this.inventory = player.getInventory();
+					this.configuration.setInventory(this.inventory);
+					player.sendMessage(colourFormatter.format(localisation.getMessage(KIT_SAVED_KEY), ColourFormatter.FormatStyle.INFO));
+				} catch (final IOException e) {
+					commandContext.getCommandSender().sendMessage(colourFormatter.format(localisation.getMessage(UNABLE_TO_SAVE_KEY), ColourFormatter.FormatStyle.ERROR));
+				}
 			}
+		} else {
+			commandContext.getCommandSender().sendMessage(colourFormatter.format(localisation.getMessage(NO_PERMISSION_KEY), ColourFormatter.FormatStyle.ERROR));
 		}
+	}
+
+	/**
+	 * Returns {@code true} if the user is authorised to use this command.
+	 * <p/>
+	 * Authorisation does not guarantee that the user may use all the features associated with a command.
+	 *
+	 * @param permissible the permissible requesting authorisation
+	 * @return {@code true} if the user is authorised; {@code false} otherwise
+	 * @since 6.0.0
+	 */
+	@Override
+	public boolean isAuthorised(Permissible permissible) {
+		return permissible.hasPermission(PERMISSION_ALL);
 	}
 }

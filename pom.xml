@@ -8,8 +8,8 @@
 
   <parent>
      <groupId>name.richardson.james.bukkit</groupId>
-     <artifactId>default-pom</artifactId>
-     <version>5</version>
+     <artifactId>maven-parent</artifactId>
+     <version>1</version>
   </parent>
 
   <repositories>
@@ -17,14 +17,24 @@
       <id>my-repo</id>
       <url>http://repository.james.richardson.name/releases</url>
     </repository>
+      <repository>
+          <id>Plugin Metrics</id>
+          <url>http://repo.mcstats.org/content/repositories/public</url>
+      </repository>
   </repositories>
 
   <dependencies>
      <dependency>
            <groupId>name.richardson.james.bukkit</groupId>
            <artifactId>bukkit-utilities</artifactId>
-           <version>5.0.2</version>
+           <version>6.0.4</version>
      </dependency>
+      <dependency>
+          <groupId>org.mcstats.bukkit</groupId>
+          <artifactId>metrics</artifactId>
+          <version>R6</version>
+          <scope>compile</scope>
+      </dependency>
   </dependencies>
 
   <build>
@@ -40,20 +50,27 @@
                 <goals>
                   <goal>shade</goal>
                 </goals>
-                <configuration>
-                  <artifactSet>
-                    <includes>
-                      <include>name.richardson.james.bukkit:bukkit-utilities</include>
-                    </includes>
-                  </artifactSet>
-                  <relocations>
-                    <relocation>
-                      <pattern>name.richardson.james.bukkit.utilities</pattern>
-                      <shadedPattern>name.richardson.james.bukkit.starterkit.utilities</shadedPattern>
-                    </relocation>
-                  </relocations>
-                  <minimizeJar>true</minimizeJar>
-                </configuration>
+                  <configuration>
+                      <shadedArtifactAttached>true</shadedArtifactAttached>
+                      <shadedClassifierName>shaded</shadedClassifierName>
+                      <artifactSet>
+                          <includes>
+                              <include>name.richardson.james.bukkit:bukkit-utilities</include>
+                              <include>org.mcstats.bukkit:metrics</include>
+                          </includes>
+                      </artifactSet>
+                      <relocations>
+                          <relocation>
+                              <pattern>name.richardson.james.bukkit.utilities</pattern>
+                              <shadedPattern>name.richardson.james.bukkit.starterkit.utilities</shadedPattern>
+                          </relocation>
+                          <relocation>
+                              <pattern>org.mcstats</pattern>
+                              <shadedPattern>name.richardson.james.bukkit.starterkit.utilities.metrics</shadedPattern>
+                          </relocation>
+                      </relocations>
+                      <minimizeJar>true</minimizeJar>
+                  </configuration>
               </execution>
             </executions>
           </plugin>

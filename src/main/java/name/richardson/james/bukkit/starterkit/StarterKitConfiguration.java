@@ -26,7 +26,7 @@ import org.bukkit.inventory.PlayerInventory;
 
 import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
 import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
-import name.richardson.james.bukkit.utilities.configuration.SimplePluginConfiguration;
+import name.richardson.james.bukkit.utilities.persistence.configuration.SimplePluginConfiguration;
 
 public class StarterKitConfiguration extends SimplePluginConfiguration {
 
@@ -66,7 +66,8 @@ public class StarterKitConfiguration extends SimplePluginConfiguration {
 		this.save();
 	}
 
-	private void setDefaultKit() {
+	private void setDefaultKit()
+	throws IOException {
 		if (!this.getConfiguration().isConfigurationSection("kit")) {
 			final ConfigurationSection section = this.getConfiguration().createSection("kit");
 			section.set("backpack", new InventoryKit());

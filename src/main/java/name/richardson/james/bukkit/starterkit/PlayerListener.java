@@ -27,15 +27,17 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.plugin.PluginManager;
+
+import name.richardson.james.bukkit.utilities.listener.AbstractListener;
+import name.richardson.james.bukkit.utilities.logging.PluginLoggerFactory;
 
 import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
 import name.richardson.james.bukkit.starterkit.kit.InventoryKit;
-import name.richardson.james.bukkit.utilities.listener.AbstractListener;
-import name.richardson.james.bukkit.utilities.logging.PluginLogger;
 
 public class PlayerListener extends AbstractListener {
 
-	private static final Logger LOGGER = PluginLogger.getLogger(PlayerListener.class);
+	private final Logger logger = PluginLoggerFactory.getLogger(PlayerListener.class);
 
 	/** The inventory to grant new players. */
 	private final InventoryKit inventory;
@@ -46,11 +48,11 @@ public class PlayerListener extends AbstractListener {
 	/** Setting to decide if we are granting starter kits on death */
 	private final boolean kitOnDeath;
 
-	public PlayerListener(final StarterKit plugin) {
-		super(plugin);
-		this.inventory = plugin.getStarterKitConfiguration().getInventoryKit();
-		this.armour = plugin.getStarterKitConfiguration().getArmourKit();
-		this.kitOnDeath = plugin.getStarterKitConfiguration().isProvidingKitOnDeath();
+	public PlayerListener(final StarterKit plugin, PluginManager pluginManager, StarterKitConfiguration configuration) {
+		super(plugin, pluginManager);
+		this.inventory = configuration.getInventoryKit();
+		this.armour = configuration.getArmourKit();
+		this.kitOnDeath = configuration.isProvidingKitOnDeath();
 	}
 
 	/**
@@ -88,7 +90,7 @@ public class PlayerListener extends AbstractListener {
 	 * Give a kit to the player who is currently logging in.
 	 */
 	private void giveKit(final Player player) {
-		LOGGER.log(Level.FINE, "Granting kit: {0}", player.getName());
+		logger.log(Level.FINE, "Granting kit: {0}", player.getName());
 		final PlayerInventory inventory = player.getInventory();
 		inventory.clear();
 		inventory.setArmorContents(this.armour.getContents());

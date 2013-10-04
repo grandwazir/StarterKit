@@ -4,12 +4,12 @@ import java.io.IOException;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import org.mcstats.Metrics;
+
 import name.richardson.james.bukkit.utilities.listener.AbstractListener;
-import name.richardson.james.bukkit.utilities.metrics.Metrics;
-import name.richardson.james.bukkit.utilities.metrics.Metrics.Graph;
-import name.richardson.james.bukkit.utilities.metrics.Metrics.Plotter;
 
 public class MetricsListener extends AbstractListener {
 
@@ -21,8 +21,8 @@ public class MetricsListener extends AbstractListener {
 
 	private final Metrics metrics;
 
-	public MetricsListener(final JavaPlugin plugin) throws IOException {
-		super(plugin);
+	public MetricsListener(final JavaPlugin plugin, PluginManager pluginManager) throws IOException {
+		super(plugin, pluginManager);
 		this.metrics = new Metrics(plugin);
 		this.setupUsageStatistics();
 		this.metrics.start();
@@ -36,15 +36,15 @@ public class MetricsListener extends AbstractListener {
 
 	private void setupUsageStatistics() {
 		// Create a graph to show the total amount of kits issued.
-		final Graph graph = this.metrics.createGraph("Usage Statistics");
-		graph.addPlotter(new Plotter("Total kits issued") {
+		final Metrics.Graph graph = this.metrics.createGraph("Usage Statistics");
+		graph.addPlotter(new Metrics.Plotter("Total kits issued") {
 			@Override
 			public int getValue() {
 				final int i = MetricsListener.this.kitsAwarded;
 				return i;
 			}
 		});
-		graph.addPlotter(new Plotter("Total items issued") {
+		graph.addPlotter(new Metrics.Plotter("Total items issued") {
 			@Override
 			public int getValue() {
 				final int i = MetricsListener.this.itemsAwarded;

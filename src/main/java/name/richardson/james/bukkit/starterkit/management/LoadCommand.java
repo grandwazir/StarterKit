@@ -17,38 +17,72 @@
  ******************************************************************************/
 package name.richardson.james.bukkit.starterkit.management;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.permissions.Permissible;
 
-import name.richardson.james.bukkit.starterkit.StarterKit;
-import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
 import name.richardson.james.bukkit.utilities.command.AbstractCommand;
-import name.richardson.james.bukkit.utilities.command.CommandPermissions;
+import name.richardson.james.bukkit.utilities.command.context.CommandContext;
+import name.richardson.james.bukkit.utilities.formatters.ColourFormatter;
+import name.richardson.james.bukkit.utilities.formatters.DefaultColourFormatter;
+import name.richardson.james.bukkit.utilities.localisation.Localisation;
+import name.richardson.james.bukkit.utilities.localisation.ResourceBundleByClassLocalisation;
 
-@CommandPermissions(permissions = { "starterkit.load" })
+import name.richardson.james.bukkit.starterkit.StarterKitConfiguration;
+
 public class LoadCommand extends AbstractCommand {
 
-	private final StarterKitConfiguration configuration;
+	public static final String PERMISSION_ALL = "starterkit.load";
 
-	public LoadCommand(final StarterKit plugin) {
-		super();
-		this.configuration = plugin.getStarterKitConfiguration();
+	private static final String PLAYER_REQUIRED_KEY = "player-command-sender-required";
+	private static final String KIT_LOADED = "kit-loaded";
+	private static final String NO_PERMISSION_KEY = "no-permission";
+
+	private final StarterKitConfiguration configuration;
+	private final Localisation localisation = new ResourceBundleByClassLocalisation(LoadCommand.class);
+	private final ColourFormatter colourFormatter = new DefaultColourFormatter();
+
+	public LoadCommand(final StarterKitConfiguration configuration) {
+		this.configuration = configuration;
 	}
 
-	public void execute(final List<String> arguments, final CommandSender sender) {
-		if (!(sender instanceof Player)) {
-			sender.sendMessage(this.getMessage("error.player-command-sender-required"));
+	/**
+	 * Execute a command using the provided {@link name.richardson.james.bukkit.utilities.command.context.CommandContext}.
+	 *
+	 * @param commandContext the command context to execute this command within.
+	 * @since 6.0.0
+	 */
+	@Override
+	public void execute(CommandContext commandContext) {
+		if (isAuthorised(commandContext.getCommandSender())) {
+			if (!(commandContext.getCommandSender() instanceof Player)) {
+				commandContext.getCommandSender().sendMessage(colourFormatter.format(localisation.getMessage(PLAYER_REQUIRED_KEY), ColourFormatter.FormatStyle.ERROR));
+			} else {
+				final Player player = (Player) commandContext.getCommandSender();
+				final ItemStack[] inventory = this.configuration.getInventoryKit().getContents();
+				final ItemStack[] armour = this.configuration.getArmourKit().getContents();
+				player.getInventory().setContents(inventory);
+				player.getInventory().setArmorContents(armour);
+				player.sendMessage(colourFormatter.format(localisation.getMessage(KIT_LOADED), ColourFormatter.FormatStyle.INFO));
+			}
 		} else {
-			final Player player = (Player) sender;
-			final ItemStack[] inventory = this.configuration.getInventoryKit().getContents();
-			final ItemStack[] armour = this.configuration.getArmourKit().getContents();
-			player.getInventory().setContents(inventory);
-			player.getInventory().setArmorContents(armour);
-			sender.sendMessage(this.getMessage("notice.kit-loaded"));
+			commandContext.getCommandSender().sendMessage(colourFormatter.format(localisation.getMessage(NO_PERMISSION_KEY), ColourFormatter.FormatStyle.ERROR));
 		}
+	}
+
+	/**
+	 * Returns {@code true} if the user is authorised to use this command.
+	 * <p/>
+	 * Authorisation does not guarantee that the user may use all the features associated with a command.
+	 *
+	 * @param permissible the permissible requesting authorisation
+	 * @return {@code true} if the user is authorised; {@code false} otherwise
+	 * @since 6.0.0
+	 */
+	@Override
+	public boolean isAuthorised(Permissible permissible) {
+		if (permissible.hasPermission(PERMISSION_ALL)) return true;
+		return false;
 	}
 
 }

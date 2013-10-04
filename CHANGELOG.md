@@ -1,0 +1,142 @@
+# Changelog for StarterKit (v1.3.4-SNAPSHOT)
+
+
+**v1.3.3**  
+2013-06-01 02:26:50 +0100    prepare for release (James Richardson)  
+2013-06-01 02:25:38 +0100    fix missing localisation key (James Richardson)  
+
+**v1.3.2**  
+2013-06-01 02:06:20 +0100    finished updating (James Richardson)  
+2013-05-31 21:14:23 +0100    finish updating (James Richardson)  
+2013-05-31 20:41:37 +0100    1st stage of the update process (James Richardson)  
+2013-05-31 20:34:00 +0100    update pom to shade utilities correctly (James Richardson)  
+2013-05-19 17:44:33 +0100    update changelog (James Richardson)  
+2013-03-28 14:07:07 +0000    added gh-pages as a submodule (James Richardson)  
+2013-03-28 14:06:06 +0000    remove old site directory (James Richardson)  
+
+**v1.3.1**  
+2013-03-28 13:53:17 +0000    changelog (James Richardson)  
+2013-03-28 13:37:05 +0000    update to use latest BukkitUtilities (James Richardson)  
+
+**v1.3.0**  
+2012-12-30 03:48:39 +0000    prepare to release (James Richardson)  
+2012-12-30 03:46:23 +0000    forgot to change this (James Richardson)  
+2012-12-30 03:46:03 +0000    clean up (James Richardson)  
+2012-12-30 03:43:17 +0000    missing localisation message (James Richardson)  
+2012-12-30 03:40:52 +0000    fix bug with listener not registering correctly (James Richardson)  
+2012-12-30 03:28:03 +0000    fix bug registering listeners (James Richardson)  
+2012-12-30 02:03:14 +0000    build against latest Bukkit (James Richardson)  
+2012-12-30 02:02:08 +0000    fix comment mistake (James Richardson)  
+2012-12-30 01:58:29 +0000    option to grant kits on death, fixes [#21](https://github.com/grandwazir/StarterKit/starter-kit/issues/21) (James Richardson)  
+2012-12-30 01:54:27 +0000    PlayerJoinListener -> PlayerListener (James Richardson)  
+2012-12-30 01:53:48 +0000    add configuration option to give kit on death (James Richardson)  
+2012-12-30 01:47:38 +0000    update readme (James Richardson)  
+2012-12-14 23:01:35 +0000    builds cleanly (James Richardson)  
+
+**v1.2.5**  
+2012-08-08 06:29:19 +0100    fix configuration not being loaded (James Richardson)  
+2012-08-07 00:35:00 +0100    update to 4.1.0 (James Richardson)  
+2012-08-07 00:13:27 +0100    update pom (James Richardson)  
+
+**v1.2.4**  
+2012-08-02 11:01:53 +0100    update to parent pom (James Richardson)  
+
+**v1.2.3**  
+2012-07-29 18:59:49 +0100    updated changelog (James Richardson)  
+2012-07-29 18:18:48 +0100    preparing for snapshot testing (James Richardson)  
+2012-07-29 17:24:16 +0100    allow disabing stats collection (James Richardson)  
+2012-07-26 23:10:59 +0100    fix never calling the event for metrics (James Richardson)  
+2012-07-26 20:57:01 +0100    another key reference (James Richardson)  
+2012-07-26 20:45:27 +0100    update description fix bug OutOfBounds exception (James Richardson)  
+2012-07-26 20:30:39 +0100    NPE starting metrics (James Richardson)  
+2012-07-26 20:16:10 +0100    more replacement tokens (James Richardson)  
+2012-07-26 20:12:26 +0100    updating localisation (James Richardson)  
+2012-07-26 20:07:50 +0100    actually changed my mind (James Richardson)  
+2012-07-26 20:07:21 +0100    move event to kit subpackage (James Richardson)  
+2012-07-26 20:06:43 +0100    remove trailing line (James Richardson)  
+2012-07-26 20:06:28 +0100    add option to opt out of stats collection (James Richardson)  
+2012-07-26 20:05:27 +0100    change author and website (James Richardson)  
+2012-07-26 20:04:01 +0100    add event handler (James Richardson)  
+2012-07-26 20:03:08 +0100    listener now registers itself (James Richardson)  
+2012-07-26 20:02:30 +0100    establish metrics (James Richardson)  
+2012-07-26 19:51:33 +0100    move Kit related functions into seperate package - add and fire StarterKitGrantedEvent (James Richardson)  
+2012-07-26 19:44:47 +0100    added metrics listener (James Richardson)  
+
+**v1.2.2**  
+2012-06-18 21:39:33 +0100    updating changelog (James Richardson)  
+2012-06-18 21:35:39 +0100    Fix not all references matching the new name (James Richardson)  
+2012-06-18 21:27:58 +0100    fix [#15](https://github.com/grandwazir/StarterKit/starter-kit/issues/15): rename the method loadListeners() -> to registerEvents() (James Richardson)  
+
+**v1.2.1**  
+2012-06-17 14:38:21 +0100    fix [#14](https://github.com/grandwazir/StarterKit/starter-kit/issues/14); IndexOutOfBoundsException when granting ArmourKits (James Richardson)  
+
+**v1.2.0**  
+2012-06-15 21:59:28 +0100    set debugging to false (James Richardson)  
+2012-06-15 21:57:39 +0100    Added updater ability (James Richardson)  
+2012-06-15 21:54:44 +0100    convert to use new library (James Richardson)  
+
+**v1.1.2**  
+2012-04-27 23:09:14 +0100    preparing to release (James Richardson)  
+2012-04-27 23:04:05 +0100    Ensure capacity in list, fixes [#6](https://github.com/grandwazir/StarterKit/starter-kit/issues/6) (James Richardson)  
+
+**v1.1.1**  
+2012-04-24 19:47:02 +0100    preparing to release (James Richardson)  
+2012-04-24 19:39:08 +0100    Fix for occasional NPE when loading StarterKit (James Richardson)  
+2012-04-21 03:50:50 +0100    code clean up (James Richardson)  
+2012-04-21 03:46:57 +0100    merged READMES (James Richardson)  
+
+**v1.1.0**  
+2012-04-21 03:31:18 +0100    updated README (James Richardson)  
+2012-04-21 03:29:33 +0100    added automated version bumping (James Richardson)  
+2012-04-21 03:28:32 +0100    Preparing for release (James Richardson)  
+2012-04-21 03:12:14 +0100    fixed several bugs (James Richardson)  
+2012-04-21 02:19:10 +0100    updated ListCommand (James Richardson)  
+2012-04-21 02:13:14 +0100    Removed ReloadCommand, configuration file is not intended to be edited manually (James Richardson)  
+2012-04-21 02:11:45 +0100    Allow users to assign any item to any item slot. Fixes [#2](https://github.com/grandwazir/StarterKit/starter-kit/issues/2) (James Richardson)  
+2012-04-21 01:58:32 +0100    fixed a bug in serializing the wrong object (James Richardson)  
+2012-04-21 01:35:57 +0100    Fixed bug in SaveCommand (James Richardson)  
+2012-04-21 01:25:06 +0100    fixed issue when setting defaults (James Richardson)  
+2012-04-21 01:11:26 +0100    fixed issue when generating defaults (James Richardson)  
+2012-04-21 01:08:18 +0100    implements new inventory template feature (James Richardson)  
+2012-04-21 00:47:39 +0100    split kit into two for serialization (James Richardson)  
+2012-04-21 00:07:05 +0100    created new save and load commands (James Richardson)  
+2012-04-21 00:00:14 +0100    delete old commands (James Richardson)  
+
+**v1.0.3**  
+2012-03-25 00:07:19 +0000    Build aganist the latest version of BukkitUtilities to fix a possible MethodNotFound exception (James Richardson)  
+2012-03-03 14:23:07 +0000    renamed readme (James Richardson)  
+2012-03-03 14:22:46 +0000    updated to new style README (James Richardson)  
+2012-03-03 14:10:13 +0000    added custom site (James Richardson)  
+
+**v1.0.2**  
+2012-03-03 14:05:04 +0000    odd description in POM, re-releasing (James Richardson)  
+2012-03-03 13:59:07 +0000    forgot to update description (James Richardson)  
+2012-03-03 13:57:18 +0000    Preparing to release (James Richardson)  
+2012-03-03 13:41:56 +0000    fix NPE in PlayerJoinListener (James Richardson)  
+2012-03-03 13:37:30 +0000    minor grammer fix (James Richardson)  
+2012-03-03 13:35:39 +0000    AddCommand now properly honours amounts (James Richardson)  
+2012-03-03 13:34:27 +0000    add ChatColor to reply for ReloadCommand (James Richardson)  
+2012-03-03 13:32:42 +0000    Allow lower case material types (James Richardson)  
+2012-03-03 13:29:27 +0000    Allow console to use all commands (James Richardson)  
+2012-03-03 13:27:55 +0000    added kit summary to log when enabling (James Richardson)  
+2012-03-03 13:25:20 +0000    fix missing key exception (James Richardson)  
+2012-03-03 13:23:37 +0000    load ResourceBundle before Configuration (James Richardson)  
+2012-03-03 13:22:03 +0000    fix missing message key (James Richardson)  
+2012-03-03 13:17:41 +0000    code cleanup (James Richardson)  
+2012-03-03 13:16:45 +0000    remove unused imports (James Richardson)  
+2012-03-03 13:16:04 +0000    updated RemoveCommand (James Richardson)  
+2012-03-03 13:08:25 +0000    updated ReloadCommand (James Richardson)  
+2012-03-03 13:02:48 +0000    Updated AddCommand and ListCommand (James Richardson)  
+2012-03-03 12:25:06 +0000    added localisaton, updated main plugin class (James Richardson)  
+2012-03-03 12:08:34 +0000    Updated to new Listening API (James Richardson)  
+2012-03-03 11:40:19 +0000    updated POM (James Richardson)  
+
+**v1.0.1**  
+2012-02-02 06:12:02 +0000    built against new version of bukkit-utilities (James Richardson)  
+2012-02-02 05:55:00 +0000    bumped version number (James Richardson)  
+2012-02-02 05:54:21 +0000    converted to use maven (James Richardson)  
+2011-12-24 04:03:28 +0000    typo (James Richardson)  
+2011-12-24 03:54:12 +0000    add licence file (James Richardson)  
+2011-12-24 03:53:55 +0000    copyright notices (James Richardson)  
+2011-12-24 03:52:53 +0000    added readme (James Richardson)  
+2011-12-24 03:45:19 +0000    first commit (James Richardson)  
