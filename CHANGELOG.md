@@ -1,5 +1,6 @@
 # Changelog for StarterKit (v1.3.6-SNAPSHOT)
 
+2013-12-14 12:59:06 +0000    update to use latest BukkitUtilities (James Richardson)  
 
 **v1.3.5**  
 2013-10-04 19:21:33 +0100    implement configurable logging (James Richardson)  
