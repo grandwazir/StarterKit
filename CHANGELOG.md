@@ -1,5 +1,8 @@
-# Changelog for StarterKit (v1.3.5-SNAPSHOT)
+# Changelog for StarterKit (v1.3.6-SNAPSHOT)
 
+
+**v1.3.5**  
+2013-10-04 19:21:33 +0100    implement configurable logging (James Richardson)  
 2013-10-04 19:15:33 +0100    implement plugin update checker (James Richardson)  
 
 **v1.3.4**  

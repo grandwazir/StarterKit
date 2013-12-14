@@ -32,7 +32,7 @@ import name.richardson.james.bukkit.utilities.command.HelpCommand;
 import name.richardson.james.bukkit.utilities.command.invoker.CommandInvoker;
 import name.richardson.james.bukkit.utilities.command.invoker.FallthroughCommandInvoker;
 import name.richardson.james.bukkit.utilities.logging.PluginLoggerFactory;
-import name.richardson.james.bukkit.utilities.updater.MavenPluginUpdater;
+import name.richardson.james.bukkit.utilities.updater.BukkitDevPluginUpdater;
 import name.richardson.james.bukkit.utilities.updater.PluginUpdater;
 
 import name.richardson.james.bukkit.starterkit.kit.ArmourKit;
@@ -42,6 +42,8 @@ import name.richardson.james.bukkit.starterkit.management.LoadCommand;
 import name.richardson.james.bukkit.starterkit.management.SaveCommand;
 
 public class StarterKit extends JavaPlugin {
+
+	private static final int PROJECT_ID = 35066;
 
 	private StarterKitConfiguration configuration;
 	private final Logger logger = PluginLoggerFactory.getLogger(StarterKit.class);
@@ -74,7 +76,7 @@ public class StarterKit extends JavaPlugin {
 
 	private void updatePlugin() {
 		if (!configuration.getAutomaticUpdaterState().equals(PluginUpdater.State.OFF)) {
-			PluginUpdater updater = new MavenPluginUpdater("starter-kit", "name.richardson.james.bukkit", getDescription(), configuration.getAutomaticUpdaterBranch(), configuration.getAutomaticUpdaterState());
+			PluginUpdater updater = new BukkitDevPluginUpdater(this.getDescription(), configuration.getAutomaticUpdaterBranch(), configuration.getAutomaticUpdaterState(), PROJECT_ID, this.getServer().getUpdateFolderFile(), this.getServer().getVersion());
 			this.getServer().getScheduler().runTaskAsynchronously(this, updater);
 			new name.richardson.james.bukkit.utilities.updater.PlayerNotifier(this, this.getServer().getPluginManager(), updater);
 		}
