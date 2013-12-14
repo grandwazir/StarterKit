@@ -104,6 +104,8 @@
 
           <p>By default StarterKit gives every new player a copy of the kit when they first login to your server. You do not need to configure anything for this to happen.</p>
 
+          <p>You can also give a kit to a specific player by typing <code>/sk load</code> and the name of the player you want to give the kit to. Ask before doing this as it will clear their inventory.</p>
+
           <h4 id='grant_a_kit_on_death'>Grant a kit on death</h4>
 
           <p>Alternatively you can configure the plugin so it grants the kit every time someone dies. You do this by setting the following in your config.yml.</p>
@@ -124,9 +126,17 @@
 
             <dt>starterkit.load</dt>
 
+            <dd>Allow a player to give a kit to anyone (defaults op).</dd>
+
+            <dt>starterkit.load.self</dt>
+
             <dd>Allow a player to give themselves the kit (defaults op).</dd>
 
-            <dt>timedmessages.save</dt>
+            <dt>starterkit.load.others</dt>
+
+            <dd>Allow a player to give others the kit (defaults op).</dd>
+
+            <dt>starterkit.save</dt>
 
             <dd>Allow a player save a copy of their inventory as the kit (defaults op).</dd>
           </dl>
