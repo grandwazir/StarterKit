@@ -1,5 +1,6 @@
 # Changelog for StarterKit (v1.3.6-SNAPSHOT)
 
+2013-12-14 14:06:01 +0000    added localisation (James Richardson)  
 2013-12-14 12:59:06 +0000    update to use latest BukkitUtilities (James Richardson)  
 
 **v1.3.5**  

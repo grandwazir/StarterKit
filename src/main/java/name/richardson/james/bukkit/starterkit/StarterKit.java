@@ -1,17 +1,17 @@
 /*******************************************************************************
  * Copyright (c) 2012 James Richardson.
- * 
+ *
  * StarterKit.java is part of StarterKit.
- * 
+ *
  * StarterKit is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * StarterKit is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * StarterKit. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
@@ -82,7 +82,8 @@ public class StarterKit extends JavaPlugin {
 		}
 	}
 
-	private void loadConfiguration() throws IOException {
+	private void loadConfiguration()
+	throws IOException {
 		final File file = new File(this.getDataFolder().getAbsolutePath() + File.separatorChar + "config.yml");
 		final InputStream defaults = this.getResource("config.yml");
 		this.configuration = new StarterKitConfiguration(file, defaults);
@@ -93,7 +94,7 @@ public class StarterKit extends JavaPlugin {
 		// create the commands
 		Set<Command> commands = new HashSet<Command>();
 		commands.add(new ListCommand(this.configuration));
-		commands.add(new LoadCommand(this.configuration));
+		commands.add(new LoadCommand(this.configuration, this.getServer()));
 		commands.add(new SaveCommand(this.configuration));
 		// create the invoker
 		HelpCommand command = new HelpCommand("sk", commands);
@@ -106,7 +107,8 @@ public class StarterKit extends JavaPlugin {
 		new PlayerListener(this, this.getServer().getPluginManager(), this.configuration);
 	}
 
-	protected void setupMetrics() throws IOException {
+	protected void setupMetrics()
+	throws IOException {
 		if (this.configuration.isCollectingStats()) {
 			new MetricsListener(this, this.getServer().getPluginManager());
 		}

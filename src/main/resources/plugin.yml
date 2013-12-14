@@ -20,5 +20,12 @@ permissions:
     description: Allow players to list what is in the StarterKit
   starterkit.load:
     description: Allow players to get a copy of the kit.
+    children:
+      starterkit.load.self: true
+      starterkit.load.others: true
+  starterkit.load.self:
+    description: Allow players to give themselves a StarterKit manually.
+  starterkit.load.others:
+    description: Allow players to give other players StarterKits manually.
   starterkit.save:
     description: Allow players to save a new kit.
