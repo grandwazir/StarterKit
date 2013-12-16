@@ -6,122 +6,124 @@
   <meta charset="utf-8">
 
   <title>Download</title>
-  <meta name="description" content="Download StarterKit">
-  <meta name="author" content="James Richardson"><!-- Enable responsive viewport -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Import bootstrap .js -->
-
-  <script src="http://code.jquery.com/jquery-1.9.1.min.js">
+  <meta name="author" content="James Richardson"><!-- Import bootstrap -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js">
 </script>
-  <script type="text/javascript" src="http://grandwazir.github.com/StarterKit/assets/themes/twitter/bootstrap/js/bootstrap.js">
-</script><!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-  <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  <!-- Le styles -->
-  <link href="http://grandwazir.github.com/StarterKit/assets/themes/twitter/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
-  <link href="http://grandwazir.github.com/StarterKit/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all"><!-- Le fav and touch icons -->
-  <!-- Update these with your own images
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-  -->
-  <!-- atom & rss feed -->
-  <link href="http://grandwazir.github.com/StarterKit/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
-  <link href="http://grandwazir.github.com/StarterKit/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" src="/assets/js/bootstrap.js">
+</script>
+  <link href="/assets/css/bootstrap.css" rel="stylesheet">
 </head>
 
 <body>
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container-narrow">
-        <a class="brand" href="http://grandwazir.github.com/StarterKit">StarterKit</a>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="navbar-collapse"><span class="sr-only">Toggle navigation</span></button> <a class="navbar-brand" href="http://http://grandwazir.github.io/StarterKit">StarterKit</a>
+      </div>
 
-        <ul class="nav">
-          <li class="active">
-            <a href="http://grandwazir.github.com/StarterKit/download.html" class="active">Download</a>
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation</a>
+
+            <ul class="dropdown-menu">
+              <li>
+                <a href="http://http://grandwazir.github.io/StarterKit/docs/getting_started.html">Getting started</a>
+              </li>
+            </ul>
           </li>
 
           <li>
-            <a href="http://grandwazir.github.com/StarterKit/features.html">Features</a>
+            <a href="http://http://grandwazir.github.io/StarterKit/download.html">Download</a>
           </li>
 
           <li>
-            <a href="http://grandwazir.github.com/StarterKit/getting_started.html">Getting started</a>
+            <a href="http://http://grandwazir.github.io/StarterKit/features.html">Features</a>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Elsewhere</a>
+
+            <ul class="dropdown-menu">
+              <li>
+                <a href="http://dev.bukkit.org/bukkit-plugins/starterkit">BukkitDev</a>
+              </li>
+
+              <li>
+                <a href="http://github.com/grandwazir/StarterKit">GitHub</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
     </div>
-  </div><!-- Add a secondary bar if necessary -->
+  </nav>
 
-  <div class="container-narrow scroll-adjust">
-    <div class="content">
-      <div class="page-header">
-        <h1>Download</h1>
-      </div>
+  <div class="content">
+    <div class="container">
+      <h1>Download</h1>
 
-      <div class="row-fluid">
-        <div class="span12">
-          <p class='lead'>The latest stable version is <strong>1.3.6</strong> and available to download. Before installing make sure to check the change log for any relevant changes.</p>
+      <p class="lead"></p>
 
-          <ul class='inline'>
-            <li>
-              <a href='http://repository.james.richardson.name/releases/name/richardson/james/bukkit/starter-kit/1.3.6/starter-kit-1.3.6.jar'><button class='btn btn-large btn-primary' type='button'>Download</button></a>
-            </li>
+      <p class="lead">The latest stable version is <strong>1.3.7</strong> and available to download. Before installing make sure to check the change log for any relevant changes.</p>
 
-            <li>
-              <a href='http://grandwazir.github.com/StarterKit/versions/1.3.6.html'><button class='btn btn-large btn-info' type='button'>What's new</button></a>
-            </li>
+      <ul class="list-inline">
+        <li>
+          <a href="http://repository.james.richardson.name/releases/name/richardson/james/bukkit/starter-kit/1.3.7/starter-kit-1.3.7-shaded.jar"><button class="btn btn-large btn-primary" type="button">Download</button></a>
+        </li>
 
-            <li>
-              <a href='https://github.com/grandwazir/StarterKit/tree/v1.3.6'><button class='btn btn-large btn' type='button'>Source</button></a>
-            </li>
-          </ul>
+        <li>
+          <a href="/changelogs/1.3.7.html"><button class="btn btn-large btn-info" type="button">What's new</button></a>
+        </li>
 
-          <h3 id='getting_other_versions'>Getting other versions</h3>
+        <li>
+          <a href="https://github.com/grandwazir/StarterKit/tree/v1.3.7"><button class="btn btn-large btn" type="button">Source</button></a>
+        </li>
+      </ul>
 
-          <p><strong>Older versions are available to download but are no longer supported.</strong></p>
+      <h2>Getting other versions</h2>
 
-          <ul>
-            <li>
-              <a href='http://grandwazir.github.com/StarterKit/versions/1.3.0.html'>1.3.0</a>
-            </li>
+      <p><strong>Older versions are available to download but are no longer supported.</strong></p>
 
-            <li>
-              <a href='http://grandwazir.github.com/StarterKit/versions/1.3.1.html'>1.3.1</a>
-            </li>
+      <ul>
+        <li>
+          <a href="http://http://grandwazir.github.io/StarterKit/changelogs/1.3.4.html">1.3.4</a>
+        </li>
 
-            <li>
-              <a href='http://grandwazir.github.com/StarterKit/versions/1.3.2.html'>1.3.2</a>
-            </li>
+        <li>
+          <a href="http://http://grandwazir.github.io/StarterKit/changelogs/1.3.5.html">1.3.5</a>
+        </li>
 
-            <li>
-              <a href='http://grandwazir.github.com/StarterKit/versions/1.3.3.html'>1.3.3</a>
-            </li>
+        <li>
+          <a href="http://http://grandwazir.github.io/StarterKit/changelogs/1.3.6.html">1.3.6</a>
+        </li>
 
-            <li>
-              <a href='http://grandwazir.github.com/StarterKit/versions/1.3.6.html'>1.3.6</a>
-            </li>
-          </ul>
+        <li>
+          <a href="http://http://grandwazir.github.io/StarterKit/changelogs/1.3.7.html">1.3.7</a>
+        </li>
+      </ul>
 
-          <h3 id='building_from_source'>Building from source</h3>
+      <h2>Building from source</h2>
 
-          <p>You can also build StarterKit from the source if you would prefer to do so. This is useful for those who wish to modify Starterkit before using it or want to contribute new features.</p>
+      <p>You can also build StarterKit from the source if you would prefer to do so. This is useful for those who wish to modify StarterKit before using it or want to contribute new features.</p>
 
-          <p>Note it is no longer necessary to do this to alter messages in the plugin. Instead you should read the documentation on how to localise the plugin instead. This assumes that you have Maven and git installed on your computer.</p>
-          <pre>
-<code>git clone git://github.com/grandwazir/StarterKit.git
+      <p>Note it is no longer necessary to do this to alter messages in the plugin. Instead you should read the documentation on how to localise the plugin instead. This assumes that you have Maven and git installed on your computer.</p>
+      <pre>
+git clone git://github.com/grandwazir/StarterKit.git
 cd StarterKit
-mvn install</code>
+mvn install
 </pre>
-        </div>
-      </div>
     </div>
     <hr>
-
-    <footer>
-      <p class="text-center"><small>© 2013 James Richardson with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a> and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a></small></p>
-    </footer>
   </div>
+
+  <footer>
+    <div class="container">
+      <p class="text-center"><small>© 2013 James Richardson with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a> and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a></small></p>
+    </div>
+  </footer>
 </body>
 </html>

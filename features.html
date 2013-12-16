@@ -6,93 +6,100 @@
   <meta charset="utf-8">
 
   <title>Features</title>
-  <meta name="description" content="">
-  <meta name="author" content="James Richardson"><!-- Enable responsive viewport -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Import bootstrap .js -->
-
-  <script src="http://code.jquery.com/jquery-1.9.1.min.js">
+  <meta name="description" content="A quick list of features for StarterKit">
+  <meta name="author" content="James Richardson"><!-- Import bootstrap -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js">
 </script>
-  <script type="text/javascript" src="http://grandwazir.github.com/StarterKit/assets/themes/twitter/bootstrap/js/bootstrap.js">
-</script><!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-  <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  <!-- Le styles -->
-  <link href="http://grandwazir.github.com/StarterKit/assets/themes/twitter/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
-  <link href="http://grandwazir.github.com/StarterKit/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all"><!-- Le fav and touch icons -->
-  <!-- Update these with your own images
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-  -->
-  <!-- atom & rss feed -->
-  <link href="http://grandwazir.github.com/StarterKit/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
-  <link href="http://grandwazir.github.com/StarterKit/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" src="/assets/js/bootstrap.js">
+</script>
+  <link href="/assets/css/bootstrap.css" rel="stylesheet">
 </head>
 
 <body>
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container-narrow">
-        <a class="brand" href="http://grandwazir.github.com/StarterKit">StarterKit</a>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="navbar-collapse"><span class="sr-only">Toggle navigation</span></button> <a class="navbar-brand" href="http://http://grandwazir.github.io/StarterKit">StarterKit</a>
+      </div>
 
-        <ul class="nav">
-          <li>
-            <a href="http://grandwazir.github.com/StarterKit/download.html">Download</a>
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation</a>
+
+            <ul class="dropdown-menu">
+              <li>
+                <a href="http://http://grandwazir.github.io/StarterKit/docs/getting_started.html">Getting started</a>
+              </li>
+            </ul>
           </li>
 
-          <li class="active">
-            <a href="http://grandwazir.github.com/StarterKit/features.html" class="active">Features</a>
+          <li>
+            <a href="http://http://grandwazir.github.io/StarterKit/download.html">Download</a>
           </li>
 
           <li>
-            <a href="http://grandwazir.github.com/StarterKit/getting_started.html">Getting started</a>
+            <a href="http://http://grandwazir.github.io/StarterKit/features.html">Features</a>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Elsewhere</a>
+
+            <ul class="dropdown-menu">
+              <li>
+                <a href="http://dev.bukkit.org/bukkit-plugins/starterkit">BukkitDev</a>
+              </li>
+
+              <li>
+                <a href="http://github.com/grandwazir/StarterKit">GitHub</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
     </div>
-  </div><!-- Add a secondary bar if necessary -->
+  </nav>
 
-  <div class="container-narrow scroll-adjust">
-    <div class="content">
-      <div class="page-header">
-        <h1>Features</h1>
-      </div>
+  <div class="content">
+    <div class="container">
+      <h1>Features</h1>
 
-      <div class="row-fluid">
-        <div class="span12">
-          <p class='lead'>Create kits for your players to get when they first arrive on your server. Use any item in your kit, including named ones!</p>
+      <p class="lead"></p>
 
-          <h2 id='simple_creation'>Simple creation</h2>
+      <p class="lead">Create kits for your players to get when they first arrive on your server. Use any item in your kit, including named ones!</p>
 
-          <p>You create a kit by arranging the items that you want new players to have in your inventory then saving the kit. New players will receive an exact copy when they login, including durability and enchants.</p>
+      <h2>Simple creation</h2>
 
-          <h2 id='complex_item_support'>Complex item support</h2>
+      <p>You create a kit by arranging the items that you want new players to have in your inventory then saving the kit. New players will receive an exact copy when they login, including durability and enchants.</p>
 
-          <p>Use any item in your kit that Bukkit currently supports. This includes:</p>
+      <h2>Complex item support</h2>
 
-          <ul>
-            <li>Named items</li>
+      <p>Use any item in your kit that Bukkit currently supports. This includes:</p>
 
-            <li>Armour with durability</li>
+      <ul>
+        <li>Named items</li>
 
-            <li>Coloured armour</li>
+        <li>Armour with durability</li>
 
-            <li>Books</li>
+        <li>Coloured armour</li>
 
-            <li>Maps</li>
+        <li>Books</li>
 
-            <li>… and anything else!</li>
-          </ul>
-        </div>
-      </div>
+        <li>Maps</li>
+
+        <li>... and anything else!</li>
+      </ul>
     </div>
     <hr>
-
-    <footer>
-      <p class="text-center"><small>© 2013 James Richardson with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a> and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a></small></p>
-    </footer>
   </div>
+
+  <footer>
+    <div class="container">
+      <p class="text-center"><small>© 2013 James Richardson with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a> and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a></small></p>
+    </div>
+  </footer>
 </body>
 </html>
